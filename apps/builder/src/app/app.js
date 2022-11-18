@@ -10,12 +10,11 @@ import useStore from './store';
 
 export function App() {
   const apiUrl = process.env.NX_API_URL;
-
   const setProjectData = useStore((state) => state.setProjectData);
   const projectId = useStore((state) => state.projectId);
 
   useEffect(() => {
-    fetch(`${apiUrl}/assets`)
+    fetch('https://api.npoint.io/830360b5f6a82edd4912')
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);

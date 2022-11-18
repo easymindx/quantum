@@ -6,14 +6,7 @@ import {
   InstantTracker,
 } from '@zappar/zappar-react-three-fiber';
 import { Canvas } from '@react-three/fiber';
-import {
-  Html,
-  Stats,
-  useProgress,
-  Preload,
-  PerspectiveCamera,
-  useGLTF,
-} from '@react-three/drei';
+import { Html, Stats, useProgress, Preload } from '@react-three/drei';
 import { useControls } from 'leva';
 import FadeIn from 'react-fade-in';
 import Core from '../components/Core';
@@ -23,12 +16,10 @@ import { CircleProgress } from 'react-gradient-progress';
 import TopBar from '../components/TopBar';
 
 function Catcher() {
-  // const { revealHidden } = useControls({
-  //   revealHidden: { value: true, label: 'Reveal?' },
-  //   // tier: { value: 1, min: 1, max: 3, step: 1, label: 'Tier' },
-  // });
-
-  // const setLevaControls = useStore((state) => state.setLevaControls);
+  const { selectedProjectId } = useControls({
+    selectedProjectId: { options: ['1', '2'], label: 'Project' },
+    // tier: { value: 1, min: 1, max: 3, step: 1, label: 'Tier' },
+  });
 
   const apiUrl = process.env.NX_API_URL;
 
@@ -38,15 +29,16 @@ function Catcher() {
   const projectId = useStore((state) => state.projectId);
 
   useEffect(() => {
-    fetch(`${apiUrl}/assets`)
+    fetch('https://api.npoint.io/830360b5f6a82edd4912')
       .then((response) => response.json())
       .then((data) => {
-        const project = data.find((project) => project.id === projectId);
-        console.log('project', project);
+        const project = data.find(
+          (project) => project?.id === selectedProjectId
+        );
         setProjectData(project);
-        setActiveQuasar(project.data[0]);
+        setActiveQuasar(project?.data[0]);
       });
-  }, [projectId]);
+  }, [selectedProjectId]);
 
   const [sceneLoaded, setSceneLoaded] = React.useState(false);
   const isGalleryMode = useStore((state) => state.isGalleryMode);
@@ -97,7 +89,7 @@ function Catcher() {
     <>
       <FadeIn delay={250} transitionDuration={250}>
         <BrowserCompatibility />
-        {/* <TopBar /> */}
+        <TopBar />
         <Canvas
           gl={{ preserveDrawingBuffer: false }}
           style={{ height: dimensions.height, width: dimensions.width }}

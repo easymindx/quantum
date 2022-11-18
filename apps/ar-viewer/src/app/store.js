@@ -1,11 +1,10 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
+  projectId: '1',
   isCaught: false,
   isGalleryMode: false,
   activeQuasar: null, // TODO: set null and load from selection or on 'begin' click
-
-  projectId: '1',
   projectData: null,
   selectedQuasar: 0,
   setProjectData: (project) => set({ projectData: project }),

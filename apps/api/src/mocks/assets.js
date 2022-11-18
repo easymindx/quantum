@@ -1,8 +1,12 @@
 export const getAssets = [
   {
     id: '1',
-    projectName: 'Quantum',
+    projectName: 'Quantum Art',
     projectLogo: 'https://i.imgur.com/9ZQZ1Zu.png',
+    website: 'https://quantum.art',
+    socials: {
+      twitter: 'quantumnft',
+    },
     data: [
       {
         id: '1582',
@@ -392,6 +396,10 @@ export const getAssets = [
     id: '2',
     projectName: 'Coca Cola',
     projectLogo: 'https://i.imgur.com/9ZQZ1Zu.png',
+    website: 'https://us.coca-cola.com/',
+    socials: {
+      twitter: 'cocacola',
+    },
     data: [
       {
         id: '6740',

@@ -37,8 +37,8 @@ const Core = ({ activeQuasar }) => {
     groupScale: isGalleryMode
       ? [1, 1, 1]
       : isCaught
-      ? [0.1, 0.1, 0.1]
-      : [0.07, 0.07, 0.07],
+      ? [0.085, 0.085, 0.085]
+      : [0.06, 0.06, 0.06],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 

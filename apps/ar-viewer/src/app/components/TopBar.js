@@ -1,18 +1,27 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Card, Row, Col } from 'react-bootstrap';
+import {
+  Container,
+  Nav,
+  Navbar,
+  Offcanvas,
+  Card,
+  Row,
+  Col,
+  Dropdown,
+  InputGroup,
+  Form,
+  Button,
+} from 'react-bootstrap';
 
 import useStore from '../store';
-import { FaTwitterSquare, FaBeer } from 'react-icons/fa';
-import { useEffect, useRef } from 'react';
+import { FaTwitterSquare, FaGlobe } from 'react-icons/fa';
+import { useRef, useState } from 'react';
 
 const OffcanvasExample = () => {
   const setActiveQuasar = useStore((state) => state.setActiveQuasar);
   const activeQuasar = useStore((state) => state.activeQuasar);
+  const projectData = useStore((state) => state.projectData);
+  const setProjectId = useStore((state) => state.setProjectId);
+  const [project, setProject] = useState('1');
   const offCanvasRef = useRef();
 
   const closeOffCanvas = () => offCanvasRef?.current?.backdrop?.click();
@@ -58,77 +67,54 @@ const OffcanvasExample = () => {
             <Offcanvas.Body className="d-flex flex-column ">
               <Row>
                 <Col>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      placeholder="Project ID"
+                      aria-label="Project ID"
+                      aria-describedby="basic-addon2"
+                      onChange={(e) => setProject(e.target.value)}
+                    />
+                    <Button
+                      variant="dark"
+                      onClick={() => setProjectId(project)}
+                    >
+                      Load
+                    </Button>
+                  </InputGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
                   <h2 className="h5">Nearby Quasars</h2>
-
                   <hr />
                 </Col>
               </Row>
 
               <Row>
-                <Col xs={4} className="mb-3">
-                  <Card
-                    className={`${
-                      activeQuasar === quasars[1]
-                        ? 'bg-white '
-                        : 'bg-transparent'
-                    } text-dark`}
-                    style={{
-                      width: 100,
-                      height: 100,
-                      border:
-                        activeQuasar === quasars[1] ? '1px solid #bbb' : 'none',
-                    }}
-                  >
-                    <Card.Img
-                      onClick={() => {
-                        setActiveQuasar(quasars[1]);
-                        closeOffCanvas();
+                {projectData?.data?.map((quasar, index) => (
+                  <Col xs={4} className="mb-3" key={`mini-${index}`}>
+                    <Card
+                      className={`${
+                        activeQuasar === quasar ? 'bg-white ' : 'bg-transparent'
+                      } text-dark`}
+                      style={{
+                        width: 100,
+                        height: 100,
+                        border:
+                          activeQuasar === quasar ? '1px solid #bbb' : 'none',
                       }}
-                      style={{ height: 100 }}
-                      src="https://storage.googleapis.com/assets.quasarsofficial.com/brands/coca-cola/Screenshot%202022-11-16%20at%2018.54.58.png"
-                    />
-                  </Card>
-                </Col>
-                <Col xs={4} className="mb-3">
-                  <Card
-                    className={`${
-                      activeQuasar === quasars[0]
-                        ? 'bg-white '
-                        : 'bg-transparent'
-                    } text-dark`}
-                    style={{
-                      width: 100,
-                      height: 100,
-                      border:
-                        activeQuasar === quasars[0] ? '1px solid #bbb' : 'none',
-                    }}
-                  >
-                    <Card.Img
-                      onClick={() => {
-                        setActiveQuasar(quasars[0]);
-                        closeOffCanvas();
-                      }}
-                      src="https://storage.googleapis.com/assets.quasarsofficial.com/brands/coca-cola/QUASAR_BATCH037_COLA_FRAME00133.png"
-                    />
-                  </Card>
-                </Col>
-
-                {/*  <Col xs={4} className="mb-3">
-                  <Card
-                    className={`${
-                      activeQuasar === quasars[2] ? 'bg-white ' : 'bg-transparent'
-                    } text-dark`}
-                    style={{ border: activeQuasar === quasars[2] ? '1px solid #bbb' : 'none' }}
-                  >
-                    <Card.Img
-                      onClick={() => {
-                        setActiveQuasar(quasars[2]);
-                        closeOffCanvas();
-                      }}
-                      src="https://storage.googleapis.com/assets.quasarsofficial.com/quasar-app/QUASAR_BATCH006_FRAME1650.png"
-                    />
-                  </Card>
-                </Col> */}
+                    >
+                      <Card.Img
+                        onClick={() => {
+                          setActiveQuasar(quasar);
+                          closeOffCanvas();
+                        }}
+                        style={{ height: 100 }}
+                        src={quasar.imageSrc}
+                      />
+                    </Card>
+                  </Col>
+                ))}
               </Row>
 
               <Nav className="justify-content-end flex-grow-1 pe-3 ">
@@ -137,22 +123,22 @@ const OffcanvasExample = () => {
                 <Nav.Link
                   className="text-dark"
                   target="_blank"
-                  href="https://twitter.com/quasarsofficial"
+                  href={`https://twitter.com/${projectData?.socials?.twitter}`}
                 >
                   <FaTwitterSquare
                     size={'1.5rem'}
                     className="me-2"
                     color="#1DA1F2"
                   />
-                  Follow Us @CocaCola
+                  Follow Us @{projectData?.socials?.twitter}
                 </Nav.Link>
                 <Nav.Link
                   className="text-dark"
                   target="_blank"
-                  href="https://www.coca-cola.com/"
+                  href={projectData?.website}
                 >
-                  <FaBeer size={'1.5rem'} className="me-2" color="#2b2b2b" />
-                  Visit CocaCola.com
+                  <FaGlobe size={'1.5rem'} className="me-2" color="#2b2b2b" />
+                  Visit {projectData?.projectName}
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>
