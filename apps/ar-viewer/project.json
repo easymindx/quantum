@@ -1,0 +1,89 @@
+{
+  "name": "ar-viewer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ar-viewer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/ar-viewer",
+        "index": "apps/ar-viewer/src/index.html",
+        "baseHref": "/",
+        "main": "apps/ar-viewer/src/main.js",
+        "polyfills": "apps/ar-viewer/src/polyfills.js",
+        "tsConfig": "apps/ar-viewer/tsconfig.app.json",
+        "assets": [
+          "apps/ar-viewer/src/favicon.ico",
+          "apps/ar-viewer/src/assets"
+        ],
+        "styles": ["apps/ar-viewer/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/ar-viewer/src/environments/environment.js",
+              "with": "apps/ar-viewer/src/environments/environment.prod.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ar-viewer:build",
+        "hmr": true,
+        "port": 9000,
+        "open": true,
+        "ssl": true,
+        "sslKey": "./certs/macbook.local-key.pem",
+        "sslCert": "./certs/macbook.local.pem"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ar-viewer:build:development"
+        },
+        "production": {
+          "buildTarget": "ar-viewer:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ar-viewer/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ar-viewer/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
