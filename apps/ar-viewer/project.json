@@ -22,7 +22,7 @@
         ],
         "styles": ["apps/ar-viewer/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "./webpack.custom.js"
       },
       "configurations": {
         "development": {

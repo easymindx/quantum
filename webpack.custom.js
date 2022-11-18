@@ -2,19 +2,28 @@
 // @eslint-disable-file @typescript-eslint/no-var-requires
 const { merge } = require('webpack-merge');
 const webpack = require('webpack');
-const path = require('path');
 
 module.exports = (config, context) => {
+  console.log('context', context);
   const env = {
     ...process.env,
     NODE_ENV: context.configuration,
   };
 
-  // console.log(envKeys);
+  // reduce it to a nice object, the same as before
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    if (
+      next.startsWith('REACT_APP_') ||
+      next.startsWith('NX_') ||
+      next === 'NODE_ENV'
+    ) {
+      if (env[next]) prev[`${next}`] = JSON.stringify(env[next]);
+    }
+    return prev;
+  }, {});
 
   const merged = merge(config, {
     devServer: {
-      port: process.env.PORT || 8080,
       allowedHosts: 'all',
     },
   });
@@ -22,6 +31,7 @@ module.exports = (config, context) => {
   // TODO: This is a hack to reenable REACT_APP_ in nx by replacing their settings.  should be a better way?
   merged.plugins[0] = new webpack.DefinePlugin({
     'process.env': {
+      ...envKeys,
       NODE_ENV: JSON.stringify(context.configuration),
     },
   });

@@ -19,7 +19,7 @@
         "assets": ["apps/builder/src/favicon.ico", "apps/builder/src/assets"],
         "styles": ["apps/builder/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "./apps/builder/webpack-custom.js"
+        "webpackConfig": "./webpack.custom.js"
       },
       "configurations": {
         "development": {
