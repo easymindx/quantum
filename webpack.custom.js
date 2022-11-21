@@ -4,7 +4,6 @@ const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 
 module.exports = (config, context) => {
-  console.log('context', context);
   const env = {
     ...process.env,
     NODE_ENV: context.configuration,

@@ -17,7 +17,10 @@ import TopBar from '../components/TopBar';
 
 function Catcher() {
   const { selectedProjectId } = useControls({
-    selectedProjectId: { options: ['1', '2'], label: 'Project' },
+    selectedProjectId: {
+      options: ['Quantum Art', 'Coca Cola'],
+      label: 'Project',
+    },
     // tier: { value: 1, min: 1, max: 3, step: 1, label: 'Tier' },
   });
 
@@ -33,7 +36,7 @@ function Catcher() {
       .then((response) => response.json())
       .then((data) => {
         const project = data.find(
-          (project) => project?.id === selectedProjectId
+          (project) => project?.projectName === selectedProjectId
         );
         setProjectData(project);
         setActiveQuasar(project?.data[0]);
