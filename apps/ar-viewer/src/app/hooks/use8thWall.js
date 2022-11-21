@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import use8thWallScripts from './use8thWallScripts';
 
-const use8thWall = (appKey, canvas) => {
+export const use8thWall = (appKey, canvas) => {
   const areScriptsReady = use8thWallScripts(appKey);
   const [XR8Object, setXR8Object] = useState(null);
   const [ThreeObject, setThreeObject] = useState(null);
@@ -18,7 +18,7 @@ const use8thWall = (appKey, canvas) => {
           window.THREE = THREE;
 
           XR8.XrController.configure({
-            disableWorldTracking: false,
+            disableWorldTracking: true,
           });
           XR8.addCameraPipelineModules([
             XR8.GlTextureRenderer.pipelineModule(),
@@ -30,23 +30,23 @@ const use8thWall = (appKey, canvas) => {
           ]);
 
           XR8.addCameraPipelineModule({
-            name: 'my app',
+            name: 'quasars',
             onerror: (err) => {
-              console.error('quasars error', err);
+              console.error('AR init error', err);
             },
             onAttach: ({ canvasWidth, canvasHeight }) => {
-              const { camera } = XR8.Threejs.xrScene();
               setXR8Object(XR8);
-
-              camera.position.set(0, 2, 0);
-              XR8.XrController.updateCameraProjectionMatrix({
-                origin: camera.position,
-                facing: camera.quaternion,
-              });
-
               setThreeObject({
                 scene: XR8.Threejs.xrScene().camera,
                 camera: XR8.Threejs.xrScene().scene,
+              });
+            },
+            onStart: ({ canvas }) => {
+              const { camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
+              // Sync the xr controller's 6DoF position and camera paremeters with our scene.
+              XR8.XrController.updateCameraProjectionMatrix({
+                origin: camera.position,
+                facing: camera.quaternion,
               });
             },
           });

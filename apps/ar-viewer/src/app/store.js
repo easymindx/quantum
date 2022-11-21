@@ -7,6 +7,8 @@ const useStore = create((set) => ({
   activeQuasar: null, // TODO: set null and load from selection or on 'begin' click
   projectData: null,
   selectedQuasar: 0,
+  tapPoint: [],
+  setTapPoint: (tapPoint) => set({ tapPoint: tapPoint }),
   setProjectData: (project) => set({ projectData: project }),
   setProjectId: (id) => set({ projectId: id }),
   // levaControls: {

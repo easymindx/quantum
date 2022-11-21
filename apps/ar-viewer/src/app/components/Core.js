@@ -16,14 +16,57 @@ import { SparkStorm } from './Sparks/SparkStorm';
 import { KernelSize } from 'postprocessing';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { UnrealBloomPass } from 'three-stdlib';
+import { useControls } from 'leva';
 
 extend({ MeshLine, MeshLineMaterial });
 extend({ UnrealBloomPass });
 
-const Core = ({ activeQuasar }) => {
+const Experience = (props) => {
+  const appRef = useRef();
   const groupRef = useRef();
+  // const setDefaultCamera = useThree(({ set }) => set);
   const isGalleryMode = useStore((state) => state.isGalleryMode);
   const isCaught = useStore((state) => state.isCaught);
+  const tapPoint = useStore((state) => state.tapPoint);
+  const activeQuasar = useStore((state) => state.activeQuasar);
+
+  const setActiveQuasar = useStore((state) => state.setActiveQuasar);
+  const setProjectData = useStore((state) => state.setProjectData);
+
+  const projectId = useStore((state) => state.projectId);
+
+  const { selectedProjectId } = useControls({
+    selectedProjectId: {
+      options: ['Quantum Art', 'Coca Cola'],
+      label: 'Project',
+    },
+    // tier: { value: 1, min: 1, max: 3, step: 1, label: 'Tier' },
+  });
+
+  useEffect(() => {
+    fetch('https://api.npoint.io/830360b5f6a82edd4912')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data);
+        console.log('selectedProjectId', selectedProjectId);
+        const project = data.find(
+          (project) => project?.projectName === selectedProjectId
+        );
+        setProjectData(project);
+
+        console.log('project', project);
+        console.log('project?.data[0]', project?.data[0]);
+        setActiveQuasar(project?.data[0]);
+      });
+  }, [selectedProjectId]);
+
+  // const { scene, camera } = props.XR8.Threejs.xrScene();
+
+  // useEffect(() => {
+  //   if (scene) {
+  //     scene.add(appRef.current);
+  //   }
+  // }, [scene]);
 
   // Spring anims
 
@@ -47,60 +90,40 @@ const Core = ({ activeQuasar }) => {
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: isCaught
-      ? isGalleryMode
-        ? [0, 0, 0]
-        : [0.8, 0.8, 0.8]
-      : [0, 0, 0],
-
+    sparkScale: isCaught ? [0.8, 0.8, 0.8] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
     delay: isGalleryMode ? 1000 : 0,
   });
 
   return (
     <animated.group ref={groupRef} position={position} scale={groupScale}>
-      {!isGalleryMode && (
+      {activeQuasar && (
         <>
-          {/* <EffectComposer multisampling={8}>
-            <Bloom kernelSize={3} luminanceThreshold={0} luminanceSmoothing={0.4} intensity={0.2} />
-            <Bloom
-              kernelSize={KernelSize.HUGE}
-              luminanceThreshold={0}
-              luminanceSmoothing={0}
-              intensity={0.2}
-            />
-          </EffectComposer> */}
-          {/* <Effects disableGamma>
-            <unrealBloomPass threshold={5} strength={1.0} radius={0.5} />
-          </Effects> */}
           <PresentationControls
-            enabled={true} // the controls can be disabled by setting this to false
-            global={false} // Spin globally or by dragging the model
-            cursor={true} // Whether to toggle cursor style on drag
-            snap={true} // Snap-back to center (can also be a spring config)
-            speed={2} // Speed factor
-            zoom={1} // Zoom factor when half the polar-max is reached
-            rotation={[0, 0, 0]} // Default rotation
-            polar={[0, Math.PI / 2]} // Vertical limits
-            azimuth={[-Infinity, Infinity]} // Horizontal limits
-            config={{ mass: 1, tension: 170, friction: 26 }} // Spring config
+            enabled={true}
+            global={false}
+            cursor={true}
+            snap={true}
+            speed={2}
+            zoom={1}
+            rotation={[0, 0, 0]}
+            polar={[0, Math.PI / 2]}
+            azimuth={[-Infinity, Infinity]}
+            config={{ mass: 1, tension: 170, friction: 26 }}
           >
             <Quasar />
           </PresentationControls>
+
+          <animated.group visible={!isGalleryMode} scale={sparkScale}>
+            <SparkStorm count={200} colors={activeQuasar.palette} />
+          </animated.group>
+          <animated.group visible={isGalleryMode} scale={sphereScale}>
+            <Sphere />
+          </animated.group>
         </>
       )}
-
-      <ambientLight intensity={1} />
-
-      <animated.group visible={!isGalleryMode} scale={sparkScale}>
-        <SparkStorm count={300} colors={activeQuasar?.palette} />
-      </animated.group>
-
-      <animated.group visible={isGalleryMode} scale={sphereScale}>
-        <Sphere />
-      </animated.group>
     </animated.group>
   );
 };
 
-export default memo(Core);
+export default memo(Experience);

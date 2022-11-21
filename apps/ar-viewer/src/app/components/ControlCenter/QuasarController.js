@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Button, Badge } from 'react-bootstrap';
 import useStore from '../../store';
 import { MdOutlineCenterFocusWeak, MdOutlineInfo } from 'react-icons/md';
+import { useThree } from 'react-three-fiber';
 
 const QuasarController = ({ XR8 }) => {
   const isGalleryMode = useStore((state) => state.isGalleryMode);
@@ -13,13 +14,17 @@ const QuasarController = ({ XR8 }) => {
   const enterGalleryMode = useStore((state) => state.enterGalleryMode);
   const currentLevel = useStore((state) => state.currentLevel);
 
+  // get the three camera
+
   const recenter = () => {
-    //recenter the camera
-    XR8.XrController.recenterCamera();
-    // setTimeout(() => {
-    //   catchQuasar();
-    // }, 200);
-    // releaseQuasar();
+    const { XR8 } = window;
+    XR8.XrController.recenter();
+  };
+
+  const leaveGallery = () => {
+    const { XR8 } = window;
+    XR8.XrController.recenter();
+    exitGalleryMode();
   };
 
   return !isCaught ? (
@@ -41,30 +46,27 @@ const QuasarController = ({ XR8 }) => {
         )}
       </div> */}
 
+      <Button
+        onClick={() => recenter()}
+        className="mx-1"
+        variant="outline-light"
+        size="md"
+      >
+        Center
+      </Button>
+
       <div className="d-flex align-items-center justify-content-center">
         {isCaught && (
-          <>
-            {isGalleryMode && (
-              <Button
-                onClick={() => recenter()}
-                className="mx-1"
-                variant="outline-light"
-                size="md"
-              >
-                Center
-              </Button>
-            )}
-            <Button
-              onClick={() =>
-                isGalleryMode ? exitGalleryMode() : enterGalleryMode()
-              }
-              className="mx-1 "
-              variant={isGalleryMode ? 'light' : 'light'}
-              size="md"
-            >
-              {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}
-            </Button>
-          </>
+          <Button
+            onClick={() =>
+              isGalleryMode ? leaveGallery() : enterGalleryMode()
+            }
+            className="mx-1 "
+            variant={isGalleryMode ? 'light' : 'light'}
+            size="md"
+          >
+            {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}
+          </Button>
         )}
       </div>
     </div>
