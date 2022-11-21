@@ -4,7 +4,7 @@ import { Container, Button, Badge } from 'react-bootstrap';
 import useStore from '../../store';
 import { MdOutlineCenterFocusWeak, MdOutlineInfo } from 'react-icons/md';
 
-const QuasarController = () => {
+const QuasarController = ({ XR8 }) => {
   const isGalleryMode = useStore((state) => state.isGalleryMode);
   const isCaught = useStore((state) => state.isCaught);
   const catchQuasar = useStore((state) => state.catchQuasar);
@@ -14,15 +14,19 @@ const QuasarController = () => {
   const currentLevel = useStore((state) => state.currentLevel);
 
   const recenter = () => {
-    setTimeout(() => {
-      catchQuasar();
-    }, 200);
-    releaseQuasar();
+    //recenter the camera
+    XR8.XrController.recenterCamera();
+    // setTimeout(() => {
+    //   catchQuasar();
+    // }, 200);
+    // releaseQuasar();
   };
 
   return !isCaught ? (
     <div className="d-flex justify-content-center align-items-center action-bar">
-      {!isGalleryMode && <p className="mb-0 h6">Tap the Quasar to catch or release!</p>}
+      {!isGalleryMode && (
+        <p className="mb-0 h6">Tap the Quasar to catch or release!</p>
+      )}
     </div>
   ) : (
     <div className="d-flex justify-content-center align-items-center action-bar">
@@ -38,30 +42,30 @@ const QuasarController = () => {
       </div> */}
 
       <div className="d-flex align-items-center justify-content-center">
-        <>
-          {isCaught && (
-            <>
-              {isGalleryMode && (
-                <Button
-                  onClick={() => recenter()}
-                  className="mx-1"
-                  variant="outline-light"
-                  size="md"
-                >
-                  Center
-                </Button>
-              )}
+        {isCaught && (
+          <>
+            {isGalleryMode && (
               <Button
-                onClick={() => (isGalleryMode ? exitGalleryMode() : enterGalleryMode())}
-                className="mx-1 "
-                variant={isGalleryMode ? 'light' : 'light'}
+                onClick={() => recenter()}
+                className="mx-1"
+                variant="outline-light"
                 size="md"
               >
-                {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}
+                Center
               </Button>
-            </>
-          )}
-        </>
+            )}
+            <Button
+              onClick={() =>
+                isGalleryMode ? exitGalleryMode() : enterGalleryMode()
+              }
+              className="mx-1 "
+              variant={isGalleryMode ? 'light' : 'light'}
+              size="md"
+            >
+              {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

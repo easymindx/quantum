@@ -8,8 +8,24 @@ import clamp from 'lodash.clamp';
 import { useDrag } from 'react-use-gesture';
 import { useFrame } from 'react-three-fiber';
 
-const geometryTop = new THREE.SphereBufferGeometry(14, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2);
-const innerGeometry = new THREE.SphereBufferGeometry(13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7);
+const geometryTop = new THREE.SphereBufferGeometry(
+  14,
+  32,
+  32,
+  0,
+  Math.PI * 2,
+  0,
+  Math.PI / 2
+);
+const innerGeometry = new THREE.SphereBufferGeometry(
+  13,
+  32,
+  32,
+  0,
+  Math.PI * 2,
+  0,
+  Math.PI / 1.7
+);
 
 const innerMaterial = new THREE.MeshPhysicalMaterial({
   thickness: 3,

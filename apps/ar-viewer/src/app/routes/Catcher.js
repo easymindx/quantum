@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { memo, lazy, Suspense, useEffect } from 'react';
-import {
-  BrowserCompatibility,
-  ZapparCamera,
-  InstantTracker,
-} from '@zappar/zappar-react-three-fiber';
-import { Canvas } from '@react-three/fiber';
+import React, {
+  memo,
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import { Canvas, useThree } from '@react-three/fiber';
 import { Html, Stats, useProgress, Preload } from '@react-three/drei';
 import { useControls } from 'leva';
 import FadeIn from 'react-fade-in';
@@ -14,6 +17,7 @@ import useStore from '../store';
 import ControlCenter from '../components/ControlCenter';
 import { CircleProgress } from 'react-gradient-progress';
 import TopBar from '../components/TopBar';
+import use8thWall from '../hooks/use8thWall';
 
 function Catcher() {
   const { selectedProjectId } = useControls({
@@ -24,8 +28,17 @@ function Catcher() {
     // tier: { value: 1, min: 1, max: 3, step: 1, label: 'Tier' },
   });
 
-  const apiUrl = process.env.NX_API_URL;
+  const [canvasEl, setCanvasEl] = useState();
+  const { XR8 } = use8thWall(
+    'lQIft1et06A6QpSgBS6fzBWdB9tXP64wKSqj5LQtklP3EfCwhYrYiAYmEqFeQrJSkSsnW0',
+    canvasEl
+  );
+  useEffect(() => {
+    const canvas = document.getElementsByTagName('canvas')[0];
+    setCanvasEl(document.getElementsByTagName('canvas')[0]);
+  }, []);
 
+  const apiUrl = process.env.NX_API_URL;
   const setProjectData = useStore((state) => state.setProjectData);
   const setActiveQuasar = useStore((state) => state.setActiveQuasar);
   const activeQuasar = useStore((state) => state.activeQuasar);
@@ -88,51 +101,70 @@ function Catcher() {
   //   setSceneLoaded(false);
   // }, [activeQuasar]);
 
+  const Experience = (props) => {
+    const { scene, camera } = props.XR8.Threejs.xrScene();
+    const setDefaultCamera = useThree(({ set }) => set);
+    const appRef = useRef();
+
+    // add our app to 8thWall's ThreeJS scene
+    useEffect(() => {
+      if (scene) {
+        scene.add(appRef.current);
+      }
+    }, [scene]);
+
+    // set 8thWall's ThreeJS camera as default camera of
+    // react-three-fiber
+    useEffect(() => {
+      if (camera) {
+        setDefaultCamera({
+          camera,
+          scene,
+        });
+      }
+    }, [camera, scene, setDefaultCamera]);
+
+    return (
+      <group ref={appRef} visible={true}>
+        {/* {sceneLoaded && activeQuasar && (
+          <Suspense fallback={<Loader />}>
+            <Core scene={scene} camera={camera} activeQuasar={activeQuasar} />
+            <directionalLight intensity={0.25} position={[5, 5, 0]} />
+            <directionalLight intensity={0.25} position={[-5, 5, 0]} />
+            <Preload all />
+          </Suspense>
+        )} */}
+
+        <Suspense fallback={<Loader />}>
+          <Core activeQuasar={activeQuasar} />
+          <directionalLight intensity={0.25} position={[5, 5, 0]} />
+          <directionalLight intensity={0.25} position={[-5, 5, 0]} />
+          <Preload all />
+        </Suspense>
+      </group>
+    );
+  };
+
+  alert(XR8);
+
   return (
     <>
       <FadeIn delay={250} transitionDuration={250}>
-        <BrowserCompatibility />
         <TopBar />
         <Canvas
+          shadows
           gl={{ preserveDrawingBuffer: false }}
           style={{ height: dimensions.height, width: dimensions.width }}
           dpr={[1, 2]}
         >
-          <ZapparCamera
-            onFirstFrame={() => {
-              setSceneLoaded(true);
-            }}
-            permissionRequest={true}
-            environmentMap
-            poseMode="attitude"
-          />
-
-          <InstantTracker
-            placementMode={
-              // NOTE: This is a hack to get Quasar to initialise as 'placed', don't mess with it unless you know what it's doing
-              sceneLoaded
-                ? isGalleryMode
-                  ? !placementMode
-                  : placementMode
-                : !isCaught
-            }
-          >
-            {sceneLoaded && activeQuasar && (
-              <Suspense fallback={<Loader />}>
-                <Core activeQuasar={activeQuasar} />
-                <directionalLight intensity={0.25} position={[5, 5, 0]} />
-                <directionalLight intensity={0.25} position={[-5, 5, 0]} />
-                <Preload all />
-              </Suspense>
-            )}
-          </InstantTracker>
+          {XR8 && XR8.Threejs.xrScene() && <Experience XR8={XR8} />}
 
           {/* <Stats className="stats" showPanel={0} /> */}
           {/* <WasdControls /> */}
         </Canvas>
       </FadeIn>
 
-      <ControlCenter />
+      <ControlCenter XR8={XR8} />
     </>
   );
 }

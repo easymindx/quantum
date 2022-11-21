@@ -4,7 +4,7 @@ import Quasar from './Quasar.js';
 import Sphere from './Shell.js';
 import useStore from '../store.js';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
-import { extend, useThree } from '@react-three/fiber';
+import { extend, useFrame, useThree } from '@react-three/fiber';
 import {
   Effects,
   OrbitControls,
@@ -30,7 +30,7 @@ const Core = ({ activeQuasar }) => {
   const positionWhenInside = 4;
 
   const { position } = useSpring({
-    position: isGalleryMode ? [0, 0.4, positionWhenInside] : [0, 0.4, 0],
+    position: isGalleryMode ? [0, 1.8, 0] : [0, 1.8, -4],
   });
 
   const { groupScale } = useSpring({
@@ -44,7 +44,6 @@ const Core = ({ activeQuasar }) => {
 
   const { sphereScale } = useSpring({
     sphereScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
-    immediate: true,
   });
 
   const { sparkScale } = useSpring({
@@ -53,7 +52,7 @@ const Core = ({ activeQuasar }) => {
         ? [0, 0, 0]
         : [0.8, 0.8, 0.8]
       : [0, 0, 0],
-    immediate: true,
+
     config: { mass: 1, tension: 200, friction: 20 },
     delay: isGalleryMode ? 1000 : 0,
   });
@@ -90,6 +89,8 @@ const Core = ({ activeQuasar }) => {
           </PresentationControls>
         </>
       )}
+
+      <ambientLight intensity={1} />
 
       <animated.group visible={!isGalleryMode} scale={sparkScale}>
         <SparkStorm count={300} colors={activeQuasar?.palette} />
