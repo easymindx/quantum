@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { ContactShadows, useGLTF } from '@react-three/drei';
-import { useFrame, useLoader, useThree } from '@react-three/fiber';
-import { useDoubleTap } from 'use-double-tap';
+import React, { useRef } from 'react';
+import { useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import useStore from '../store';
 
 const Quasar = ({ isEngaged, url }, props) => {
@@ -24,12 +23,7 @@ const Quasar = ({ isEngaged, url }, props) => {
       // removes the inner sphere to avoid z-fighting
       // Uses a timeout to avoid the camare suddenly being placed inside a sphere when the glallery closes
       if (node.name.includes('QUASAR_INNER_SPHERE')) {
-        setTimeout(
-          () => {
-            node.visible = !isGalleryMode;
-          },
-          !isGalleryMode ? 250 : 0
-        );
+        node.visible = !isCaught;
       }
     }
   });

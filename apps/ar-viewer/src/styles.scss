@@ -1,6 +1,6 @@
-@import '~bootswatch/dist/slate/variables';
+@import '~bootswatch/dist/quartz/variables';
 @import '~bootstrap/scss/bootstrap';
-@import '~bootswatch/dist/slate/bootswatch';
+@import '~bootswatch/dist/quartz/bootswatch';
 
 html,
 body,
@@ -17,6 +17,7 @@ body,
   overflow: hidden;
   overscroll-behavior: none;
   touch-action: none;
+  box-sizing: border-box;
 }
 
 nav {
@@ -37,7 +38,6 @@ nav {
   z-index: 1000;
   align-items: center;
   padding: 1rem;
-  height: 80px;
 }
 
 .home-wrapper {

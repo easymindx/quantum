@@ -16,10 +16,21 @@ THREE.Object3D.prototype.lookAtWorld = function (vector) {
   this.lookAt(vector);
 };
 
-const Image = ({ initialPosition, initialRotation, activePosition, url, externalUrl, type }) => {
+const Image = ({
+  initialPosition,
+  initialRotation,
+  activePosition,
+  url,
+  externalUrl,
+  type,
+}) => {
   const isGalleryMode = useStore((state) => state.isGalleryMode);
   const [isClicked, setIsClicked] = useState(false);
-  const [imageDims, setImageDims] = useState({ width: 0, height: 0, aspectRatio: 1 });
+  const [imageDims, setImageDims] = useState({
+    width: 0,
+    height: 0,
+    aspectRatio: 1,
+  });
   const [texture, setTexture] = useState(null);
 
   const groupRef = useRef();
@@ -98,13 +109,17 @@ const Image = ({ initialPosition, initialRotation, activePosition, url, external
         <meshStandardMaterial
           attach="material"
           color={outerFrameColor}
-          side={THREE.DoubleSide}
+          side={THREE.BackSide}
           transparent={true}
           opacity={1}
         />
       </mesh>
 
-      <mesh position={[0, 0, 0.01]} scale={[1.2, 1.2, 1]} rotation={[0, 2.3, 0]}>
+      <mesh
+        position={[0, 0, 0.01]}
+        scale={[1.2, 1.2, 1]}
+        rotation={[0, 2.3, 0]}
+      >
         <cylinderBufferGeometry
           attach="geometry"
           args={[1.1, 1.1, 1.1, 32, 1, true, 0, Math.PI / 2]}
@@ -112,18 +127,30 @@ const Image = ({ initialPosition, initialRotation, activePosition, url, external
         <meshStandardMaterial
           attach="material"
           color={innerFrameColor}
-          side={THREE.DoubleSide}
+          side={THREE.BackSide}
           transparent={true}
           opacity={1}
         />
       </mesh>
 
-      <mesh ref={meshRef} position={[0, 0, 0.02]} scale={[1.2, 1.2, 1]} rotation={[0, 2.3, 0]}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 1, 32, 1, true, 0, Math.PI / 2]} />
-        <meshStandardMaterial side={THREE.BackSide} attach="material" map={texture} />
+      <mesh
+        ref={meshRef}
+        position={[0, 0, 0.02]}
+        scale={[1.2, 1.2, 1]}
+        rotation={[0, 2.3, 0]}
+      >
+        <cylinderBufferGeometry
+          attach="geometry"
+          args={[1, 1, 1, 32, 1, true, 0, Math.PI / 2]}
+        />
+        <meshStandardMaterial
+          side={THREE.BackSide}
+          attach="material"
+          map={texture}
+        />
       </mesh>
 
-      {isClicked && isGalleryMode && (
+      {/* {isClicked && isGalleryMode && (
         <animated.group
           position={panelPosition}
           scale={panelScale}
@@ -150,7 +177,7 @@ const Image = ({ initialPosition, initialRotation, activePosition, url, external
             />
           </Html>
         </animated.group>
-      )}
+      )} */}
     </animated.group>
   );
 };

@@ -34,20 +34,15 @@ const innerMaterial = new THREE.MeshPhysicalMaterial({
   clearcoatRoughness: 0.3,
   transmission: 1,
   ior: 1.9,
-  envMapIntensity: 0,
-  color: '#fff',
+  envMapIntensity: 25,
+  color: '#ffffff',
   attenuationDistance: 5,
   transparent: true,
-  opacity: 0.8,
+  opacity: 0.5,
   side: THREE.DoubleSide,
 });
 
-const shellMaterial = new THREE.MeshStandardMaterial({
-  color: '#fff',
-  side: THREE.DoubleSide,
-  transparent: true,
-  opacity: 0.7,
-});
+const shellMaterial = new THREE.MeshStandardMaterial({});
 
 const Shell = () => {
   const groupRef = useRef();

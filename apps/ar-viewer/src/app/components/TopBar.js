@@ -65,7 +65,7 @@ const OffcanvasExample = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className="d-flex flex-column ">
-              {/* <Row>
+              <Row>
                 <Col>
                   <InputGroup className="mb-3">
                     <Form.Control
@@ -82,7 +82,7 @@ const OffcanvasExample = () => {
                     </Button>
                   </InputGroup>
                 </Col>
-              </Row> */}
+              </Row>
               <Row>
                 <Col>
                   <h2 className="h5">Nearby Quasars</h2>

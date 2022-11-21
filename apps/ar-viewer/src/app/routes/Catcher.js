@@ -2,7 +2,7 @@
 import React, { memo, useEffect, useState } from 'react';
 
 import { Canvas } from '@react-three/fiber';
-import { Stats } from '@react-three/drei';
+// import { Stats } from '@react-three/drei';
 
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
@@ -41,7 +41,7 @@ function Catcher() {
       >
         {XR8 && XR8.Threejs.xrScene() && <Experience XR8={XR8} />}
 
-        <Stats className="stats" showPanel={0} />
+        {/* <Stats className="stats" showPanel={0} /> */}
       </Canvas>
     </>
   );
