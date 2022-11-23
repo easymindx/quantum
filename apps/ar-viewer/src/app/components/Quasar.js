@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import useStore from '../store';
@@ -11,22 +11,25 @@ const Quasar = ({ isEngaged, url }, props) => {
   const isCaught = useStore((state) => state.isCaught);
   const catchQuasar = useStore((state) => state.catchQuasar);
   const releaseQuasar = useStore((state) => state.releaseQuasar);
+  const [quasar, setQuasar] = useState(null);
 
   const { scene } = useGLTF(activeQuasar.modelSrc);
 
-  scene.traverse((node) => {
-    if (node.isMesh) {
-      node.castShadow = true;
-      node.receiveShadow = false;
-      node.fulstrumCulled = false;
-      node.frustumCulled = false; //
-      // removes the inner sphere to avoid z-fighting
-      // Uses a timeout to avoid the camare suddenly being placed inside a sphere when the glallery closes
-      if (node.name.includes('QUASAR_INNER_SPHERE')) {
-        node.visible = !isCaught;
+  useEffect(() => {
+    scene.traverse((node) => {
+      if (node.isMesh) {
+        node.castShadow = true;
+        node.receiveShadow = false;
+        node.fulstrumCulled = false;
+        node.frustumCulled = false; //
+        // removes the inner sphere to avoid z-fighting
+        // Uses a timeout to avoid the camare suddenly being placed inside a sphere when the glallery closes
+        if (node.name.includes('QUASAR_INNER_SPHERE')) {
+          node.visible = !isCaught;
+        }
       }
-    }
-  });
+    });
+  }, [isCaught, scene]);
 
   const handleTap = () => {
     if (!isCaught && !isGalleryMode) {
