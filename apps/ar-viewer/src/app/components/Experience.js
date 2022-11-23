@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from 'react';
-import { useFrame, useThree } from 'react-three-fiber';
+import { useThree } from 'react-three-fiber';
 import useStore from '../store';
 import Core from './Core';
 

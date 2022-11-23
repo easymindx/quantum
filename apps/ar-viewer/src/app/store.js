@@ -24,9 +24,8 @@ const useStore = create((set) => ({
   setActiveQuasar: (quasar) =>
     set((state) => ({
       activeQuasar: quasar,
-      // previousQuasar: state.activeQuasar,
-      isGalleryMode: false,
-      isCaught: false,
+      isGalleryMode: true,
+      isCaught: true,
       currentLevel: 0,
     })),
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),

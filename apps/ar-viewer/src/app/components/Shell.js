@@ -88,6 +88,30 @@ const Shell = () => {
     }
   );
 
+  useEffect(() => {
+    if (currentLevel === index.current) return;
+    index.current = currentLevel;
+
+    console.log('currentLevel', currentLevel);
+    console.log('index.current', index.current);
+    // animate spring
+    api.start((i) => {
+      return {
+        position: [0, 10, 0],
+        scale: 1,
+      };
+    });
+
+    setTimeout(() => {
+      api.start((i) => {
+        return {
+          position: [0, 0, 0],
+          scale: 1,
+        };
+      });
+    }, 500);
+  }, [api, currentLevel]);
+
   useFrame((state, delta) => {
     if (!isDesktopMode) return;
     groupRef.current.rotation.y -= delta * 0.15;
@@ -98,38 +122,27 @@ const Shell = () => {
       <mesh ref={topDome}>
         <sphereGeometry
           attach="geometry"
-          args={[20, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
+          args={[12, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
         />
-        <meshPhongMaterial attach="material" side={THREE.DoubleSide} />
+        <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
       </mesh>
 
       <mesh>
         <sphereGeometry
           attach="geometry"
-          args={[19, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+          args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
         />
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           attach="material"
-          color={'#fff'}
+          color={'#000'}
           side={THREE.DoubleSide}
           transparent={true}
-          opacity={0.5}
-          thickness={3}
-          roughness={0.6}
-          clearcoat={0.9}
-          clearcoatRoughness={0.3}
-          transmission={1}
-          ior={1.9}
-          envMapIntensity={25}
-          attenuationDistance={5}
+          opacity={0.75}
         />
       </mesh>
 
-      <ambientLight intensity={0.5} />
-
-      <animated.group {...bind()} key={index} {...spring}>
-        <Layer levelIndex={index.current} />
-        <ambientLight intensity={0.75} />
+      <animated.group {...spring}>
+        <Layer levelIndex={currentLevel} />
       </animated.group>
     </group>
   );

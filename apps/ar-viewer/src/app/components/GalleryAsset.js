@@ -10,7 +10,7 @@ import React, {
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
-import useStore from '../../store';
+import useStore from '../store';
 import { Html } from '@react-three/drei';
 
 const gifLoader = new GifLoader();
@@ -24,7 +24,7 @@ THREE.Object3D.prototype.lookAtWorld = function (vector) {
   this.lookAt(vector);
 };
 
-const Image = ({
+const GalleryAsset = ({
   initialPosition,
   initialRotation,
   activePosition,
@@ -110,11 +110,11 @@ const Image = ({
     setIsClicked((isClicked) => !isClicked);
   };
 
-  const { position, rotation, panelPosition, panelScale } = useSpring({
+  const { position, rotation } = useSpring({
     position: isClicked ? activePosition : initialPosition,
     rotation: initialRotation,
-    panelPosition: isClicked ? [0, -1, 0.5] : [0, -2, 0.5],
-    panelScale: isClicked ? [1, 1, 1] : [0.5, 0, 0.5],
+    // panelPosition: isClicked ? [0, 1, 0.5] : [0, -1, 0.5],
+    // panelScale: isClicked ? [1, 1, 1] : [0.5, 0, 0.5],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
@@ -132,7 +132,7 @@ const Image = ({
 
   useEffect(() => {
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 4;
+    const scaleMultiplier = 3;
     groupRef.current.scale.set(
       scaleMultiplier / aspectRatio,
       scaleMultiplier,
@@ -196,7 +196,9 @@ const Image = ({
         />
       </mesh>
 
-      {isClicked && isGalleryMode && (
+      <spotLight position={[0, -1, 0]} intensity={0.15} />
+
+      {/* {isClicked && isGalleryMode && (
         <animated.group
           position={panelPosition}
           scale={panelScale}
@@ -219,18 +221,11 @@ const Image = ({
               opacity={0.5}
             />
           </mesh>
-          {/* <Html position={[-0.1, 0.2, 0]}>
-            <img
-              alt=""
-              onClick={() => window.open(externalUrl, '_blank')}
-              width="80"
-              src="https://www.pngall.com/wp-content/uploads/12/Gesture-Click-PNG-File.png"
-            />
-          </Html> */}
+
         </animated.group>
-      )}
+      )} */}
     </animated.group>
   );
 };
 
-export default memo(Image);
+export default memo(GalleryAsset);

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import useStore from '../../store';
 
 const QuasarController = ({ XR8 }) => {
@@ -10,6 +10,9 @@ const QuasarController = ({ XR8 }) => {
   const exitGalleryMode = useStore((state) => state.exitGalleryMode);
   const enterGalleryMode = useStore((state) => state.enterGalleryMode);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
+  const currentLevel = useStore((state) => state.currentLevel);
+  const setCurrentLevel = useStore((state) => state.setCurrentLevel);
+  const activeQuasar = useStore((state) => state.activeQuasar);
 
   // get the three camera
 
@@ -35,6 +38,25 @@ const QuasarController = ({ XR8 }) => {
     </div>
   ) : (
     <div className="d-flex justify-content-between align-items-center action-bar">
+      <Dropdown onSelect={(eventKey) => setCurrentLevel(eventKey)}>
+        <Dropdown.Toggle variant="outline-light" id="dropdown-basic" size="sm">
+          Layer {currentLevel + 1}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {activeQuasar.gallery.map((layer, index) => (
+            <Dropdown.Item
+              key={`layer-${index}`}
+              eventKey={index}
+              active={currentLevel === index}
+              href="#/action-1"
+            >
+              Layer {index + 1}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+
       <Button
         onClick={() => recenter()}
         className="mx-1"
@@ -51,7 +73,6 @@ const QuasarController = ({ XR8 }) => {
               isGalleryMode ? leaveGallery() : enterGalleryMode()
             }
             className="mx-1 "
-            variant={isGalleryMode ? 'light' : 'light'}
             size="sm"
           >
             {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}

@@ -1,25 +1,34 @@
-import React, { Fragment, useMemo, memo } from 'react';
-import Image from './GalleryAssets/Image';
+import React, { Fragment, useMemo, memo, useEffect, useState } from 'react';
+import GalleryAsset from './GalleryAsset';
 import useStore from '../store';
 import { calculatePositions } from '../utils/math';
 
 const Layer = ({ levelIndex }) => {
   const activeQuasar = useStore((state) => state.activeQuasar);
+  const [isHidden, setIsHidden] = useState(false);
 
   const calculatedGalleryLayout = useMemo(() => {
     return activeQuasar.gallery.map((item, index) => {
-      return calculatePositions(item.assets, 15);
+      return calculatePositions(item.assets, 10);
     });
   }, [activeQuasar]);
 
   const assetGallery = calculatedGalleryLayout[levelIndex];
 
+  useEffect(() => {
+    setIsHidden(true);
+
+    setTimeout(() => {
+      setIsHidden(false);
+    }, 500);
+  }, [levelIndex]);
+
   return (
-    <group>
+    <group visible={!isHidden}>
       {assetGallery.map((asset, index) => {
         return (
           <Fragment key={index}>
-            <Image
+            <GalleryAsset
               initialPosition={[asset.x, asset.y, asset.z]}
               initialRotation={[0, asset.rotation, 0]}
               activePosition={[asset.activeX, asset.activeY, asset.activeZ]}

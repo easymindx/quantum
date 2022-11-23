@@ -4,7 +4,7 @@ import Quasar from './Quasar.js';
 import Shell from './Shell.js';
 import useStore from '../store.js';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
-import { extend, useFrame, useThree } from '@react-three/fiber';
+import { extend } from '@react-three/fiber';
 import { PresentationControls } from '@react-three/drei';
 import { SparkStorm } from './Sparks/SparkStorm';
 import { UnrealBloomPass } from 'three-stdlib';
@@ -99,18 +99,7 @@ const Experience = (props) => {
           </>
         )}
       </animated.group>
-      {/* {!isCaught ? (
-        <>
-          <directionalLight intensity={2} position={[5, 5, 0]} />
-          <directionalLight intensity={2} position={[-5, 5, 0]} />
-          <hemisphereLight intensity={0.25} />
-        </>
-      ) : (
-        <>
-          <ambientLight intensity={0.5} />
-          <pointLight intensity={1} position={[0, 0, 0]} />
-        </>
-      )} */}
+
       <>
         <directionalLight intensity={2} position={[5, 5, 0]} />
         <directionalLight intensity={2} position={[-5, 5, 0]} />
