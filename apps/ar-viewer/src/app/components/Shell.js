@@ -9,8 +9,8 @@ import React, { useRef, memo, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import Layer from './Layer';
-import clamp from 'lodash.clamp';
-import { useDrag } from 'react-use-gesture';
+// import clamp from 'lodash.clamp';
+// import { useDrag } from 'react-use-gesture';
 import { useFrame } from 'react-three-fiber';
 
 const Shell = () => {
@@ -19,7 +19,6 @@ const Shell = () => {
 
   const activeQuasar = useStore((state) => state.activeQuasar);
   const currentLevel = useStore((state) => state.currentLevel);
-  const setCurrentLevel = useStore((state) => state.setCurrentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const { scene } = useGLTF(activeQuasar.modelSrc);
 
@@ -54,39 +53,39 @@ const Shell = () => {
     immediate: true,
   }));
 
-  const bind = useDrag(
-    ({ active, movement: [mx, my], direction: [yDir], cancel }) => {
-      if (active && Math.abs(my) >= 250) {
-        if (my > 0) {
-          if (index.current >= activeQuasar.gallery.length - 1) return;
-          setCurrentLevel(currentLevel + 1);
-          index.current++;
-        } else {
-          if (index.current <= 0) return;
-          setCurrentLevel(currentLevel - 1);
-          index.current--;
-        }
-        cancel();
-      }
-      api.start((i) => {
-        return {
-          position: [0, active ? clamp(-my / 20) : 0, 0],
-          scale: 1,
-        };
-      });
-    },
-    {
-      axis: 'y',
-      from: () => [0, 0],
-      delay: 0,
-      bounds: { top: -400, bottom: 400 },
-      ubberband: false,
-      pointer: {
-        lock: true,
-        touch: true,
-      },
-    }
-  );
+  // const bind = useDrag(
+  //   ({ active, movement: [mx, my], direction: [yDir], cancel }) => {
+  //     if (active && Math.abs(my) >= 250) {
+  //       if (my > 0) {
+  //         if (index.current >= activeQuasar.gallery.length - 1) return;
+  //         setCurrentLevel(currentLevel + 1);
+  //         index.current++;
+  //       } else {
+  //         if (index.current <= 0) return;
+  //         setCurrentLevel(currentLevel - 1);
+  //         index.current--;
+  //       }
+  //       cancel();
+  //     }
+  //     api.start((i) => {
+  //       return {
+  //         position: [0, active ? clamp(-my / 20) : 0, 0],
+  //         scale: 1,
+  //       };
+  //     });
+  //   },
+  //   {
+  //     axis: 'y',
+  //     from: () => [0, 0],
+  //     delay: 0,
+  //     bounds: { top: -400, bottom: 400 },
+  //     ubberband: false,
+  //     pointer: {
+  //       lock: true,
+  //       touch: true,
+  //     },
+  //   }
+  // );
 
   useEffect(() => {
     if (currentLevel === index.current) return;
@@ -120,17 +119,17 @@ const Shell = () => {
   return (
     <group ref={groupRef}>
       <mesh ref={topDome}>
-        <sphereGeometry
+        <sphereBufferGeometry
           attach="geometry"
-          args={[12, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
+          args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
         />
         <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
       </mesh>
 
       <mesh>
-        <sphereGeometry
+        <sphereBufferGeometry
           attach="geometry"
-          args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+          args={[14, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
         />
         <meshStandardMaterial
           attach="material"

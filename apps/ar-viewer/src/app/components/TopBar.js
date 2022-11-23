@@ -96,12 +96,16 @@ const OffcanvasExample = () => {
                 {projectData?.data?.map((quasar, index) => (
                   <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
-                      className="bg-white"
                       style={{
                         opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
                       }}
                     >
                       <Card.Img
+                        className={
+                          activeQuasar?.id === quasar.id
+                            ? 'bg-white'
+                            : 'bg-black'
+                        }
                         onClick={() => {
                           setActiveQuasar(quasar);
                           closeOffCanvas();

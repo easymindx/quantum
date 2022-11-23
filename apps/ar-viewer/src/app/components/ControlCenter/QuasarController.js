@@ -38,25 +38,6 @@ const QuasarController = ({ XR8 }) => {
     </div>
   ) : (
     <div className="d-flex justify-content-between align-items-center action-bar">
-      <Dropdown onSelect={(eventKey) => setCurrentLevel(eventKey)}>
-        <Dropdown.Toggle variant="outline-light" id="dropdown-basic" size="sm">
-          Layer {currentLevel + 1}
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          {activeQuasar.gallery.map((layer, index) => (
-            <Dropdown.Item
-              key={`layer-${index}`}
-              eventKey={index}
-              active={currentLevel === index}
-              href="#/action-1"
-            >
-              Layer {index + 1}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-
       <Button
         onClick={() => recenter()}
         className="mx-1"
@@ -67,6 +48,33 @@ const QuasarController = ({ XR8 }) => {
       </Button>
 
       <div className="d-flex align-items-center justify-content-center">
+        {isGalleryMode && activeQuasar.gallery.length > 1 && (
+          <Dropdown onSelect={(eventKey) => setCurrentLevel(eventKey)}>
+            <Dropdown.Toggle
+              variant="outline-light"
+              id="dropdown-basic"
+              size="sm"
+            >
+              Layer {currentLevel + 1}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {activeQuasar.gallery.reverse().map((layer, index) => (
+                <Dropdown.Item
+                  key={`layer-${activeQuasar.gallery.length - 1 - index}`}
+                  eventKey={activeQuasar.gallery.length - 1 - index}
+                  active={
+                    currentLevel === activeQuasar.gallery.length - 1 - index
+                  }
+                  href="#/action-1"
+                >
+                  Layer {activeQuasar.gallery.length - index}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
+
         {isCaught && (
           <Button
             onClick={() =>

@@ -13,6 +13,7 @@
     "@carbon/charts-react": "^1.6.1",
     "@faker-js/faker": "^7.6.0",
     "@react-spring/three": "^9.5.5",
+    "@react-spring/web": "^9.5.5",
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.1",
     "@react-three/postprocessing": "2.0.5",

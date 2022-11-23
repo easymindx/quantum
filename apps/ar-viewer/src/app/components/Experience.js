@@ -1,7 +1,8 @@
 import { memo, useEffect, useRef } from 'react';
-import { useThree } from 'react-three-fiber';
+import { useFrame, useThree } from 'react-three-fiber';
 import useStore from '../store';
 import Core from './Core';
+import * as THREE from 'three';
 
 const Experience = (props) => {
   const { scene, camera } = props.XR8.Threejs.xrScene();
@@ -21,6 +22,8 @@ const Experience = (props) => {
   // react-three-fiber
   useEffect(() => {
     if (camera) {
+      var light = new THREE.PointLight(0xffffff, 1);
+      camera.add(light);
       camera.position.y = isDesktopMode ? 10 : 1.8;
       setDefaultCamera({
         camera,

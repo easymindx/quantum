@@ -2,6 +2,7 @@ import React, { Fragment, useMemo, memo, useEffect, useState } from 'react';
 import GalleryAsset from './GalleryAsset';
 import useStore from '../store';
 import { calculatePositions } from '../utils/math';
+import { Preload } from '@react-three/drei';
 
 const Layer = ({ levelIndex }) => {
   const activeQuasar = useStore((state) => state.activeQuasar);
@@ -17,7 +18,6 @@ const Layer = ({ levelIndex }) => {
 
   useEffect(() => {
     setIsHidden(true);
-
     setTimeout(() => {
       setIsHidden(false);
     }, 500);
@@ -34,8 +34,10 @@ const Layer = ({ levelIndex }) => {
               activePosition={[asset.activeX, asset.activeY, asset.activeZ]}
               url={asset.url}
               type={asset.type}
-              externalUrl={asset.linkOut}
-              id={`asset-${index}`}
+              externalLink={asset?.externalLink}
+              title={asset?.title}
+              description={asset?.description}
+              id={`asset-${index}-levelIndex-${levelIndex}`}
             />
           </Fragment>
         );

@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { memo, Suspense, useEffect, useRef } from 'react';
 import { useGeolocated } from 'react-geolocated';
 import GeoTracker from './GeoTracker';
 // import QuasarSelector from './QuasarSelector';
 import QuasarController from './QuasarController';
-
+import ActionSheet from 'actionsheet-react';
 import { calcCrow } from '../../utils/geo';
 import useStore from '../../store';
 import { useGLTF } from '@react-three/drei';
 import { Routes, Route, useParams } from 'react-router-dom';
+import { useSpring, animated } from '@react-spring/web';
+import { Button } from 'react-bootstrap';
 
 const QuasarLoader = () => {
   // const activeQuasar = useStore((state) => state.activeQuasar);
@@ -58,6 +60,14 @@ const QuasarLoader = () => {
   //   setNearbyQuasars(nearbyQuasars);
   // }, []);
 
+  const sheetRef = useRef();
+
+  const itemDetails = useStore((state) => state.itemDetails);
+  const { bottom } = useSpring({
+    bottom: itemDetails ? 0 : -200,
+    config: { mass: 1, tension: 200, friction: 20 },
+  });
+
   return (
     // <>
     //   {isEngaged && <QuasarController />}
@@ -77,7 +87,29 @@ const QuasarLoader = () => {
     //   isVisible={isEngaged}
     //   nearbyQuasars={revealHidden ? quasarList : nearbyQuasars}
     // />
-    <QuasarController />
+    <>
+      <QuasarController />
+
+      <animated.div
+        className="actionsheet d-flex justify-content-center align-items-center flex-column"
+        style={{ bottom }}
+      >
+        <h6 className="mb-1">{itemDetails?.title}</h6>
+        <p>
+          <small>{itemDetails?.description}</small>
+        </p>
+        {itemDetails?.externalLink && (
+          <Button
+            onClick={() => window.open(itemDetails?.externalLink, '_blank')}
+            className="mx-1"
+            variant="outline-light"
+            size="sm"
+          >
+            Find out more
+          </Button>
+        )}
+      </animated.div>
+    </>
   );
 };
 

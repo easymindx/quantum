@@ -41,7 +41,7 @@ function Catcher() {
         dpr={[1, 2]}
       >
         {XR8 && XR8.Threejs.xrScene() && <Experience XR8={XR8} />}
-        <Preload />
+        <Preload all />
         <AdaptiveDpr pixelated />
         {/* <Stats className="stats" showPanel={0} /> */}
       </Canvas>
