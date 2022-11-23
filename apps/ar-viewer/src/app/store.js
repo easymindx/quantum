@@ -18,10 +18,8 @@ const useStore = create((set) => ({
   setProjectId: (id) => set({ projectId: id }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
-  enterGalleryMode: () =>
-    set((state) => ({ isGalleryMode: true, isCaught: true })),
-  exitGalleryMode: () =>
-    set((state) => ({ isGalleryMode: false, isCaught: true })),
+  enterGalleryMode: () => set((state) => ({ isGalleryMode: true })),
+  exitGalleryMode: () => set((state) => ({ isGalleryMode: false })),
   setActiveQuasar: (quasar) =>
     set((state) => ({
       activeQuasar: quasar,

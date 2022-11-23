@@ -43,11 +43,7 @@ export const use8thWall = (appKey, canvas) => {
             },
             onStart: ({ canvas }) => {
               const { renderer } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
-              renderer.gammaFactor = 0;
               renderer.outputEncoding = THREE.sRGBEncoding;
-              renderer.setClearColor(0x000000, 0);
-              renderer.setPixelRatio(window.devicePixelRatio);
-              renderer.setSize(canvas.width, canvas.height);
 
               // Sync the xr controller's 6DoF position and camera paremeters with our scene.
               // XR8.XrController.updateCameraProjectionMatrix({
