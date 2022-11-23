@@ -1,21 +1,20 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
+  isDesktopMode:
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ),
   projectId: '1',
   isCaught: false,
   isGalleryMode: false,
-  activeQuasar: null, // TODO: set null and load from selection or on 'begin' click
+  activeQuasar: null,
   projectData: null,
-  selectedQuasar: 0,
-  tapPoint: [],
-  setTapPoint: (tapPoint) => set({ tapPoint: tapPoint }),
+  selectedQuasar: 1, // simulates selection from offcanvas
+  currentLevel: 0,
   setProjectData: (project) => set({ projectData: project }),
   setProjectId: (id) => set({ projectId: id }),
-  // levaControls: {
-  //   revealHidden: true,
-  //   tier: 1,
-  // },
-  currentLevel: 0,
+
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
   enterGalleryMode: () =>

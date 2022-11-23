@@ -9,17 +9,18 @@ const QuasarController = ({ XR8 }) => {
   const releaseQuasar = useStore((state) => state.releaseQuasar);
   const exitGalleryMode = useStore((state) => state.exitGalleryMode);
   const enterGalleryMode = useStore((state) => state.enterGalleryMode);
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   // get the three camera
 
   const recenter = () => {
+    if (isDesktopMode) return;
     const { XR8 } = window;
     XR8.XrController.recenter();
   };
 
   const leaveGallery = () => {
-    const { XR8 } = window;
-    XR8.XrController.recenter();
+    recenter();
     exitGalleryMode();
   };
 

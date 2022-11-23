@@ -1,10 +1,18 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { memo, useRef, useState, useEffect, Suspense } from 'react';
+import React, {
+  memo,
+  useRef,
+  useState,
+  useEffect,
+  Suspense,
+  useCallback,
+} from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
 import useStore from '../../store';
-import { Backdrop, Html, Sparkles, Text } from '@react-three/drei';
+import { Html } from '@react-three/drei';
+
 const gifLoader = new GifLoader();
 const textureLoader = new THREE.TextureLoader();
 
@@ -23,7 +31,11 @@ const Image = ({
   url,
   externalUrl,
   type,
+  id,
 }) => {
+  const video = type === 'video' ? document.createElement('video') : false;
+  const [videoEl, setVideoEl] = useState();
+
   const isGalleryMode = useStore((state) => state.isGalleryMode);
   const [isClicked, setIsClicked] = useState(false);
   const [imageDims, setImageDims] = useState({
@@ -38,7 +50,26 @@ const Image = ({
 
   useEffect(() => {
     const texture = () => {
-      if (type === 'gif') {
+      if (type === 'video') {
+        video.setAttribute('id', id);
+        video.src = url;
+        video.muted = true;
+        video.loop = true;
+        video.autoplay = false;
+        video.crossOrigin = 'anonymous';
+        video.playsInline = true;
+        video.currentTime = 1;
+        video.oncanplaythrough = () => {
+          setImageDims({
+            width: video.videoWidth,
+            height: video.videoHeight,
+            aspectRatio: video.videoHeight / video.videoWidth,
+          });
+          setVideoEl(video);
+          console.log('video', video);
+        };
+        return new THREE.VideoTexture(video);
+      } else if (type === 'gif') {
         return gifLoader.load(url, (image) => {
           const { width, height } = image;
           if (width === 0 || height === 0) return;
@@ -56,14 +87,33 @@ const Image = ({
     setTexture(texture);
   }, [type, url]);
 
+  // function with callback
+  // function with callback
+
   const _handleClick = () => {
+    if (videoEl) {
+      if (!isClicked) {
+        videoEl.currentTime = 0;
+        videoEl.play();
+        videoEl.muted = false;
+      } else {
+        var isPlaying =
+          videoEl.currentTime > 0 &&
+          !videoEl.paused &&
+          !videoEl.ended &&
+          videoEl.readyState > videoEl.HAVE_CURRENT_DATA;
+        if (isPlaying) {
+          videoEl.pause();
+        }
+      }
+    }
     setIsClicked((isClicked) => !isClicked);
   };
 
   const { position, rotation, panelPosition, panelScale } = useSpring({
     position: isClicked ? activePosition : initialPosition,
     rotation: initialRotation,
-    panelPosition: isClicked ? [0, -0.55, 0.5] : [0, -2, 0.5],
+    panelPosition: isClicked ? [0, -1, 0.5] : [0, -2, 0.5],
     panelScale: isClicked ? [1, 1, 1] : [0.5, 0, 0.5],
     config: { mass: 1, tension: 200, friction: 20 },
   });
@@ -81,17 +131,13 @@ const Image = ({
   }, [texture]);
 
   useEffect(() => {
-    if (imageDims.aspectRatio < 1) {
-      groupRef.current.scale.set(4.5, 3.5, 1);
-    } else if (imageDims.aspectRatio > 1) {
-      groupRef.current.scale.set(
-        3.5 / imageDims.aspectRatio >= 3.5 ? 3.5 : 3.5 / imageDims.aspectRatio,
-        3.5,
-        1
-      );
-    } else {
-      groupRef.current.scale.set(3.5, 3.5, 1);
-    }
+    const { aspectRatio } = imageDims;
+    const scaleMultiplier = 4;
+    groupRef.current.scale.set(
+      scaleMultiplier / aspectRatio,
+      scaleMultiplier,
+      1
+    );
   }, [imageDims]);
 
   return (
@@ -102,7 +148,7 @@ const Image = ({
       onClick={() => _handleClick()}
     >
       <mesh position={[0, 0, 0]} scale={[1.2, 1.2, 1]} rotation={[0, 2.3, 0]}>
-        <cylinderBufferGeometry
+        <cylinderGeometry
           attach="geometry"
           args={[1.2, 1.2, 1.2, 32, 1, true, 0, Math.PI / 2]}
         />
@@ -110,17 +156,17 @@ const Image = ({
           attach="material"
           color={outerFrameColor}
           side={THREE.BackSide}
+          castShadow
           transparent={true}
           opacity={1}
         />
       </mesh>
-
       <mesh
         position={[0, 0, 0.01]}
         scale={[1.2, 1.2, 1]}
         rotation={[0, 2.3, 0]}
       >
-        <cylinderBufferGeometry
+        <cylinderGeometry
           attach="geometry"
           args={[1.1, 1.1, 1.1, 32, 1, true, 0, Math.PI / 2]}
         />
@@ -139,7 +185,7 @@ const Image = ({
         scale={[1.2, 1.2, 1]}
         rotation={[0, 2.3, 0]}
       >
-        <cylinderBufferGeometry
+        <cylinderGeometry
           attach="geometry"
           args={[1, 1, 1, 32, 1, true, 0, Math.PI / 2]}
         />
@@ -150,14 +196,18 @@ const Image = ({
         />
       </mesh>
 
-      {/* {isClicked && isGalleryMode && (
+      {isClicked && isGalleryMode && (
         <animated.group
           position={panelPosition}
           scale={panelScale}
           onClick={() => window.open(externalUrl, '_blank')}
         >
-          <animated.mesh position={[0, 0, 0]} scale={[1.4, 0.3, 1]} rotation={[0, 2.24, 0]}>
-            <cylinderBufferGeometry
+          <mesh
+            position={[0, 0, 0]}
+            scale={[1.4, 0.5, 1]}
+            rotation={[0, 2.24, 0]}
+          >
+            <cylinderGeometry
               attach="geometry"
               args={[1.1, 1.1, 1.1, 32, 1, true, 0, Math.PI / 2]}
             />
@@ -168,16 +218,17 @@ const Image = ({
               transparent={true}
               opacity={0.5}
             />
-          </animated.mesh>
-          <Html position={[-0.1, 0.1, 0]}>
+          </mesh>
+          {/* <Html position={[-0.1, 0.2, 0]}>
             <img
+              alt=""
               onClick={() => window.open(externalUrl, '_blank')}
               width="80"
               src="https://www.pngall.com/wp-content/uploads/12/Gesture-Click-PNG-File.png"
             />
-          </Html>
+          </Html> */}
         </animated.group>
-      )} */}
+      )}
     </animated.group>
   );
 };

@@ -18,7 +18,7 @@ export const use8thWall = (appKey, canvas) => {
           window.THREE = THREE;
 
           XR8.XrController.configure({
-            disableWorldTracking: true,
+            disableWorldTracking: false,
           });
           XR8.addCameraPipelineModules([
             XR8.GlTextureRenderer.pipelineModule(),
@@ -34,7 +34,7 @@ export const use8thWall = (appKey, canvas) => {
             onerror: (err) => {
               console.error('AR init error', err);
             },
-            onAttach: ({ canvasWidth, canvasHeight }) => {
+            onAttach: () => {
               setXR8Object(XR8);
               setThreeObject({
                 scene: XR8.Threejs.xrScene().camera,
@@ -42,16 +42,26 @@ export const use8thWall = (appKey, canvas) => {
               });
             },
             onStart: ({ canvas }) => {
-              const { camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
+              // const { camera, renderer } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
               // Sync the xr controller's 6DoF position and camera paremeters with our scene.
-              XR8.XrController.updateCameraProjectionMatrix({
-                origin: camera.position,
-                facing: camera.quaternion,
-              });
+              // XR8.XrController.updateCameraProjectionMatrix({
+              //   origin: camera.position,
+              //   facing: camera.quaternion,
+              // });
             },
           });
 
-          XR8.run({ canvas });
+          XR8.run({
+            canvas,
+            allowedDevices: XR8.XrConfig.device().ANY, //XR8.XrConfig.device().MOBILE_AND_HEADSETS
+            sessionConfiguration: {
+              optionalFeatures: {
+                defaultEnvironment: {
+                  // disabled: true,
+                },
+              },
+            },
+          });
         },
       });
     }

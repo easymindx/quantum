@@ -1,48 +1,17 @@
 import { useSpring, animated } from '@react-spring/three';
-import { MeshReflectorMaterial, Sparkles, useGLTF } from '@react-three/drei';
+import {
+  CubeCamera,
+  MeshReflectorMaterial,
+  Sparkles,
+  useGLTF,
+} from '@react-three/drei';
 import React, { useRef, memo, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
-import useStore from '../store.js';
-import Level from './Level.js';
+import useStore from '../store';
+import Layer from './Layer';
 import clamp from 'lodash.clamp';
 import { useDrag } from 'react-use-gesture';
 import { useFrame } from 'react-three-fiber';
-
-const geometryTop = new THREE.SphereBufferGeometry(
-  14,
-  32,
-  32,
-  0,
-  Math.PI * 2,
-  0,
-  Math.PI / 2
-);
-const innerGeometry = new THREE.SphereBufferGeometry(
-  13,
-  32,
-  32,
-  0,
-  Math.PI * 2,
-  0,
-  Math.PI / 1.7
-);
-
-const innerMaterial = new THREE.MeshPhysicalMaterial({
-  thickness: 3,
-  roughness: 0.6,
-  clearcoat: 0.9,
-  clearcoatRoughness: 0.3,
-  transmission: 1,
-  ior: 1.9,
-  envMapIntensity: 25,
-  color: '#ffffff',
-  attenuationDistance: 5,
-  transparent: true,
-  opacity: 0.5,
-  side: THREE.DoubleSide,
-});
-
-const shellMaterial = new THREE.MeshStandardMaterial({});
 
 const Shell = () => {
   const groupRef = useRef();
@@ -51,27 +20,29 @@ const Shell = () => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const currentLevel = useStore((state) => state.currentLevel);
   const setCurrentLevel = useStore((state) => state.setCurrentLevel);
-
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
   const { scene } = useGLTF(activeQuasar.modelSrc);
+
+  const quasar = scene;
 
   useEffect(() => {
     if (!topDome.current) return;
-    scene.traverse((node) => {
+    quasar.traverse((node) => {
       if (node.isMesh) {
-        node.castShadow = false;
-        node.receiveShadow = false;
+        node.castShadow = true;
+        node.receiveShadow = true;
         node.fulstrumCulled = false;
-        node.frustumCulled = false; //
+        node.frustumCulled = false;
         if (node.name === 'QUASAR_SKIN_OUT_M_003') {
           topDome.current.material = node.material;
           topDome.current.material.needsUpdate = true;
-          topDome.current.material.envMapIntensity = 2;
+          topDome.current.material.envMapIntensity = 5;
           topDome.current.material.roughness = 0.5;
           topDome.current.material.metalness = 0.5;
         }
       }
     });
-  }, [activeQuasar]);
+  }, [activeQuasar, quasar]);
 
   const index = useRef(0);
 
@@ -117,22 +88,48 @@ const Shell = () => {
     }
   );
 
-  // useFrame((state, delta) => {
-  //   groupRef.current.rotation.y -= delta * 0.3;
-  // });
+  useFrame((state, delta) => {
+    if (!isDesktopMode) return;
+    groupRef.current.rotation.y -= delta * 0.15;
+  });
 
   return (
     <group ref={groupRef}>
-      <mesh
-        ref={topDome}
-        geometry={geometryTop}
-        material={shellMaterial}
-        position={[0, 2, 0]}
-      ></mesh>
-      <mesh geometry={innerGeometry} material={innerMaterial} />
+      <mesh ref={topDome}>
+        <sphereGeometry
+          attach="geometry"
+          args={[20, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
+        />
+        <meshPhongMaterial attach="material" side={THREE.DoubleSide} />
+      </mesh>
+
+      <mesh>
+        <sphereGeometry
+          attach="geometry"
+          args={[19, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+        />
+        <meshPhysicalMaterial
+          attach="material"
+          color={'#fff'}
+          side={THREE.DoubleSide}
+          transparent={true}
+          opacity={0.5}
+          thickness={3}
+          roughness={0.6}
+          clearcoat={0.9}
+          clearcoatRoughness={0.3}
+          transmission={1}
+          ior={1.9}
+          envMapIntensity={25}
+          attenuationDistance={5}
+        />
+      </mesh>
+
+      <ambientLight intensity={0.5} />
 
       <animated.group {...bind()} key={index} {...spring}>
-        <Level levelIndex={index.current} />
+        <Layer levelIndex={index.current} />
+        <ambientLight intensity={0.75} />
       </animated.group>
     </group>
   );

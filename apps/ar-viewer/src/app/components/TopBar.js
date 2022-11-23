@@ -6,7 +6,6 @@ import {
   Card,
   Row,
   Col,
-  Dropdown,
   InputGroup,
   Form,
   Button,
@@ -26,15 +25,16 @@ const OffcanvasExample = () => {
 
   const closeOffCanvas = () => offCanvasRef?.current?.backdrop?.click();
 
-  const expand = false;
+  const expand = false; // breakpoint to expand the offcanvas
+
   return (
-    <div className="top-bar">
+    <div className="top-bar ">
       <Navbar
         key={expand}
         variant="dark"
         bg="black"
         expand={expand}
-        className="mx-2"
+        className="px-2"
       >
         <Container fluid>
           <Navbar.Brand href="#">
@@ -73,9 +73,11 @@ const OffcanvasExample = () => {
                       aria-label="Project ID"
                       aria-describedby="basic-addon2"
                       onChange={(e) => setProject(e.target.value)}
+                      className="bg-white text-dark border-white"
                     />
                     <Button
-                      variant="dark"
+                      className="load-button"
+                      variant="primary"
                       onClick={() => setProjectId(project)}
                     >
                       Load
@@ -85,8 +87,8 @@ const OffcanvasExample = () => {
               </Row>
               <Row>
                 <Col>
-                  <h2 className="h5">Nearby Quasars</h2>
-                  <hr />
+                  <h2 className="h5 text-white">Nearby Quasars</h2>
+                  <hr className="border-white" />
                 </Col>
               </Row>
 
@@ -94,14 +96,9 @@ const OffcanvasExample = () => {
                 {projectData?.data?.map((quasar, index) => (
                   <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
-                      className={`${
-                        activeQuasar === quasar ? 'bg-white ' : 'bg-transparent'
-                      } text-dark`}
+                      className="bg-white"
                       style={{
-                        width: 100,
-                        height: 100,
-                        border:
-                          activeQuasar === quasar ? '1px solid #bbb' : 'none',
+                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
                       }}
                     >
                       <Card.Img
@@ -109,7 +106,6 @@ const OffcanvasExample = () => {
                           setActiveQuasar(quasar);
                           closeOffCanvas();
                         }}
-                        style={{ height: 100 }}
                         src={quasar.imageSrc}
                       />
                     </Card>
@@ -118,27 +114,31 @@ const OffcanvasExample = () => {
               </Row>
 
               <Nav className="justify-content-end flex-grow-1 pe-3 ">
-                <h2 className="h5">Vital Resources</h2>
-                <hr />
+                <h2 className="h5 text-white">Vital Resources</h2>
+                <hr className="border-white" />
                 <Nav.Link
-                  className="text-dark"
+                  className="text-white"
                   target="_blank"
-                  href={`https://twitter.com/${projectData?.socials?.twitter}`}
+                  // href={`https://twitter.com/${projectData?.socials?.twitter}`}
+                  href={`https://twitter.com/quasarsofficial`}
                 >
                   <FaTwitterSquare
                     size={'1.5rem'}
                     className="me-2"
                     color="#1DA1F2"
                   />
-                  Follow Us @{projectData?.socials?.twitter}
+                  {/* Follow Us @{projectData?.socials?.twitter} */}
+                  Follow Us @QuasarsOfficial
                 </Nav.Link>
                 <Nav.Link
-                  className="text-dark"
+                  className="text-white"
                   target="_blank"
-                  href={projectData?.website}
+                  // href={projectData?.website}
+                  href={'http://quasarsofficial.com'}
                 >
                   <FaGlobe size={'1.5rem'} className="me-2" color="#2b2b2b" />
-                  Visit {projectData?.projectName}
+                  {/* Visit {projectData?.projectName} */}
+                  Visit QuasarsOfficial.com
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>

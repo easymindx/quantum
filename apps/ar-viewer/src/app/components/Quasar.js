@@ -7,7 +7,7 @@ const Quasar = ({ isEngaged, url }, props) => {
   const quasarRef = useRef();
   const activeQuasar = useStore((state) => state.activeQuasar);
   const isGalleryMode = useStore((state) => state.isGalleryMode);
-
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
   const isCaught = useStore((state) => state.isCaught);
   const catchQuasar = useStore((state) => state.catchQuasar);
   const releaseQuasar = useStore((state) => state.releaseQuasar);
@@ -35,6 +35,10 @@ const Quasar = ({ isEngaged, url }, props) => {
     }
 
     if (isCaught && !isGalleryMode) {
+      if (!isDesktopMode) {
+        const { XR8 } = window;
+        XR8.XrController.recenter();
+      }
       releaseQuasar();
       return;
     }
@@ -48,19 +52,16 @@ const Quasar = ({ isEngaged, url }, props) => {
   });
 
   return (
-    <>
-      <primitive
-        onClick={(e) => {
-          e.stopPropagation();
-          handleTap();
-        }}
-        ref={quasarRef}
-        scale={isGalleryMode ? [2, 2, 2] : [0.8, 0.8, 0.8]}
-        object={scene}
-        position={[0, 0, 0]}
-      />
-      <hemisphereLight intensity={0.25} />
-    </>
+    <primitive
+      onClick={(e) => {
+        e.stopPropagation();
+        handleTap();
+      }}
+      ref={quasarRef}
+      scale={isGalleryMode ? [2, 2, 2] : [1, 1, 1]}
+      object={scene}
+      position={[0, 0, 0]}
+    />
   );
 };
 
