@@ -29,13 +29,11 @@ const Shell = () => {
     if (!topDome.current) return;
     quasar.traverse((node) => {
       if (node.isMesh) {
-        node.castShadow = false;
-        node.receiveShadow = false;
         node.fulstrumCulled = false;
         node.frustumCulled = false;
-        if (node.name === 'QUASAR_SKIN_OUT_M_003') {
-          topDome.current.material = node.material;
-        }
+        // if (node.name === 'QUASAR_SKIN_OUT_M_003') {
+        //   topDome.current.material = node.material;
+        // }
       }
     });
   }, [activeQuasar, quasar]);
@@ -108,44 +106,72 @@ const Shell = () => {
 
   useFrame((state, delta) => {
     if (!isDesktopMode) return;
-    groupRef.current.rotation.y -= delta * 0.15;
+    groupRef.current.rotation.y += delta * 0.15;
   });
 
   return (
     <group ref={groupRef}>
-      <mesh ref={topDome}>
-        <sphereGeometry
-          attach="geometry"
-          args={[5, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.1]}
+      <mesh ref={topDome} position={[0, 1, 0]}>
+        <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
+        <meshPhysicalMaterial
+          attach="material"
+          side={THREE.DoubleSide}
+          transparent={true}
+          opacity={0.7}
+          thickness={3}
+          roughness={0.6}
+          clearcoat={0.9}
+          clearcoatRoughness={0.3}
+          transmission={1}
+          ior={1.9}
+          envMapIntensity={10}
+          attenuationDistance={5}
         />
-        <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
       </mesh>
 
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[0, 0, 0]}>
+      <mesh rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <sphereGeometry
           attach="geometry"
           args={[5 - 0.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
         /> */}
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
-        <meshMatcapMaterial
+        <meshPhysicalMaterial
           attach="material"
           side={THREE.DoubleSide}
           transparent={true}
-          opacity={0.5}
-          // thickness={3}
-          // roughness={0.6}
-          // clearcoat={0.9}
-          // clearcoatRoughness={0.3}
-          // transmission={1}
-          // ior={1.9}
-          // envMapIntensity={10}
-          // attenuationDistance={5}
+          opacity={0.7}
+          thickness={3}
+          roughness={0.6}
+          clearcoat={0.9}
+          clearcoatRoughness={0.3}
+          transmission={1}
+          ior={1.9}
+          envMapIntensity={10}
+          attenuationDistance={5}
         />
       </mesh>
 
-      <directionalLight intensity={1} position={[-2, 2, -4]} />
-      <directionalLight intensity={1} position={[0, 2, -4]} />
-      <directionalLight intensity={1} position={[2, 2, -4]} />
+      <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
+        {/* <sphereGeometry
+          attach="geometry"
+          args={[5 - 0.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+        /> */}
+        <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
+        <meshPhysicalMaterial
+          attach="material"
+          side={THREE.DoubleSide}
+          transparent={true}
+          opacity={0.7}
+          thickness={3}
+          roughness={0.6}
+          clearcoat={0.9}
+          clearcoatRoughness={0.3}
+          transmission={1}
+          ior={1.9}
+          envMapIntensity={10}
+          attenuationDistance={5}
+        />
+      </mesh>
 
       <animated.group {...spring}>
         <Layer levelIndex={currentLevel} shellRadius={4.5} />

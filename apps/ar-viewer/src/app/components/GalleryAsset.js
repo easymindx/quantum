@@ -39,7 +39,6 @@ const GalleryAsset = ({
     aspectRatio: 1,
   });
   const [texture, setTexture] = useState(null);
-
   const groupRef = useRef();
   const assetMeshRef = useRef();
 
@@ -124,29 +123,8 @@ const GalleryAsset = ({
   });
 
   useEffect(() => {
-    if (!texture) return;
-    texture.center = new THREE.Vector2(0.5, 0.5);
-    texture.rotation = Math.PI;
-    texture.flipY = false;
-    // dont stretch the texture
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-
-    // texture.matrixAutoUpdate = false;
-
-    // var aspect = window.innerWidth / window.innerHeight;
-    // var imageAspect = imageDims.width / imageDims.height;
-
-    // if (aspect < imageAspect) {
-    //   texture.matrix.setUvTransform(0, 0, aspect / imageAspect, 1, 0, 0.5, 0.5);
-    // } else {
-    //   texture.matrix.setUvTransform(0, 0, 1, imageAspect / aspect, 0, 0.5, 0.5);
-    // }
-  }, [texture]);
-
-  useEffect(() => {
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 1;
+    const scaleMultiplier = 1.8;
     groupRef.current.scale.set(
       scaleMultiplier / aspectRatio,
       scaleMultiplier,
@@ -167,7 +145,6 @@ const GalleryAsset = ({
           attach="material"
           color={outerFrameColor}
           side={THREE.DoubleSide}
-          castShadow
           transparent={false}
           opacity={1}
         />
