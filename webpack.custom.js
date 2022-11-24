@@ -18,6 +18,7 @@ module.exports = (config, context) => {
     ) {
       if (env[next]) prev[`${next}`] = JSON.stringify(env[next]);
     }
+    console.log('env', env);
     return prev;
   }, {});
 
