@@ -22,9 +22,9 @@ const Experience = ({ XR8 }) => {
   // react-three-fiber
   useEffect(() => {
     if (camera) {
-      var light = new THREE.PointLight(0xffffff, 1);
+      var light = new THREE.PointLight(0xffffff, 0.2);
       camera.add(light);
-      camera.position.y = isDesktopMode ? 10 : 1.8;
+      camera.position.y = 10;
       setDefaultCamera({
         camera,
         scene,

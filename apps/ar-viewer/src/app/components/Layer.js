@@ -2,7 +2,6 @@ import React, { Fragment, useMemo, memo, useEffect, useState } from 'react';
 import GalleryAsset from './GalleryAsset';
 import useStore from '../store';
 import { calculatePositions } from '../utils/math';
-import { Preload } from '@react-three/drei';
 
 const Layer = ({ levelIndex }) => {
   const activeQuasar = useStore((state) => state.activeQuasar);

@@ -61,7 +61,7 @@ const Quasar = ({ isEngaged, url }, props) => {
         handleTap();
       }}
       ref={quasarRef}
-      scale={isGalleryMode ? [2, 2, 2] : [1, 1, 1]}
+      scale={isCaught ? [2, 2, 2] : [1, 1, 1]}
       object={scene}
       position={[0, 0, 0]}
     />

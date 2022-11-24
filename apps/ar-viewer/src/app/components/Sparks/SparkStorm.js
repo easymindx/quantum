@@ -27,7 +27,12 @@ function StormLine({ radius, simulation, width, color }) {
 
   useFrame(() => {
     if (line.current) {
-      const nextPosition = updateAttractor(currentPosition, radius, simulation, 0.005);
+      const nextPosition = updateAttractor(
+        currentPosition,
+        radius,
+        simulation,
+        0.005
+      );
       line.current.advance(nextPosition);
     }
   });
@@ -48,7 +53,7 @@ export function SparkStorm({ count, colors, radius = 10 }) {
       new Array(count).fill().map(() => {
         return {
           color: Random.pick(colors),
-          width: Random.range(0.01, 0.02),
+          width: Random.range(0.05, 0.1),
           speed: Random.range(0.001, 0.002),
           simulation: simulation(),
           radius: Random.range(2, 2.25) * radius,

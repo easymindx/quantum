@@ -34,14 +34,11 @@ const Experience = (props) => {
       });
   }, [projectId]);
 
-  const groupYPos = isDesktopMode ? 9 : 1;
+  const groupYPos = isDesktopMode ? 1 : 1;
 
-  const { groupPosition } = useSpring({
-    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -5],
-  });
-
-  const { groupScale } = useSpring({
-    groupScale: isCaught ? [1, 1, 1] : [0.085, 0.085, 0.085],
+  const { groupScale, groupPosition } = useSpring({
+    groupScale: [1, 1, 1],
+    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -50],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
