@@ -12,10 +12,7 @@ import { AdaptiveDpr, Preload } from '@react-three/drei';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
-  const { XR8 } = use8thWall(
-    'lQIft1et06A6QpSgBS6fzBWdB9tXP64wKSqj5LQtklP3EfCwhYrYiAYmEqFeQrJSkSsnW0',
-    canvasEl
-  );
+  const { XR8 } = use8thWall(process.env.APP_8THWALL_API_KEY, canvasEl);
 
   const dimensions = {
     height: window.innerHeight,
