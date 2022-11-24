@@ -63,7 +63,20 @@ const Experience = (props) => {
       >
         {activeQuasar && (
           <>
-            <Quasar />
+            <PresentationControls
+              enabled={true}
+              global={false}
+              cursor={true}
+              snap={true}
+              speed={2}
+              zoom={1}
+              rotation={[0, 0, 0]}
+              polar={[0, Math.PI / 2]}
+              azimuth={[-Infinity, Infinity]}
+              config={{ mass: 1, tension: 170, friction: 20 }}
+            >
+              <Quasar />
+            </PresentationControls>
             <animated.group visible={!isCaught} scale={sparkScale}>
               <SparkStorm count={150} colors={activeQuasar.palette} />
             </animated.group>
