@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import use8thWallScripts from './use8thWallScripts';
 
 export const use8thWall = (appKey, canvas) => {
-  const areScriptsReady = use8thWallScripts(appKey);
+  const areScriptsReady = true;
   const [XR8Object, setXR8Object] = useState(null);
   const [ThreeObject, setThreeObject] = useState(null);
 
@@ -14,7 +14,6 @@ export const use8thWall = (appKey, canvas) => {
       XRExtras.Loading.showLoading({
         onxrloaded: () => {
           const { XR8 } = window;
-
           window.THREE = THREE;
 
           XR8.XrController.configure({
@@ -42,14 +41,22 @@ export const use8thWall = (appKey, canvas) => {
               });
             },
             onStart: ({ canvas }) => {
-              const { renderer } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
+              const { renderer, camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
               renderer.outputEncoding = THREE.sRGBEncoding;
 
-              // Sync the xr controller's 6DoF position and camera paremeters with our scene.
-              // XR8.XrController.updateCameraProjectionMatrix({
-              //   origin: camera.position,
-              //   facing: camera.quaternion,
+              // canvas.addEventListener('click', (event) => {
+              //   alert('click');
               // });
+
+              // canvas.addEventListener('touchstart', (event) => {
+              //   alert('touch');
+              // });
+
+              // Sync the xr controller's 6DoF position and camera paremeters with our scene.
+              XR8.XrController.updateCameraProjectionMatrix({
+                origin: camera.position,
+                facing: camera.quaternion,
+              });
             },
           });
 
@@ -57,10 +64,8 @@ export const use8thWall = (appKey, canvas) => {
             canvas,
             allowedDevices: XR8.XrConfig.device().ANY, //XR8.XrConfig.device().MOBILE_AND_HEADSETS
             sessionConfiguration: {
-              optionalFeatures: {
-                defaultEnvironment: {
-                  // disabled: true,
-                },
+              defaultEnvironment: {
+                disabled: true,
               },
             },
           });

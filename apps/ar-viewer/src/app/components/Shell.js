@@ -11,7 +11,7 @@ import useStore from '../store';
 import Layer from './Layer';
 // import clamp from 'lodash.clamp';
 // import { useDrag } from 'react-use-gesture';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 
 const Shell = () => {
   const groupRef = useRef();
@@ -91,8 +91,6 @@ const Shell = () => {
     if (currentLevel === index.current) return;
     index.current = currentLevel;
 
-    console.log('currentLevel', currentLevel);
-    console.log('index.current', index.current);
     // animate spring
     api.start((i) => {
       return {
@@ -119,7 +117,7 @@ const Shell = () => {
   return (
     <group ref={groupRef}>
       <mesh ref={topDome}>
-        <sphereBufferGeometry
+        <sphereGeometry
           attach="geometry"
           args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
         />
@@ -127,7 +125,7 @@ const Shell = () => {
       </mesh>
 
       <mesh>
-        <sphereBufferGeometry
+        <sphereGeometry
           attach="geometry"
           args={[14, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
         />
