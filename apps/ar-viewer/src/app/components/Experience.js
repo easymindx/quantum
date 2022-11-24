@@ -22,9 +22,11 @@ const Experience = ({ XR8 }) => {
   // react-three-fiber
   useEffect(() => {
     if (camera) {
-      var light = new THREE.PointLight(0xffffff, 0.2);
+      // add 3 point lights to the scene
+      const light = new THREE.PointLight(0xffffff, 0.5, 100);
+      light.position.set(0, 1, 0);
       camera.add(light);
-      camera.position.y = 2;
+      camera.position.y = 1;
       setDefaultCamera({
         camera,
         scene,

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import Quasar from './Quasar.js';
 import Shell from './Shell.js';
@@ -38,20 +38,14 @@ const Experience = (props) => {
 
   const { groupScale, groupPosition } = useSpring({
     groupScale: [1, 1, 1],
-    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -10],
+    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -5],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
-  const { quasarScale } = useSpring({
-    quasarScale: isGalleryMode ? [0, 0, 0] : [1, 1, 1],
-    quasarPosition: isGalleryMode ? [0, 0, 0] : [0, 0, 0],
-    delay: !isGalleryMode ? 500 : 0,
-  });
-
   const { shellScale, shellPosition } = useSpring({
-    shellScale: isGalleryMode ? [1, 1, 1] : [1, 1, 1],
-    shellPosition: isGalleryMode ? [0, 0, 0] : [0, 0, 0],
-    delay: isGalleryMode ? 500 : 0,
+    shellScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
+    shellPosition: isGalleryMode ? [0, 0, 0] : [0, -10, 0],
+    // delay: isGalleryMode ? 500 : 0,
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
@@ -69,33 +63,13 @@ const Experience = (props) => {
       >
         {activeQuasar && (
           <>
-            <animated.group scale={quasarScale}>
-              {/* <PresentationControls
-                enabled={true}
-                global={false}
-                cursor={true}
-                snap={true}
-                speed={2}
-                zoom={1}
-                rotation={[0, 0, 0]}
-                polar={[0, Math.PI / 2]}
-                azimuth={[-Infinity, Infinity]}
-                config={{ mass: 1, tension: 170, friction: 15 }}
-              >
-                <Quasar />
-              </PresentationControls> */}
-            </animated.group>
+            <Quasar />
             <animated.group visible={!isCaught} scale={sparkScale}>
               <SparkStorm count={150} colors={activeQuasar.palette} />
             </animated.group>
             <animated.group scale={shellScale} position={shellPosition}>
               <Shell />
             </animated.group>
-            {/* {isCaught && (
-              <animated.group scale={shellScale} position={shellPosition}>
-                <Shell />
-              </animated.group>
-            )} */}
           </>
         )}
       </animated.group>

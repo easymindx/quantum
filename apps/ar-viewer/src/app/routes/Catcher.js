@@ -9,7 +9,6 @@ import TopBar from '../components/TopBar';
 import use8thWall from '../hooks/use8thWall';
 import Experience from '../components/Experience';
 import { AdaptiveDpr, Preload } from '@react-three/drei';
-import useStore from '../store';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
