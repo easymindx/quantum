@@ -4,8 +4,8 @@ import useStore from '../store';
 import Core from './Core';
 import * as THREE from 'three';
 
-const Experience = (props) => {
-  const { scene, camera } = props.XR8.Threejs.xrScene();
+const Experience = ({ XR8 }) => {
+  const { scene, camera } = XR8.Threejs.xrScene();
   const setDefaultCamera = useThree(({ set }) => set);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
 

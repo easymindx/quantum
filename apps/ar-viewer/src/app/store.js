@@ -1,10 +1,7 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
-  isDesktopMode:
-    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ),
+  isDesktopMode: false,
   projectId: '1',
   isCaught: false,
   isGalleryMode: false,
@@ -32,6 +29,7 @@ const useStore = create((set) => ({
     set((state) => ({ currentLevel: Number(currentLevel) })),
   setSelectedQuasar: (selectedQuasar) =>
     set((state) => ({ selectedQuasar: Number(selectedQuasar) })),
+  setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
 }));
 
 export default useStore;

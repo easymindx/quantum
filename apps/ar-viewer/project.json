@@ -22,7 +22,8 @@
         ],
         "styles": ["apps/ar-viewer/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "./webpack.custom.js"
+        "webpackConfig": "./webpack.custom.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {
