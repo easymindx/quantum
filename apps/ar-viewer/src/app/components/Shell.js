@@ -28,16 +28,12 @@ const Shell = () => {
     if (!topDome.current) return;
     quasar.traverse((node) => {
       if (node.isMesh) {
-        node.castShadow = true;
-        node.receiveShadow = true;
+        node.castShadow = false;
+        node.receiveShadow = false;
         node.fulstrumCulled = false;
         node.frustumCulled = false;
         if (node.name === 'QUASAR_SKIN_OUT_M_003') {
           topDome.current.material = node.material;
-          topDome.current.material.needsUpdate = true;
-          topDome.current.material.envMapIntensity = 5;
-          topDome.current.material.roughness = 0.5;
-          topDome.current.material.metalness = 0.5;
         }
       }
     });
@@ -121,20 +117,33 @@ const Shell = () => {
           attach="geometry"
           args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
         />
-        <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
+        <meshStandardMaterial
+          attach="material"
+          side={THREE.DoubleSide}
+          metalness={0.5}
+          roughness={0.5}
+        />
       </mesh>
 
       <mesh>
         <sphereGeometry
           attach="geometry"
-          args={[14, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+          args={[13.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
         />
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           attach="material"
-          color={'#000'}
+          color={'#ffffff'}
           side={THREE.DoubleSide}
           transparent={true}
-          opacity={0.75}
+          opacity={0.5}
+          thickness={3}
+          roughness={0.6}
+          clearcoat={0.9}
+          clearcoatRoughness={0.3}
+          transmission={1}
+          ior={1.9}
+          envMapIntensity={25}
+          attenuationDistance={5}
         />
       </mesh>
 
