@@ -3,13 +3,13 @@ import GalleryAsset from './GalleryAsset';
 import useStore from '../store';
 import { calculatePositions } from '../utils/math';
 
-const Layer = ({ levelIndex }) => {
+const Layer = ({ levelIndex, shellRadius }) => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const [isHidden, setIsHidden] = useState(false);
 
   const calculatedGalleryLayout = useMemo(() => {
     return activeQuasar.gallery.map((item, index) => {
-      return calculatePositions(item.assets, 10);
+      return calculatePositions(item.assets, shellRadius);
     });
   }, [activeQuasar]);
 

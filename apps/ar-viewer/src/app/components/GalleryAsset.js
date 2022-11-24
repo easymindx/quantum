@@ -1,5 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { memo, useRef, useState, useEffect } from 'react';
+import React, {
+  memo,
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
@@ -35,9 +41,9 @@ const GalleryAsset = ({
   const [texture, setTexture] = useState(null);
 
   const groupRef = useRef();
-  const meshRef = useRef();
+  const assetMeshRef = useRef();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const texture = () => {
       if (type === 'video') {
         video.setAttribute('id', id);
@@ -93,7 +99,6 @@ const GalleryAsset = ({
       }
     }
     setIsClicked((isClicked) => !isClicked);
-    console.log('title', title);
     setItemDetails(
       !isClicked
         ? {
@@ -126,11 +131,22 @@ const GalleryAsset = ({
     // dont stretch the texture
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
+
+    // texture.matrixAutoUpdate = false;
+
+    // var aspect = window.innerWidth / window.innerHeight;
+    // var imageAspect = imageDims.width / imageDims.height;
+
+    // if (aspect < imageAspect) {
+    //   texture.matrix.setUvTransform(0, 0, aspect / imageAspect, 1, 0, 0.5, 0.5);
+    // } else {
+    //   texture.matrix.setUvTransform(0, 0, 1, imageAspect / aspect, 0, 0.5, 0.5);
+    // }
   }, [texture]);
 
   useEffect(() => {
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 3;
+    const scaleMultiplier = 1;
     groupRef.current.scale.set(
       scaleMultiplier / aspectRatio,
       scaleMultiplier,
@@ -145,50 +161,32 @@ const GalleryAsset = ({
       rotation={rotation}
       onClick={() => _handleClick()}
     >
-      <mesh position={[0, 0, 0]} scale={[1.2, 1.2, 1]} rotation={[0, 2.3, 0]}>
-        <cylinderGeometry
-          attach="geometry"
-          args={[1.2, 1.2, 1.2, 32, 1, true, 0, Math.PI / 2]}
-        />
+      <mesh position={[0, 0, 0]} scale={1.2}>
+        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
           attach="material"
           color={outerFrameColor}
-          side={THREE.BackSide}
+          side={THREE.DoubleSide}
           castShadow
-          transparent={true}
+          transparent={false}
           opacity={1}
         />
       </mesh>
-      <mesh
-        position={[0, 0, 0.01]}
-        scale={[1.2, 1.2, 1]}
-        rotation={[0, 2.3, 0]}
-      >
-        <cylinderGeometry
-          attach="geometry"
-          args={[1.1, 1.1, 1.1, 32, 1, true, 0, Math.PI / 2]}
-        />
+      <mesh position={[0, 0, 0.01]} scale={1.1}>
+        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
           attach="material"
           color={innerFrameColor}
-          side={THREE.BackSide}
-          transparent={true}
+          side={THREE.FrontSide}
+          transparent={false}
           opacity={1}
         />
       </mesh>
 
-      <mesh
-        ref={meshRef}
-        position={[0, 0, 0.02]}
-        scale={[1.2, 1.2, 1]}
-        rotation={[0, 2.3, 0]}
-      >
-        <cylinderGeometry
-          attach="geometry"
-          args={[1, 1, 1, 32, 1, true, 0, Math.PI / 2]}
-        />
+      <mesh ref={assetMeshRef} position={[0, 0, 0.02]} rotation={[0, 0, 0]}>
+        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
-          side={THREE.BackSide}
+          side={THREE.FrontSide}
           attach="material"
           map={texture}
         />

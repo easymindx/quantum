@@ -24,7 +24,7 @@ const Experience = ({ XR8 }) => {
     if (camera) {
       var light = new THREE.PointLight(0xffffff, 0.2);
       camera.add(light);
-      camera.position.y = 10;
+      camera.position.y = 2;
       setDefaultCamera({
         camera,
         scene,

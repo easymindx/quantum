@@ -1,4 +1,4 @@
-export const calculatePositions = (collection, radius, insetFactor = 5) => {
+export const calculatePositions = (collection, radius, insetFactor = 1) => {
   const count = collection.length;
   const constant = (2 * Math.PI) / count;
 
@@ -17,7 +17,7 @@ export const calculatePositions = (collection, radius, insetFactor = 5) => {
       externalLink: collection[i].externalLink,
       type: collection[i]?.type || 'image',
       activeX: (radius - insetFactor) * Math.sin(rotation),
-      activeY: 1,
+      activeY: 0.5,
       activeZ: (radius - insetFactor) * Math.cos(rotation),
     });
   }

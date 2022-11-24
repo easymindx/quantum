@@ -16,6 +16,7 @@ import { useFrame } from '@react-three/fiber';
 const Shell = () => {
   const groupRef = useRef();
   const topDome = useRef();
+  const shellRadius = 5;
 
   const activeQuasar = useStore((state) => state.activeQuasar);
   const currentLevel = useStore((state) => state.currentLevel);
@@ -115,40 +116,39 @@ const Shell = () => {
       <mesh ref={topDome}>
         <sphereGeometry
           attach="geometry"
-          args={[13, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
+          args={[5, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.1]}
         />
-        <meshStandardMaterial
-          attach="material"
-          side={THREE.DoubleSide}
-          metalness={0.5}
-          roughness={0.5}
-        />
+        <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
       </mesh>
 
-      <mesh>
-        <sphereGeometry
+      <mesh rotation={[0, Math.PI / 2, 0]} position={[0, 0, 0]}>
+        {/* <sphereGeometry
           attach="geometry"
-          args={[13.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
-        />
-        <meshPhysicalMaterial
+          args={[5 - 0.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
+        /> */}
+        <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
+        <meshMatcapMaterial
           attach="material"
-          color={'#ffffff'}
           side={THREE.DoubleSide}
           transparent={true}
           opacity={0.5}
-          thickness={3}
-          roughness={0.6}
-          clearcoat={0.9}
-          clearcoatRoughness={0.3}
-          transmission={1}
-          ior={1.9}
-          envMapIntensity={25}
-          attenuationDistance={5}
+          // thickness={3}
+          // roughness={0.6}
+          // clearcoat={0.9}
+          // clearcoatRoughness={0.3}
+          // transmission={1}
+          // ior={1.9}
+          // envMapIntensity={10}
+          // attenuationDistance={5}
         />
       </mesh>
 
+      <directionalLight intensity={1} position={[-2, 2, -4]} />
+      <directionalLight intensity={1} position={[0, 2, -4]} />
+      <directionalLight intensity={1} position={[2, 2, -4]} />
+
       <animated.group {...spring}>
-        <Layer levelIndex={currentLevel} />
+        <Layer levelIndex={currentLevel} shellRadius={4.5} />
       </animated.group>
     </group>
   );

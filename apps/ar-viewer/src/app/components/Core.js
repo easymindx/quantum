@@ -38,7 +38,7 @@ const Experience = (props) => {
 
   const { groupScale, groupPosition } = useSpring({
     groupScale: [1, 1, 1],
-    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -50],
+    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -10],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
@@ -49,14 +49,14 @@ const Experience = (props) => {
   });
 
   const { shellScale, shellPosition } = useSpring({
-    shellScale: isGalleryMode ? [1, 1, 1] : [0.1, 0.1, 0.1],
-    shellPosition: isGalleryMode ? [0, 0, 0] : [0, 40, 0],
+    shellScale: isGalleryMode ? [1, 1, 1] : [1, 1, 1],
+    shellPosition: isGalleryMode ? [0, 0, 0] : [0, 0, 0],
     delay: isGalleryMode ? 500 : 0,
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
+    sparkScale: !isCaught ? [0.1, 0.1, 0.1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
@@ -69,10 +69,10 @@ const Experience = (props) => {
       >
         {activeQuasar && (
           <>
-            <animated.group scale={quasarScale} position={[0, 0, 0]}>
-              <PresentationControls
+            <animated.group scale={quasarScale}>
+              {/* <PresentationControls
                 enabled={true}
-                global={true}
+                global={false}
                 cursor={true}
                 snap={true}
                 speed={2}
@@ -80,19 +80,22 @@ const Experience = (props) => {
                 rotation={[0, 0, 0]}
                 polar={[0, Math.PI / 2]}
                 azimuth={[-Infinity, Infinity]}
-                config={{ mass: 1, tension: 170, friction: 26 }}
+                config={{ mass: 1, tension: 170, friction: 15 }}
               >
                 <Quasar />
-              </PresentationControls>
+              </PresentationControls> */}
             </animated.group>
             <animated.group visible={!isCaught} scale={sparkScale}>
               <SparkStorm count={150} colors={activeQuasar.palette} />
             </animated.group>
-            {isCaught && (
+            <animated.group scale={shellScale} position={shellPosition}>
+              <Shell />
+            </animated.group>
+            {/* {isCaught && (
               <animated.group scale={shellScale} position={shellPosition}>
                 <Shell />
               </animated.group>
-            )}
+            )} */}
           </>
         )}
       </animated.group>
