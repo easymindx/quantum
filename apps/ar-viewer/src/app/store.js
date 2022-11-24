@@ -10,7 +10,7 @@ const useStore = create((set) => ({
   isGalleryMode: false,
   activeQuasar: null,
   projectData: null,
-  selectedQuasar: 0, // simulates selection from offcanvas
+  selectedQuasar: 2, // simulates selection from offcanvas
   currentLevel: 0,
   itemDetails: null,
   setItemDetails: (itemDetails) => set({ itemDetails }),
