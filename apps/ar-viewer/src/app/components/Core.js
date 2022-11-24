@@ -100,7 +100,11 @@ const Experience = (props) => {
         )}
       </animated.group>
 
-      <hemisphereLight intensity={0.5} />
+      <>
+        {/* <directionalLight intensity={2} position={[5, 5, 4]} />
+        <directionalLight intensity={2} position={[-5, 5, 4]} /> */}
+        <hemisphereLight intensity={0.5} />
+      </>
     </>
   );
 };

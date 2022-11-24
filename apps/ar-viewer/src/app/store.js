@@ -1,7 +1,10 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
-  isDesktopMode: false,
+  isDesktopMode:
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ),
   projectId: '1',
   isCaught: false,
   isGalleryMode: false,

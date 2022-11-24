@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { memo, Suspense, useEffect, useState } from 'react';
+import React, { memo, Suspense, useLayoutEffect, useState } from 'react';
 
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
@@ -21,7 +21,7 @@ function Catcher() {
     width: window.innerWidth,
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setCanvasEl(document.getElementsByTagName('canvas')[0]);
   }, []);
 
@@ -34,7 +34,6 @@ function Catcher() {
         </>
       )}
       <Canvas
-        ref={canvasEl}
         gl={{ preserveDrawingBuffer: false }}
         style={{ height: dimensions.height, width: dimensions.width }}
         dpr={[1, 2]}
