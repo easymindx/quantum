@@ -4,6 +4,7 @@ import useStore from '../store';
 import Core from './Core';
 import * as THREE from 'three';
 import { disposeAll } from '../utils/disposeAll';
+import axios from 'axios';
 
 const Experience = ({ XR8 }) => {
   const { scene, camera } = XR8.Threejs.xrScene();
@@ -13,15 +14,16 @@ const Experience = ({ XR8 }) => {
   const setProjectData = useStore((state) => state.setProjectData);
   const selectedQuasar = useStore((state) => state.selectedQuasar);
 
-  console.log('Experience');
-
   useEffect(() => {
     console.log('Load remote data');
-    fetch(`https://api.npoint.io/${npointId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('data', data);
-        setProjectData(data, selectedQuasar);
+    axios
+      .get(`https://api.npoint.io/${npointId}`)
+      .then((response) => {
+        console.log(response.data);
+        setProjectData(response.data, selectedQuasar);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, [npointId, selectedQuasar, setProjectData]);
 
