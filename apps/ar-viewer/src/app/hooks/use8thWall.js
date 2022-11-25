@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import use8thWallScripts from './use8thWallScripts';
 
 export const use8thWall = (appKey, canvas) => {
-  const areScriptsReady = true;
+  const areScriptsReady = use8thWallScripts(appKey); // This is injecting the scripts twice and giving the console XR error
   const [XR8Object, setXR8Object] = useState(null);
   const [ThreeObject, setThreeObject] = useState(null);
 
@@ -40,10 +40,12 @@ export const use8thWall = (appKey, canvas) => {
             },
             onStart: ({ canvas }) => {
               const { renderer, camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
-              renderer.outputEncoding = THREE.sRGBEncoding;
+              // renderer.outputEncoding = THREE.sRGBEncoding;
 
-              // canvas.addEventListener('touchstart', (event) => {
-              //   alert('touch');
+              // canvas.addEventListener('touchstart', (e) => {
+              //   if (e.touches.length === 2) {
+              //     XR8.XrController.recenter();
+              //   }
               // });
 
               // Sync the xr controller's 6DoF position and camera paremeters with our scene.

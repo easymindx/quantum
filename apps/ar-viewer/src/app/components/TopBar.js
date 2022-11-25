@@ -19,10 +19,9 @@ const OffcanvasExample = () => {
   const setActiveQuasar = useStore((state) => state.setActiveQuasar);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
-  const setProjectId = useStore((state) => state.setProjectId);
   const npointId = useStore((state) => state.npointId);
   const setNpointId = useStore((state) => state.setNpointId);
-  const [project, setProject] = useState('1');
+  const [projectCode, setProjectCode] = useState('1');
   const offCanvasRef = useRef();
 
   const closeOffCanvas = () => offCanvasRef?.current?.backdrop?.click();
@@ -69,27 +68,7 @@ const OffcanvasExample = () => {
             <Offcanvas.Body className="d-flex flex-column ">
               <Row>
                 <Col>
-                  <InputGroup className="mb-3">
-                    <Form.Control
-                      placeholder={npointId}
-                      aria-label="Project ID"
-                      aria-describedby="basic-addon2"
-                      onChange={(e) => setProject(e.target.value)}
-                      className="bg-white text-dark border-white"
-                    />
-                    <Button
-                      className="load-button"
-                      variant="primary"
-                      onClick={() => setProjectId(project)}
-                    >
-                      Load
-                    </Button>
-                  </InputGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <h2 className="h5 text-white">Nearby Quasars</h2>
+                  <h2 className="h5 text-white mb-0">Nearby Quasars</h2>
                   <hr className="border-white" />
                 </Col>
               </Row>
@@ -105,7 +84,7 @@ const OffcanvasExample = () => {
                       <Card.Img
                         className={
                           activeQuasar?.id === quasar.id
-                            ? 'bg-white'
+                            ? 'bg-dark'
                             : 'bg-black'
                         }
                         onClick={() => {
@@ -119,8 +98,40 @@ const OffcanvasExample = () => {
                 ))}
               </Row>
 
+              <Row>
+                <Col>
+                  <hr className="border-white" />
+                  <h2 className="h5 text-white">Project loader</h2>
+                  <p className="text-white mb-2">
+                    If you know the secret code to another Quasars sighting then
+                    enter it here:
+                  </p>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      aria-label="Project ID"
+                      aria-describedby="basic-addon2"
+                      onChange={(e) => setProjectCode(e.target.value)}
+                      className="bg-black text-white border-dark"
+                      defaultValue={npointId}
+                    />
+                    <Button
+                      className="load-button"
+                      variant="primary"
+                      onClick={() => setNpointId(projectCode)}
+                    >
+                      Load
+                    </Button>
+                  </InputGroup>
+                </Col>
+              </Row>
+
               <Nav className="justify-content-end flex-grow-1 pe-3 ">
-                <h2 className="h5 text-white">Vital Resources</h2>
+                <h2 className="h5 text-white mb-0">Vital Resources</h2>
                 <hr className="border-white" />
                 <Nav.Link
                   className="text-white"
