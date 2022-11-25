@@ -63,7 +63,6 @@ function Catcher() {
         )}
         <Preload all />
         <AdaptiveDpr pixelated />
-        <Stats className="stats" showPanel={0} />
       </Canvas>
     </FadeIn>
   );

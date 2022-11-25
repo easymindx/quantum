@@ -37,7 +37,10 @@ const useStore = create((set) => ({
   setCurrentLevel: (currentLevel) =>
     set((state) => ({ currentLevel: Number(currentLevel) })),
   setSelectedQuasar: (selectedQuasar) =>
-    set((state) => ({ selectedQuasar: Number(selectedQuasar) })),
+    set((state) => ({
+      selectedQuasar: Number(selectedQuasar),
+      activeQuasar: null,
+    })),
   setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
   setNpointId: (npointId) => set({ npointId }),
 }));

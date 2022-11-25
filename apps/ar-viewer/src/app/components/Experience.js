@@ -17,7 +17,9 @@ const Experience = ({ XR8 }) => {
     console.log('Load remote data');
     fetch(`https://api.npoint.io/${npointId}`)
       .then((response) => response.json())
+
       .then((data) => {
+        console.log('data', data);
         setProjectData(data, selectedQuasar);
       });
   }, [npointId, selectedQuasar, setProjectData]);
@@ -52,4 +54,4 @@ const Experience = ({ XR8 }) => {
   );
 };
 
-export default memo(Experience);
+export default Experience;
