@@ -4,7 +4,7 @@ import Quasar from './Quasar';
 import Shell from './Shell';
 import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
-import { extend } from '@react-three/fiber';
+import { extend, useFrame } from '@react-three/fiber';
 import { PresentationControls } from '@react-three/drei';
 import { SparkStorm } from './Sparks/SparkStorm';
 
@@ -20,13 +20,9 @@ const Experience = (props) => {
 
   const groupYPos = isDesktopMode ? 1.5 : 2;
 
-  const { groupScale, groupPosition } = useSpring({
+  const { groupScale, groupPosition, shellScale, shellPosition } = useSpring({
     groupScale: [1, 1, 1],
     groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -5],
-    config: { mass: 1, tension: 200, friction: 20 },
-  });
-
-  const { shellScale, shellPosition } = useSpring({
     shellScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
     shellPosition: isGalleryMode ? [0, 0, 0] : [0, -10, 0],
     config: { mass: 1, tension: 200, friction: 20 },
@@ -61,7 +57,7 @@ const Experience = (props) => {
         <Quasar />
       </PresentationControls>
       <animated.group visible={!isCaught} scale={sparkScale}>
-        <SparkStorm count={150} colors={palette} />
+        <SparkStorm count={100} colors={palette} />
       </animated.group>
       <animated.group scale={shellScale} position={shellPosition}>
         <Shell />

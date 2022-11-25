@@ -119,7 +119,13 @@ const GalleryAsset = ({
 
   const { position, rotation } = useSpring({
     position: isClicked ? activePosition : initialPosition,
-    rotation: initialRotation,
+    rotation: isClicked
+      ? [
+          initialRotation[0],
+          initialRotation[1] + Math.PI * 2,
+          initialRotation[2],
+        ]
+      : initialRotation,
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
