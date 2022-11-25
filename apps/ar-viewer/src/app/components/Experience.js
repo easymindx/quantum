@@ -13,11 +13,12 @@ const Experience = ({ XR8 }) => {
   const setProjectData = useStore((state) => state.setProjectData);
   const selectedQuasar = useStore((state) => state.selectedQuasar);
 
+  console.log('Experience');
+
   useEffect(() => {
     console.log('Load remote data');
     fetch(`https://api.npoint.io/${npointId}`)
       .then((response) => response.json())
-
       .then((data) => {
         console.log('data', data);
         setProjectData(data, selectedQuasar);

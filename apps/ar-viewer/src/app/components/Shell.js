@@ -89,8 +89,8 @@ const Shell = () => {
     transparent: true,
     opacity: 1,
     thickness: 3,
-    roughness: 0.6,
-    clearcoat: 0.9,
+    roughness: 0.7,
+    clearcoat: 0.8,
     clearcoatRoughness: 0.3,
     transmission: 1,
     ior: 1.4,
@@ -128,7 +128,7 @@ const Shell = () => {
       </mesh>
 
       <animated.group {...spring}>
-        <Layer levelIndex={currentLevel} shellRadius={4.5} />
+        <Layer levelIndex={currentLevel} shellRadius={4} />
       </animated.group>
     </group>
   );
