@@ -93,7 +93,7 @@ const Shell = () => {
     clearcoat: 0.9,
     clearcoatRoughness: 0.3,
     transmission: 1,
-    ior: 1.9,
+    ior: 1.4,
     envMapIntensity: 10,
     attenuationDistance: 5,
   };

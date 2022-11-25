@@ -7,8 +7,8 @@ const useStore = create((set) => ({
     ),
   npointId: '830360b5f6a82edd4912', // points to the npoint document
   projectId: '1',
-  isCaught: false,
-  isGalleryMode: false,
+  isCaught: null,
+  isGalleryMode: null,
   activeQuasar: null,
   projectData: null,
   selectedQuasar: 0, // simulates selection from offcanvas
@@ -19,20 +19,16 @@ const useStore = create((set) => ({
     set({
       projectData: project,
       activeQuasar: project.quasars[selectedQuasar],
+      isGalleryMode: false,
+      isCaught: false,
+      currentLevel: 0,
+      itemDetails: null,
     }),
   setProjectId: (id) => set({ projectId: id }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
   enterGalleryMode: () => set((state) => ({ isGalleryMode: true })),
   exitGalleryMode: () => set((state) => ({ isGalleryMode: false })),
-  setActiveQuasar: (quasar) =>
-    set((state) => ({
-      activeQuasar: quasar,
-      isGalleryMode: false,
-      isCaught: false,
-      currentLevel: 0,
-      itemDetails: null,
-    })),
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),
   setCurrentLevel: (currentLevel) =>
     set((state) => ({ currentLevel: Number(currentLevel) })),
