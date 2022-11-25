@@ -31,6 +31,7 @@ const GalleryAsset = ({
   const setItemDetails = useStore((state) => state.setItemDetails);
   const itemDetails = useStore((state) => state.itemDetails);
   const video = type === 'video' ? document.createElement('video') : false;
+
   const [videoEl, setVideoEl] = useState();
   const [isClicked, setIsClicked] = useState(false);
   const [imageDims, setImageDims] = useState({
@@ -140,7 +141,7 @@ const GalleryAsset = ({
       onClick={() => _handleClick()}
     >
       <mesh position={[0, 0, 0]} scale={1.2}>
-        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <planeGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
           attach="material"
           color={outerFrameColor}
@@ -150,7 +151,7 @@ const GalleryAsset = ({
         />
       </mesh>
       <mesh position={[0, 0, 0.01]} scale={1.1}>
-        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <planeGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
           attach="material"
           color={innerFrameColor}
@@ -161,7 +162,7 @@ const GalleryAsset = ({
       </mesh>
 
       <mesh ref={assetMeshRef} position={[0, 0, 0.02]} rotation={[0, 0, 0]}>
-        <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <planeGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial
           side={THREE.FrontSide}
           attach="material"

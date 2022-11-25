@@ -1,6 +1,6 @@
-@import '~bootswatch/dist/quartz/variables';
+@import './assets/styles/variables';
 @import '~bootstrap/scss/bootstrap';
-@import '~bootswatch/dist/quartz/bootswatch';
+@import './assets/styles/_bootswatch';
 
 html,
 body,
@@ -46,7 +46,7 @@ nav {
 }
 
 .actionsheet {
-  background: #000;
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -54,8 +54,12 @@ nav {
   width: 100%;
   z-index: 1000;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem 1rem;
   text-align: center;
+  p {
+    line-height: 1.3rem;
+    font-size: 0.75rem;
+  }
 }
 
 .home-wrapper {

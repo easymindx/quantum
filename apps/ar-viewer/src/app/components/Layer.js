@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo, memo, useEffect, useState } from 'react';
 import GalleryAsset from './GalleryAsset';
 import useStore from '../store';
-import { calculatePositions } from '../utils/math';
+import { calculatePositions } from '../utils/calculatePositions';
 
 const Layer = ({ levelIndex, shellRadius }) => {
   const activeQuasar = useStore((state) => state.activeQuasar);
@@ -11,7 +11,7 @@ const Layer = ({ levelIndex, shellRadius }) => {
     return activeQuasar.gallery.map((item, index) => {
       return calculatePositions(item.assets, shellRadius);
     });
-  }, [activeQuasar]);
+  }, [activeQuasar.gallery, shellRadius]);
 
   const assetGallery = calculatedGalleryLayout[levelIndex];
 

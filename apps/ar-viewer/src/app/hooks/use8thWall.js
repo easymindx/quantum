@@ -23,16 +23,14 @@ export const use8thWall = (appKey, canvas) => {
             XR8.GlTextureRenderer.pipelineModule(),
             XR8.Threejs.pipelineModule(),
             XR8.XrController.pipelineModule(),
-            XRExtras.AlmostThere.pipelineModule(),
-            XRExtras.Loading.pipelineModule(),
-            XRExtras.RuntimeError.pipelineModule(),
+            XR8.CanvasScreenshot.pipelineModule(),
+            XRExtras.AlmostThere.pipelineModule(), // Detects unsupported browsers and gives hints.
+            XRExtras.Loading.pipelineModule(), // Manages the loading screen on startup.
+            XRExtras.RuntimeError.pipelineModule(), // Shows an error image on runtime error.
           ]);
 
           XR8.addCameraPipelineModule({
             name: 'quasars',
-            onerror: (err) => {
-              console.error('AR init error', err);
-            },
             onAttach: () => {
               setXR8Object(XR8);
               setThreeObject({
@@ -43,10 +41,6 @@ export const use8thWall = (appKey, canvas) => {
             onStart: ({ canvas }) => {
               const { renderer, camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
               renderer.outputEncoding = THREE.sRGBEncoding;
-
-              // canvas.addEventListener('click', (event) => {
-              //   alert('click');
-              // });
 
               // canvas.addEventListener('touchstart', (event) => {
               //   alert('touch');
