@@ -117,7 +117,6 @@ const OffcanvasExample = () => {
                       aria-describedby="basic-addon2"
                       onChange={(e) => setProjectCode(e.target.value)}
                       className="bg-black text-white border-dark"
-                      defaultValue={npointId}
                     />
                     <Button
                       className="load-button"
