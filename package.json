@@ -19,6 +19,7 @@
     "@react-three/postprocessing": "2.0.5",
     "@use-gesture/react": "^10.2.21",
     "actionsheet-react": "^1.0.14",
+    "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
     "bootswatch": "^5.2.2",
     "canvas-sketch-util": "^1.10.0",

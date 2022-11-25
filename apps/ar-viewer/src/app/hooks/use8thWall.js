@@ -39,7 +39,6 @@ export const use8thWall = (appKey, canvas) => {
               });
             },
             onStart: ({ canvas }) => {
-              console.log('Started');
               const { renderer, camera } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
               // renderer.outputEncoding = THREE.sRGBEncoding;
 
