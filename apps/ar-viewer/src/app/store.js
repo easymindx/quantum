@@ -35,7 +35,7 @@ const useStore = create((set) => ({
   setSelectedQuasar: (selectedQuasar) =>
     set((state) => ({
       selectedQuasar: Number(selectedQuasar),
-      activeQuasar: null,
+      projectData: null,
     })),
   setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
   setNpointId: (npointId) => set({ npointId }),
