@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import use8thWallScripts from './use8thWallScripts';
 
 export const use8thWall = (appKey, canvas) => {
-  const areScriptsReady = use8thWallScripts(appKey); // This is injecting the scripts twice and giving the console XR error
+  const areScriptsReady = true; // use8thWallScripts(appKey); // This is injecting the scripts twice and giving the console XR error
   const [XR8Object, setXR8Object] = useState(null);
   const [ThreeObject, setThreeObject] = useState(null);
 
