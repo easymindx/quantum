@@ -79,7 +79,7 @@ const GalleryAsset = ({
     };
 
     setTexture(texture());
-  }, [id]);
+  }, [id, type, url]);
 
   const _handleClick = () => {
     if (videoEl) {
