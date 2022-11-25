@@ -1,8 +1,8 @@
 import { memo, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/three';
-import Quasar from './Quasar.js';
-import Shell from './Shell.js';
-import useStore from '../store.js';
+import Quasar from './Quasar';
+import Shell from './Shell';
+import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
 import { PresentationControls } from '@react-three/drei';
@@ -40,7 +40,12 @@ const Experience = (props) => {
   const { palette } = activeQuasar;
 
   return (
-    <animated.group ref={groupRef} position={groupPosition} scale={groupScale}>
+    <animated.group
+      ref={groupRef}
+      position={groupPosition}
+      scale={groupScale}
+      className="quasar"
+    >
       <PresentationControls
         enabled={true}
         global={false}

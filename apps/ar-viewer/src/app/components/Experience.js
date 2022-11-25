@@ -32,7 +32,7 @@ const Experience = ({ XR8 }) => {
       // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
       // Add a point light from the camera
-      const light = new THREE.PointLight(0xffffff, 0.5, 100);
+      const light = new THREE.PointLight(0xffffff, 0.3, 100);
       light.position.set(0, 1, 0);
       camera.add(light);
       camera.position.y = 2.5;
@@ -47,7 +47,7 @@ const Experience = ({ XR8 }) => {
   return (
     <group ref={appRef}>
       {activeQuasar && <Core />}
-      <hemisphereLight intensity={0.5} />
+      <hemisphereLight intensity={1} />
     </group>
   );
 };

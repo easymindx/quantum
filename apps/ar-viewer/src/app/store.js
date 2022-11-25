@@ -11,7 +11,7 @@ const useStore = create((set) => ({
   isGalleryMode: false,
   activeQuasar: null,
   projectData: null,
-  selectedQuasar: 2, // simulates selection from offcanvas
+  selectedQuasar: 0, // simulates selection from offcanvas
   currentLevel: 0,
   itemDetails: null,
   setItemDetails: (itemDetails) => set({ itemDetails }),
@@ -28,9 +28,10 @@ const useStore = create((set) => ({
   setActiveQuasar: (quasar) =>
     set((state) => ({
       activeQuasar: quasar,
-      isGalleryMode: true,
-      isCaught: true,
+      isGalleryMode: false,
+      isCaught: false,
       currentLevel: 0,
+      itemDetails: null,
     })),
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),
   setCurrentLevel: (currentLevel) =>

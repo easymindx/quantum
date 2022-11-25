@@ -5,11 +5,11 @@ import useScript from './useScript';
 const use8thwallScripts = (appKey) => {
   const [isReady, setIsReady] = useState(false);
   const isScriptXrwebReady = useScript(
-    `//apps.8thwall.com/xrweb?appKey=${appKey}`
+    `https://apps.8thwall.com/xrweb?appKey=${appKey}`
   );
 
   const isScriptXrextrasReady = useScript(
-    '//cdn.8thwall.com/web/xrextras/xrextras.js'
+    'https://cdn.8thwall.com/web/xrextras/xrextras.js'
   );
 
   useEffect(() => {

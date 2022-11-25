@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-redundant-roles */
-import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import useStore from '../../store';
 
@@ -8,13 +6,10 @@ const QuasarController = ({ XR8 }) => {
   const isCaught = useStore((state) => state.isCaught);
   const releaseQuasar = useStore((state) => state.releaseQuasar);
   const exitGalleryMode = useStore((state) => state.exitGalleryMode);
-  const enterGalleryMode = useStore((state) => state.enterGalleryMode);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const currentLevel = useStore((state) => state.currentLevel);
   const setCurrentLevel = useStore((state) => state.setCurrentLevel);
   const activeQuasar = useStore((state) => state.activeQuasar);
-
-  // get the three camera
 
   const recenter = () => {
     if (isDesktopMode) return;
@@ -22,19 +17,17 @@ const QuasarController = ({ XR8 }) => {
     XR8.XrController.recenter();
   };
 
-  const leaveGallery = () => {
+  const handleRelease = () => {
     recenter();
     exitGalleryMode();
-  };
-
-  const handleRelease = () => {
-    leaveGallery();
-    releaseQuasar();
+    setTimeout(() => {
+      releaseQuasar();
+    }, 500);
   };
 
   return !isCaught ? (
     <div className="d-flex justify-content-center align-items-center action-bar">
-      {!isGalleryMode && <p className="mb-0 h6">Tap the Quasar!</p>}
+      {!isGalleryMode && <p className="mb-0 h6">Catch the Quasar!</p>}
     </div>
   ) : (
     <div className="d-flex justify-content-between align-items-center action-bar">
@@ -44,7 +37,7 @@ const QuasarController = ({ XR8 }) => {
         variant="outline-light"
         size="sm"
       >
-        Center
+        Fix Positioning
       </Button>
 
       <div className="d-flex align-items-center justify-content-center">
@@ -74,28 +67,16 @@ const QuasarController = ({ XR8 }) => {
             </Dropdown.Menu>
           </Dropdown>
         )}
-
-        {isCaught && (
-          <Button
-            onClick={() =>
-              isGalleryMode ? leaveGallery() : enterGalleryMode()
-            }
-            className="mx-1 "
-            size="sm"
-          >
-            {isGalleryMode ? 'Exit Gallery Mode' : 'Enter Gallery Mode'}
-          </Button>
-        )}
       </div>
 
       {isCaught && (
         <Button
           onClick={() => handleRelease()}
           className="mx-1"
-          variant="outline-light"
+          variant="primary"
           size="sm"
         >
-          Release
+          Release Quasar
         </Button>
       )}
     </div>

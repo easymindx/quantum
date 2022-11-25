@@ -43,7 +43,7 @@ const GalleryAsset = ({
   const groupRef = useRef();
   const assetMeshRef = useRef();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const texture = () => {
       if (type === 'video') {
         video.setAttribute('id', id);
@@ -78,8 +78,8 @@ const GalleryAsset = ({
       }
     };
 
-    setTexture(texture);
-  }, [id, type, url, video]);
+    setTexture(texture());
+  }, [id]);
 
   const _handleClick = () => {
     if (videoEl) {

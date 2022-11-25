@@ -1,43 +1,17 @@
 import { useSpring, animated } from '@react-spring/three';
-import {
-  CubeCamera,
-  MeshReflectorMaterial,
-  Sparkles,
-  useGLTF,
-} from '@react-three/drei';
 import React, { useRef, memo, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import Layer from './Layer';
 import { getHex } from 'pastel-color';
-// import clamp from 'lodash.clamp';
-// import { useDrag } from 'react-use-gesture';
 import { useFrame } from '@react-three/fiber';
 
 const Shell = () => {
   const groupRef = useRef();
   const topDome = useRef();
-  const shellRadius = 5;
 
-  const activeQuasar = useStore((state) => state.activeQuasar);
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
-  const { scene } = useGLTF(activeQuasar.modelSrc);
-
-  const quasar = scene;
-
-  useEffect(() => {
-    if (!topDome.current) return;
-    quasar.traverse((node) => {
-      if (node.isMesh) {
-        node.fulstrumCulled = false;
-        node.frustumCulled = false;
-        // if (node.name === 'QUASAR_SKIN_OUT_M_003') {
-        //   topDome.current.material = node.material;
-        // }
-      }
-    });
-  }, [activeQuasar, quasar]);
 
   const index = useRef(0);
 
@@ -46,7 +20,7 @@ const Shell = () => {
     scale: 1,
     rotation: [0, Math.PI, 0],
     config: { friction: 10 },
-    immediate: true,
+    immediate: false,
   }));
 
   // const bind = useDrag(
@@ -107,7 +81,7 @@ const Shell = () => {
 
   useFrame((state, delta) => {
     if (!isDesktopMode) return;
-    groupRef.current.rotation.y += delta * 0.15;
+    groupRef.current.rotation.y += delta * 0.075;
   });
 
   const meshMaterial = {
@@ -162,4 +136,4 @@ const Shell = () => {
 
 // https://codesandbox.io/s/jflps?file=/src/App.js:2700-2714
 
-export default memo(Shell);
+export default Shell;
