@@ -16,7 +16,7 @@ import { FaTwitterSquare, FaGlobe } from 'react-icons/fa';
 import { useRef, useState } from 'react';
 
 const OffcanvasExample = () => {
-  const setActiveQuasar = useStore((state) => state.setActiveQuasar);
+  const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
   const npointId = useStore((state) => state.npointId);
@@ -88,7 +88,7 @@ const OffcanvasExample = () => {
                             : 'bg-black'
                         }
                         onClick={() => {
-                          setActiveQuasar(quasar);
+                          setSelectedQuasar(index);
                           closeOffCanvas();
                         }}
                         src={quasar.imageSrc}
