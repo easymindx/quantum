@@ -1,42 +1,53 @@
 import { memo, useEffect, useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import useStore from '../store';
 import Core from './Core';
 import * as THREE from 'three';
+import { disposeAll } from '../utils/disposeAll';
 
 const Experience = ({ XR8 }) => {
   const { scene, camera } = XR8.Threejs.xrScene();
   const setDefaultCamera = useThree(({ set }) => set);
-  const isDesktopMode = useStore((state) => state.isDesktopMode);
+  const npointId = useStore((state) => state.npointId);
+  const activeQuasar = useStore((state) => state.activeQuasar);
+  const setProjectData = useStore((state) => state.setProjectData);
+  const selectedQuasar = useStore((state) => state.selectedQuasar);
+
+  useEffect(() => {
+    console.log('Load remote data');
+    fetch(`https://api.npoint.io/${npointId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProjectData(data, selectedQuasar);
+      });
+  }, [npointId, selectedQuasar, setProjectData]);
 
   const appRef = useRef();
 
-  // add our app to 8thWall's ThreeJS scene
   useEffect(() => {
-    if (scene) {
+    if (scene && activeQuasar && camera) {
+      console.log('Init Scene');
+      // Dispose of the previous scene when switching quasars
+      disposeAll(scene);
+      // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
-    }
-  }, [scene]);
-
-  // set 8thWall's ThreeJS camera as default camera of
-  // react-three-fiber
-  useEffect(() => {
-    if (camera) {
-      // add 3 point lights to the scene
+      // Add a point light from the camera
       const light = new THREE.PointLight(0xffffff, 0.5, 100);
       light.position.set(0, 1, 0);
       camera.add(light);
-      camera.position.y = 1;
+      camera.position.y = 2.5;
+      // Set the default camera to use ThreeJS's camera
       setDefaultCamera({
         camera,
         scene,
       });
     }
-  }, [camera]);
+  }, [scene, camera, activeQuasar, setDefaultCamera]);
 
   return (
-    <group ref={appRef} visible={true}>
-      <Core />
+    <group ref={appRef}>
+      {activeQuasar && <Core />}
+      <hemisphereLight intensity={0.5} />
     </group>
   );
 };

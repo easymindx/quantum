@@ -20,6 +20,8 @@ const OffcanvasExample = () => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
   const setProjectId = useStore((state) => state.setProjectId);
+  const npointId = useStore((state) => state.npointId);
+  const setNpointId = useStore((state) => state.setNpointId);
   const [project, setProject] = useState('1');
   const offCanvasRef = useRef();
 
@@ -69,7 +71,7 @@ const OffcanvasExample = () => {
                 <Col>
                   <InputGroup className="mb-3">
                     <Form.Control
-                      placeholder="Project ID"
+                      placeholder={npointId}
                       aria-label="Project ID"
                       aria-describedby="basic-addon2"
                       onChange={(e) => setProject(e.target.value)}
@@ -93,7 +95,7 @@ const OffcanvasExample = () => {
               </Row>
 
               <Row>
-                {projectData?.data?.map((quasar, index) => (
+                {projectData?.quasars?.map((quasar, index) => (
                   <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
                       style={{

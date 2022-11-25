@@ -1916,11 +1916,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@juggle/resize-observer@3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
-  integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
-
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -2590,7 +2585,7 @@
     utility-types "^3.10.0"
     zustand "^3.5.13"
 
-"@react-three/fiber@^8.9.1", "@react-three/fiber@latest":
+"@react-three/fiber@^8.9.1":
   version "8.9.1"
   resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-8.9.1.tgz#54e278148ae1c301a4b516936bfce0d9240a7292"
   integrity sha512-xRMO9RGp0DkxSFu5BmmkjCxJ4r0dEpLobtxXdZwI0h2rZZaCnkPM5zThRN8xaZNbZhzRSVICeNOFaZltr9xFyQ==
@@ -3751,39 +3746,6 @@
   dependencies:
     js-yaml "^3.10.0"
     tslib "^2.4.0"
-
-"@zappar/zappar-cv@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@zappar/zappar-cv/-/zappar-cv-2.0.0.tgz#4c7f44d04b9168e648c6995f81caf11f5d1df251"
-  integrity sha512-NM/NFLbHhIx0MWENfKX2AUC4qRf66wdODXyGJVaJLYOuJvV0A7mkkYihCC50dVUGYuxLQETJz5k1g+rhdCOPLQ==
-  dependencies:
-    gl-matrix "3.4.3"
-    ua-parser-js "0.7.30"
-
-"@zappar/zappar-react-three-fiber@^2.1.1":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@zappar/zappar-react-three-fiber/-/zappar-react-three-fiber-2.1.2.tgz#5a7d45e62aa8c2456de7d33449f8b1d359e2a526"
-  integrity sha512-60Mj+41BD9rWz8hiZK1iPk+R+OiOort3zhEWEZKBzFrw8IU8BKmxvBGf/Y73Lo1ucuoS5ouncvwmprjUvDsrug==
-  dependencies:
-    "@juggle/resize-observer" "3.3.1"
-    "@zappar/zappar-threejs" "^2.0.6"
-    react-merge-refs "1.1.0"
-    zustand "^4.1.1"
-
-"@zappar/zappar-threejs@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@zappar/zappar-threejs/-/zappar-threejs-2.0.6.tgz#8a0c6dc8e3418cd1e534513f3e9db19fc3184a6f"
-  integrity sha512-5M8wn2uPew5QnD4EB742gu3F5w+D8uIpgziWab4Ks9ZGMIIQiie+yOi/bfCkVlc6h5o27Sg+WC+EB43zIecDXQ==
-  dependencies:
-    "@zappar/zappar" "2.0.0"
-
-"@zappar/zappar@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@zappar/zappar/-/zappar-2.0.0.tgz#498fcc546368527edc54639a10b1f4aaaf88a5d5"
-  integrity sha512-FPfeor3TrEQLAR8sbZQOhTOChqsU5tKwoE2jj1T/O0AOIejDdUnSiaU8gEaXJDRp95ICi8B2BjS8QGWCUHoPxg==
-  dependencies:
-    "@zappar/zappar-cv" "2.0.0"
-    gl-matrix "3.4.3"
 
 "@zkochan/js-yaml@0.0.6":
   version "0.0.6"
@@ -7049,11 +7011,6 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-gl-matrix@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.4.3.tgz#fc1191e8320009fd4d20e9339595c6041ddc22c9"
-  integrity sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==
-
 glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -10026,6 +9983,11 @@ pascal-case@^3.1.2:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
+pastel-color@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/pastel-color/-/pastel-color-1.0.3.tgz#4a08364831439861e76a88a213c56f989452e5a2"
+  integrity sha512-VtKzbIgQUc+U0JBFcuNqcCPYfnPYZaf0VPpdqaRUaHYBwMTh3nT9ncq3gsQccqtmhlNdw1aNqZnefVvPE6dtmg==
+
 path-exists@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/path-exists/-/path-exists-3.0.0.tgz#ce0ebeaa5f78cb18925ea7d810d7b59b010fd515"
@@ -11084,7 +11046,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-merge-refs@1.1.0, react-merge-refs@^1.1.0:
+react-merge-refs@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
@@ -11225,13 +11187,6 @@ react-test-renderer@18.2.0:
     react-is "^18.2.0"
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
-
-react-three-fiber@^6.0.13:
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/react-three-fiber/-/react-three-fiber-6.0.13.tgz#6dbbc5d8d5fe94c49986e9c71024af7eaf68a441"
-  integrity sha512-uShQnkMVLvnzwf3YzY9mnzCnpmLpvTQkc0ycrtwk8fyjXmZt2695tLn3tufPF6uxq06UKJRKJcjCVCMXyUcEPQ==
-  dependencies:
-    "@react-three/fiber" latest
 
 react-transition-group@^4.4.2:
   version "4.4.5"
@@ -12819,11 +12774,6 @@ typescript@~4.8.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.4.tgz#c464abca159669597be5f96b8943500b238e60e6"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 
-ua-parser-js@0.7.30:
-  version "0.7.30"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.30.tgz#4cf5170e8b55ac553fe8b38df3a82f0669671f0b"
-  integrity sha512-uXEtSresNUlXQ1QL4/3dQORcGv7+J2ookOG2ybA/ga9+HYEXueT2o+8dUJQkpedsyTyCJ6jCCirRcKtdtx1kbg==
-
 unbox-primitive@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/unbox-primitive/-/unbox-primitive-1.0.2.tgz#29032021057d5e6cdbd08c5129c226dff8ed6f9e"
@@ -13735,7 +13685,7 @@ zustand@^3.5.13, zustand@^3.6.9, zustand@^3.7.1:
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.7.2.tgz#7b44c4f4a5bfd7a8296a3957b13e1c346f42514d"
   integrity sha512-PIJDIZKtokhof+9+60cpockVOq05sJzHCriyvaLBmEJixseQ1a5Kdov6fWZfWOu5SK9c+FhH1jU0tntLxRJYMA==
 
-zustand@^4.1.1, zustand@^4.1.3:
+zustand@^4.1.3:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.1.4.tgz#b0286da4cc9edd35e91c96414fa54bfa4652a54d"
   integrity sha512-k2jVOlWo8p4R83mQ+/uyB8ILPO2PCJOf+QVjcL+1PbMCk1w5OoPYpAIxy9zd93FSfmJqoH6lGdwzzjwqJIRU5A==

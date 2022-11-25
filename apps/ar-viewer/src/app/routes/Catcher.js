@@ -3,12 +3,14 @@ import React, { memo, Suspense, useLayoutEffect, useState } from 'react';
 
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
-
+import FadeIn from 'react-fade-in';
+import { Html, useProgress } from '@react-three/drei';
+import { CircleProgress } from 'react-gradient-progress';
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
 import use8thWall from '../hooks/use8thWall';
 import Experience from '../components/Experience';
-import { AdaptiveDpr, Preload } from '@react-three/drei';
+import { AdaptiveDpr, Preload, Stats } from '@react-three/drei';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
@@ -20,29 +22,50 @@ function Catcher() {
     width: window.innerWidth,
   };
 
+  const Loader = () => {
+    const { progress } = useProgress();
+    return (
+      <group position={[0, 1.5, -5]}>
+        <Html center>
+          <CircleProgress
+            percentage={Number(progress.toFixed())}
+            strokeWidth={10}
+          />
+        </Html>
+      </group>
+    );
+  };
+
   useLayoutEffect(() => {
     setCanvasEl(document.getElementsByTagName('canvas')[0]);
   }, []);
 
+  const { height, width } = dimensions;
+
   return (
-    <>
+    <FadeIn delay={250} transitionDuration={2000}>
       {XR8 && XR8.Threejs.xrScene() && (
         <>
           <TopBar />
           <ControlCenter />
         </>
       )}
+
       <Canvas
         gl={{ preserveDrawingBuffer: false }}
-        style={{ height: dimensions.height, width: dimensions.width }}
+        style={{ height: height, width: width }}
         dpr={[1, 2]}
       >
-        {XR8 && XR8.Threejs.xrScene() && <Experience XR8={XR8} />}
+        {XR8 && XR8.Threejs.xrScene() && (
+          <Suspense fallback={<Loader />}>
+            <Experience XR8={XR8} />
+          </Suspense>
+        )}
         <Preload all />
         <AdaptiveDpr pixelated />
-        {/* <Stats className="stats" showPanel={0} /> */}
+        <Stats className="stats" showPanel={0} />
       </Canvas>
-    </>
+    </FadeIn>
   );
 }
 

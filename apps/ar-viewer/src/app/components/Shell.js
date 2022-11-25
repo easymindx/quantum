@@ -9,6 +9,7 @@ import React, { useRef, memo, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import Layer from './Layer';
+import { getHex } from 'pastel-color';
 // import clamp from 'lodash.clamp';
 // import { useDrag } from 'react-use-gesture';
 import { useFrame } from '@react-three/fiber';
@@ -109,67 +110,46 @@ const Shell = () => {
     groupRef.current.rotation.y += delta * 0.15;
   });
 
+  const meshMaterial = {
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1,
+    thickness: 3,
+    roughness: 0.6,
+    clearcoat: 0.9,
+    clearcoatRoughness: 0.3,
+    transmission: 1,
+    ior: 1.9,
+    envMapIntensity: 10,
+    attenuationDistance: 5,
+  };
+
   return (
     <group ref={groupRef}>
       <mesh ref={topDome} position={[0, 1, 0]}>
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
-          side={THREE.DoubleSide}
-          transparent={true}
-          opacity={0.7}
-          thickness={3}
-          roughness={0.6}
-          clearcoat={0.9}
-          clearcoatRoughness={0.3}
-          transmission={1}
-          ior={1.9}
-          envMapIntensity={10}
-          attenuationDistance={5}
+          {...meshMaterial}
+          color={getHex()}
         />
       </mesh>
 
       <mesh rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        {/* <sphereGeometry
-          attach="geometry"
-          args={[5 - 0.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
-        /> */}
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
-          side={THREE.DoubleSide}
-          transparent={true}
-          opacity={0.7}
-          thickness={3}
-          roughness={0.6}
-          clearcoat={0.9}
-          clearcoatRoughness={0.3}
-          transmission={1}
-          ior={1.9}
-          envMapIntensity={10}
-          attenuationDistance={5}
+          {...meshMaterial}
+          color={getHex()}
         />
       </mesh>
 
       <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
-        {/* <sphereGeometry
-          attach="geometry"
-          args={[5 - 0.1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.7]}
-        /> */}
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
-          side={THREE.DoubleSide}
-          transparent={true}
-          opacity={0.7}
-          thickness={3}
-          roughness={0.6}
-          clearcoat={0.9}
-          clearcoatRoughness={0.3}
-          transmission={1}
-          ior={1.9}
-          envMapIntensity={10}
-          attenuationDistance={5}
+          {...meshMaterial}
+          color={getHex()}
         />
       </mesh>
 

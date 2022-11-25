@@ -5,6 +5,7 @@ const useStore = create((set) => ({
     !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     ),
+  npointId: '830360b5f6a82edd4912', // points to the npoint document
   projectId: '1',
   isCaught: false,
   isGalleryMode: false,
@@ -14,7 +15,11 @@ const useStore = create((set) => ({
   currentLevel: 0,
   itemDetails: null,
   setItemDetails: (itemDetails) => set({ itemDetails }),
-  setProjectData: (project) => set({ projectData: project }),
+  setProjectData: (project, selectedQuasar) =>
+    set({
+      projectData: project,
+      activeQuasar: project.quasars[selectedQuasar],
+    }),
   setProjectId: (id) => set({ projectId: id }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
@@ -23,8 +28,8 @@ const useStore = create((set) => ({
   setActiveQuasar: (quasar) =>
     set((state) => ({
       activeQuasar: quasar,
-      isGalleryMode: false,
-      isCaught: false,
+      isGalleryMode: true,
+      isCaught: true,
       currentLevel: 0,
     })),
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),
@@ -33,6 +38,7 @@ const useStore = create((set) => ({
   setSelectedQuasar: (selectedQuasar) =>
     set((state) => ({ selectedQuasar: Number(selectedQuasar) })),
   setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
+  setNpointId: (npointId) => set({ npointId }),
 }));
 
 export default useStore;
