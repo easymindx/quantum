@@ -1,7 +1,8 @@
 import create from 'zustand';
 
 const query = new URLSearchParams(window.location.search);
-const npointId = query.get('id') || '830360b5f6a82edd4912'; // points to the npoint document
+const npointId = query.get('projectId') || '830360b5f6a82edd4912'; // points to the npoint document
+const quasarId = query.get('quasarId') || 1;
 
 const useStore = create((set) => ({
   isDesktopMode:
@@ -13,7 +14,7 @@ const useStore = create((set) => ({
   isGalleryMode: null,
   activeQuasar: null,
   projectData: null,
-  selectedQuasar: 0, // simulates selection from offcanvas
+  selectedQuasar: quasarId - 1, // converting from 1-indexed to 0-indexed for usability
   currentLevel: 0,
   itemDetails: null,
   setItemDetails: (itemDetails) => set({ itemDetails }),
