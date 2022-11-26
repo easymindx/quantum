@@ -10,6 +10,7 @@ const Quasar = (props) => {
   const isCaught = useStore((state) => state.isCaught);
   const catchQuasar = useStore((state) => state.catchQuasar);
   const enterGalleryMode = useStore((state) => state.enterGalleryMode);
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   const { scene } = useGLTF(activeQuasar.modelSrc);
 
@@ -30,12 +31,19 @@ const Quasar = (props) => {
     });
   }, [isCaught, scene]);
 
+  const recenter = () => {
+    if (isDesktopMode) return;
+    const { XR8 } = window;
+    XR8.XrController.recenter();
+  };
+
   const handleTap = () => {
     if (!isCaught && !isGalleryMode) {
       catchQuasar();
       setTimeout(() => {
+        recenter();
         enterGalleryMode();
-      }, 100);
+      }, 250);
       return;
     }
   };
