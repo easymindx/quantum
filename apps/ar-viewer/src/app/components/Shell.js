@@ -87,15 +87,15 @@ const Shell = () => {
   const meshMaterial = {
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 1,
-    thickness: 3,
+    opacity: 0.8,
+    thickness: 5,
     roughness: 0.7,
     clearcoat: 0.8,
     clearcoatRoughness: 0.3,
-    transmission: 1,
-    ior: 1.4,
-    envMapIntensity: 10,
-    attenuationDistance: 5,
+    transmission: 0.7,
+    ior: 1.6,
+    envMapIntensity: 15,
+    attenuationDistance: 1,
   };
 
   return (
@@ -128,7 +128,7 @@ const Shell = () => {
       </mesh>
 
       <animated.group {...spring}>
-        <Layer levelIndex={currentLevel} shellRadius={4} />
+        <Layer levelIndex={currentLevel} shellRadius={4.25} />
       </animated.group>
     </group>
   );

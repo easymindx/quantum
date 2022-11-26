@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { extend, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import useStore from '../store';
 
 const Quasar = (props) => {
@@ -16,7 +16,6 @@ const Quasar = (props) => {
   useLayoutEffect(() => {
     scene.traverse((node) => {
       if (node.isMesh) {
-        //set sRGBEncoding to prevent banding
         node.castShadow = false;
         node.receiveShadow = false;
         node.fulstrumCulled = false;
@@ -36,7 +35,7 @@ const Quasar = (props) => {
       catchQuasar();
       setTimeout(() => {
         enterGalleryMode();
-      }, 500);
+      }, 100);
       return;
     }
   };

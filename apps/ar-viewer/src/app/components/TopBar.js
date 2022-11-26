@@ -19,7 +19,6 @@ const OffcanvasExample = () => {
   const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
-  const npointId = useStore((state) => state.npointId);
   const setNpointId = useStore((state) => state.setNpointId);
   const [projectCode, setProjectCode] = useState('1');
   const offCanvasRef = useRef();
@@ -100,7 +99,6 @@ const OffcanvasExample = () => {
 
               <Row>
                 <Col>
-                  <hr className="border-white" />
                   <h2 className="h5 text-white">Project loader</h2>
                   <p className="text-white mb-2">
                     If you know the secret code to another Quasars sighting then

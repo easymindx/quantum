@@ -29,7 +29,7 @@ const Experience = (props) => {
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: !isCaught ? [0.1, 0.1, 0.1] : [0, 0, 0],
+    sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 
