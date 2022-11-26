@@ -17,7 +17,7 @@ export const calculatePositions = (collection, radius, insetFactor = 2) => {
       externalLink: collection[i]?.externalLink || '',
       type: collection[i]?.type || 'image',
       activeX: (radius - insetFactor) * Math.sin(rotation),
-      activeY: 0.5,
+      activeY: 0.25,
       activeZ: (radius - insetFactor) * Math.cos(rotation),
     });
   }
