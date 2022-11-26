@@ -1,6 +1,12 @@
-@import './assets/styles/variables';
+@import '~bootswatch/dist/quartz/variables';
+
+$border-radius: 0.2rem !default;
+$border-radius-sm: 0.4rem !default;
+$border-radius-lg: 0.5rem !default;
+$border-radius-pill: 50rem !default;
+
 @import '~bootstrap/scss/bootstrap';
-@import './assets/styles/_bootswatch';
+@import '~bootswatch/dist/quartz/bootswatch';
 
 html,
 body,

@@ -24,7 +24,7 @@ const Layer = ({ levelIndex, shellRadius }) => {
 
   return (
     <group visible={!isHidden}>
-      {assetGallery.map((asset, index) => {
+      {assetGallery?.map((asset, index) => {
         return (
           <Fragment key={index}>
             <GalleryAsset

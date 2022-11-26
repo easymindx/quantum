@@ -24,7 +24,7 @@ function Catcher() {
 
   const Loader = () => {
     const { progress } = useProgress();
-    console.log('progress', progress);
+
     return (
       <group position={[0, 1.5, -5]}>
         <Html center>
@@ -44,7 +44,7 @@ function Catcher() {
   const { height, width } = dimensions;
 
   return (
-    <>
+    <FadeIn delay={250} transitionDuration={2000}>
       {XR8 && XR8.Threejs.xrScene() && (
         <>
           <TopBar />
@@ -65,7 +65,7 @@ function Catcher() {
         <Preload all />
         <AdaptiveDpr pixelated />
       </Canvas>
-    </>
+    </FadeIn>
   );
 }
 

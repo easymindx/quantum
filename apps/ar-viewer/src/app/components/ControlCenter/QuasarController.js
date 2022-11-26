@@ -22,7 +22,7 @@ const QuasarController = ({ XR8 }) => {
     exitGalleryMode();
     setTimeout(() => {
       releaseQuasar();
-    }, 500);
+    }, 100);
   };
 
   return !isCaught ? (

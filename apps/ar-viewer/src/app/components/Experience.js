@@ -19,7 +19,6 @@ const Experience = ({ XR8 }) => {
     axios
       .get(`https://api.npoint.io/${npointId}`)
       .then((response) => {
-        console.log(response.data);
         setProjectData(response.data, selectedQuasar);
       })
       .catch((error) => {
@@ -38,9 +37,9 @@ const Experience = ({ XR8 }) => {
       scene.add(appRef.current);
       // Add a point light from the camera
       const light = new THREE.PointLight(0xffffff, 0.3, 100);
-      light.position.set(0, 1, 0);
+      light.position.set(0, 0, 0);
       camera.add(light);
-      camera.position.y = 2.5;
+      camera.position.y = 2;
       // Set the default camera to use ThreeJS's camera
       setDefaultCamera({
         camera,
@@ -52,7 +51,7 @@ const Experience = ({ XR8 }) => {
   return (
     <group ref={appRef}>
       {activeQuasar && <Core />}
-      <hemisphereLight intensity={1} />
+      <ambientLight intensity={1} />
     </group>
   );
 };
