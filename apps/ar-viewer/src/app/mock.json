@@ -1,395 +1,227 @@
-[
-  {
-    "id": "1",
-    "projectName": "Quantum Art",
-    "projectLogo": "https://i.imgur.com/9ZQZ1Zu.png",
-    "website": "https://quantum.art",
-    "socials": {
-      "twitter": "quantumnft"
+{
+  "id": "2",
+  "projectName": "Coca Cola",
+  "website": "https://us.coca-cola.com/",
+  "socials": {
+    "twitter": "cocacola"
+  },
+  "quasars": [
+    {
+      "id": "coke1",
+      "name": "Quasar #1582",
+      "description": "A short descriptor of the asset.",
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00029.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00029.glb",
+      "geo": {
+        "lat": 52.3309932,
+        "lon": -1.2021426,
+        "alt": 0.0
+      },
+      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+      "gallery": [
+        {
+          "name": "Main",
+          "assets": [
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com",
+              "type": "video"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-07.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            }
+          ]
+        }
+      ]
     },
-    "data": [
-      {
-        "id": "Q001",
-        "name": "Quasar #1582",
-        "description": "A short descriptor of the asset.",
-        "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/brands/quantum/QUASAR_BATCH037_QUANTUM_FRAME00003.png",
-        "modelSrc": "../assets/quantum.glb",
-        "geo": {
-          "lat": 52.3309932,
-          "lon": -1.2021426,
-          "alt": 0.0
-        },
-        "palette": ["#FF8183", "#CCCCCC", "#EEEEEE", "#DCFA5C", "#f04438"],
-        "gallery": [
-          {
-            "name": "Main",
-            "assets": [
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/63732ff0144f66a77785baa0/63733082c1baf64fea881e8f.jpg",
-                "title": "Spiritually Fashionable",
-                "description": "Spiritually Fashionable brings the couture of Egúngún a fancifully masked figure at the heart of the traditional religion and culture of the Yorùbá people of West Africa into sharp relief in a way that is critical and innovative.",
-                "externalLink": "https://quantum.art/collection/spirituallyfashionable"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620c435d776546dd4fca181d/620e93a6924904bc1faa95c2.jpg",
-                "title": "Human Sculptures - Sanja Marušić",
-                "description": "My photographs are like a physical meditation, and the process of taking the picture is intuitively driven. I often let the landscape, sunlight or shadows, the clothes I’m wearing, or my feelings at that particular moment inspire me. In a way I try to become one with the scene.",
-                "externalLink": "https://quantum.art/collection/human-sculptures"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17308ce6e109e2062b408/61e1a39741ad7b72b6cf98ee.jpg",
-                "title": "Guadalupe - Amanda Lopez",
-                "description": "Guadalupe celebrates Mexico’s beloved patron saint, Our Lady of Guadalupe, while exploring the ways she has impacted my life.",
-                "externalLink": "https://quantum.art/collection/guadalupe"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620ed5ffe53d44b0aa16ab9a/6210309d1c5836e8ad377e36.jpg",
-                "title": "ICONS - Parker Day",
-                "description": "Parker Day's ICONS invites us to approach identity with a sense of play and malleability, and to recognize the forgotten parts of ourselves as we see them reflected in these color-saturated portraits.",
-                "externalLink": "https://quantum.art/collection/icons"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/632cc722932de6bbfd72c89e/632cc7d7932de6bbfd72c8e2.jpg",
-                "title": "Spectrum - Brian Vu",
-                "description": "Spectrum celebrates a community of innovative artists in New York City who present themselves in a new and unapologetic way. In an expanding world of hegemonic social media, Vu embraces the importance of capturing those who carve out their own unique space within it.",
-                "externalLink": "https://quantum.art/collection/spectrum"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/62a34688fd902541792f8a75/62a347ebfd902541792f8b8c.jpg",
-                "title": "LIMINAL SPACE - Arclight",
-                "description": "In LIMINAL SPACE, manipulated self-portraits and photographs of his brother take center stage in a series of digital paintings depicting the two young men involved in mundane activities. The surreal treatment of these banal scenes inject a palpable feeling of nostalgia.",
-                "externalLink": "https://quantum.art/collection/liminal-space"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e6ee1443b5e3d3fab01c5f/61e6ee4043b5e3d3fab01c70.jpg",
-                "title": "Growing Up Travelling - Jamie Johnson",
-                "description": "I have spent my entire career photographing children all over the world. The last several years I have focused my eyes on the Irish Traveller that live in caravans on the side of the road or in open fields throughout Ireland.",
-                "externalLink": "https://quantum.art/collection/growing-up-travelling"
-              },
-              {
-                "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17305ce6e109e2062b3e7/61e1812c2840864e7718274f.jpg",
-                "title": "Privileged Mediocrity - Kris Graves",
-                "description": "Privileged Mediocrity by Kris Graves examines systemic unfairness in the United States. Represented by Sasha Wolf Projects.",
-                "externalLink": "https://quantum.art/collection/privileged-mediocrity"
-              }
-            ]
-          }
-        ]
+    {
+      "id": "coke2",
+      "name": "Quasar #1582",
+      "description": "A short descriptor of the asset.",
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00133.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00133.glb",
+      "geo": {
+        "lat": 52.3309932,
+        "lon": -1.2021426,
+        "alt": 0.0
       },
-      {
-        "id": "CURIO001",
-        "project": "Curio Cards",
-        "name": "Quasar #1584",
-        "description": "A short descriptor of the asset.",
-        "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/quasar-app/QUASAR_BATCH006_FRAME1582.png",
-        "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/quasar-app/QUASAR_BATCH006-Frame_0001582.glb",
-        "geo": {
-          "lat": 52.3309932,
-          "lon": -1.2021426,
-          "alt": 0.0
-        },
-        "palette": [
-          "#fbe555",
-          "#fb9224",
-          "#f45905",
-          "#be8abf",
-          "#ffeed0",
-          "#feff89"
-        ],
-        "gallery": [
-          {
-            "name": "Set 1",
-            "assets": [
-              {
-                "url": "https://img.seadn.io/files/0d5a85aa56a5748e4435558bbd5a8516.jpg?auto=format&fit=max&w=384",
-                "title": "Apples",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/1"
-              },
-              {
-                "url": "https://img.seadn.io/files/6758ea31c5c29ac4d4b310897a5be0a8.jpg?auto=format&fit=max&w=384",
-                "title": "Nuts",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/2"
-              },
-              {
-                "url": "https://img.seadn.io/files/617dce18b41f497e5ab4eadfd4fcc277.jpg?auto=format&fit=max&w=384",
-                "title": "Berries",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/3"
-              },
-              {
-                "url": "https://img.seadn.io/files/5b2b548b446dbb85635d74d67c461fbf.jpg?auto=format&fit=max&w=384",
-                "title": "Clay",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/4"
-              },
-              {
-                "url": "https://img.seadn.io/files/4688bc23e640b62f437712625d374991.jpg?auto=format&fit=max&w=384",
-                "title": "Paint",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/5"
-              },
-              {
-                "url": "https://img.seadn.io/files/031808e997f3f29881329df31f4d39fc.jpg?auto=format&fit=max&w=384",
-                "title": "Ink",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/6"
-              },
-              {
-                "url": "https://img.seadn.io/files/fd69598dea6a6a759457a77fe1eacfcd.jpg?auto=format&fit=max&w=384",
-                "title": "Sculpture",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/7"
-              },
-              {
-                "url": "https://img.seadn.io/files/799d1c5833c85dd3a4c5ba9d8b9508bc.jpg?auto=format&fit=max&w=384",
-                "title": "Painting",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/8"
-              },
-              {
-                "url": "https://img.seadn.io/files/90314bd033f95fdf35d7ce032cbe7b42.jpg?auto=format&fit=max&w=384",
-                "title": "Book",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/9"
-              },
-              {
-                "url": "https://img.seadn.io/files/64860bd7d29269b49cbc878fcc0b6e38.jpg?auto=format&fit=max&w=384",
-                "title": "Future",
-                "description": "The first 10 cards exist as a collection, and tell a story that has since been forgotten, unless you can track it down.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/10"
-              }
-            ]
-          },
-          {
-            "name": "Set 2",
-            "assets": [
-              {
-                "url": "https://img.seadn.io/files/df499893ec620d20039af627bb373bef.jpg?auto=format&fit=max&w=384",
-                "title": "BTC Keys",
-                "description": "'I used to put these logos on neighborhood ATMs. Repurposing banking materials has remained a theme in my work. I like the idea of using soon-to-be extinct items to help spread the new cryptocurrency movement.' - Cryptograffiti",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/11"
-              },
-              {
-                "url": "https://img.seadn.io/files/ebc3d6e13bc3269d4d869ebbbba0dfa7.jpg?auto=format&fit=max&w=384",
-                "title": "Mine Bitcoin",
-                "description": "'I used to put these logos on neighborhood ATMs. Repurposing banking materials has remained a theme in my work. I like the idea of using soon-to-be extinct items to help spread the new cryptocurrency movement.' - Cryptograffiti",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/12"
-              },
-              {
-                "url": "https://img.seadn.io/files/40093de645df1dc12df52e67626fa7a9.jpg?auto=format&fit=max&w=384",
-                "title": "BTC",
-                "description": "'I used to put these logos on neighborhood ATMs. Repurposing banking materials has remained a theme in my work. I like the idea of using soon-to-be extinct items to help spread the new cryptocurrency movement.' - Cryptograffiti",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/13"
-              },
-              {
-                "url": "https://img.seadn.io/files/4ec07ee979bfcb0cbafdc299065b742e.jpg?auto=format&fit=max&w=384",
-                "title": "CryptoCurrency",
-                "description": "All proceeds from the initial sale of this card were donated to seansoutpost.com.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/14"
-              },
-              {
-                "url": "https://i.seadn.io/gae/9p3t94mYJqpNMJtzjg00SCh65lneXUsCPM1hBtwvgxlllD-eBCvF0xZeJ6qUAZhs4PJoWPjVwWi9MMm3dBp5_3D2ISRYewGMYZZH4Gk?auto=format&w=500",
-                "title": "DigitalCash",
-                "description": "All proceeds from the initial sale of this card were donated to seansoutpost.com.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/15"
-              },
-              {
-                "url": "https://i.seadn.io/gae/1GO-m0Ep1WyteUp0KIn-JGNIYMkeqtvTgIqfe-bGe5PXQFvM47KDgnQvBP5iJNAgAnZZ-EFPcpNAB3A2vn4E2mwzgvxNNxkbN3ZLOw?auto=format&w=500",
-                "title": "OriginalCoin",
-                "description": "All proceeds from the initial sale of this card were donated to seansoutpost.com.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/16"
-              },
-              {
-                "url": "https://i.seadn.io/gae/xh7uMeyYE-FFmGmmvScOBskSOaD5JKNznLHok8BUoJub4tt28k6ERs-cP9zoF42JaNPtwZgtlAxcwpGiBt5H7Xiw1pDCVD0XgUpqVYw?auto=format&w=384",
-                "title": "UASF",
-                "description": "UASF",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/17"
-              },
-              {
-                "url": "https://i.seadn.io/gae/Lh0xqO8Kldmaotwp7b6CYr_gy9IFgCCJIKq6sF2FB2yCIntX5MQCqNriRHEdZnXbttcGvfESkHdlfnlbif9J0pC_pmXGnxTbBHlg?auto=format&w=384",
-                "title": "To The Moon",
-                "description": "To The Moon",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/18"
-              },
-              {
-                "url": "https://i.seadn.io/gae/DL0PTFQJbFOv2mHBCIClI69b01cZSlWvN8SWXsLvkc0vWzhTm78W8z9jKmHZLqhk27i4dp2w_Mv-W3ag4qOiBCsRSzpgeouPNCu05Q?auto=format&w=384",
-                "title": "Dogs Trading",
-                "description": "Dogs Trading",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/19"
-              },
-              {
-                "url": "https://i.seadn.io/gae/rnGwnCS_Iuu431-Dn9TS3sKs3SijTdQyp3lkxxtWMgvKrsW_AAh_W3vs5uPNg4eFSfFSaaQxOw1fED6AMSyjH0XmeKltnSr-AU3-RX8?auto=format&w=384",
-                "title": "MadBitcoins",
-                "description": "The MadBitcoins trading card.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/20"
-              }
-            ]
-          },
-          {
-            "name": "Set 3",
-            "assets": [
-              {
-                "url": "https://img.seadn.io/files/a2133ccf79aa88711b0068f7b468d678.png?auto=format&fit=max&w=384",
+      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+      "gallery": [
+        {
+          "name": "Main",
+          "assets": [
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com",
+              "type": "video"
+            },
 
-                "title": "The Wizard",
-                "description": "Bears a striking resemblance to an ancient mad bitcoiner.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/21"
-              },
-              {
-                "url": "https://img.seadn.io/files/47e07e4c694f350c02be0c786125213f.png?auto=format&fit=max&w=384",
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
 
-                "title": "The Bard",
-                "description": "The Bard - A handsome, CEO looking songster.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/22"
-              },
-              {
-                "url": "https://curio.cards/static/23-7c997d503388a871898fd64963090233.gif",
-                "type": "gif",
-                "title": "The Barbarian",
-                "description": "Voted most likely to hack through solidity.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/23"
-              },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
 
-              {
-                "url": "https://img.seadn.io/files/ba66a2da263f3d60327f6d72dde1ed55.jpg?auto=format&fit=max&w=384",
-                "title": "Complexity",
-                "description": "Inspired by brains, ant colonies, and other complex systems, my art explores how global patterns arise via local relationships...",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/24"
-              },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-14.mp4",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com",
+              "type": "video"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
 
-              {
-                "url": "https://img.seadn.io/files/542f809c00649ca67c727034022a741c.jpg?auto=format&fit=max&w=384",
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coke3",
+      "name": "Quasar #1582",
+      "description": "A short descriptor of the asset.",
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00266.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00266.glb",
 
-                "title": "Passion",
-                "description": "Inspired by brains, ant colonies, and other complex systems, my art explores how global patterns arise via local relationships...",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/25"
-              },
-              {
-                "url": "https://img.seadn.io/files/3d1a929755d91e927ec381af41cd42d6.jpg?auto=format&fit=max&w=384",
-
-                "title": "Education",
-                "description": "Inspired by brains, ant colonies, and other complex systems, my art explores how global patterns arise via local relationships...",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/26"
-              },
-              {
-                "url": "https://img.seadn.io/files/17432f6d59fabb62051e19076b5f40fd.jpg?auto=format&fit=max&w=384",
-
-                "title": "Blue",
-                "description": "Blue",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/27"
-              },
-              {
-                "url": "https://img.seadn.io/files/e171d5a3a81a1dbe1410350288397266.jpg?auto=format&fit=max&w=384",
-                "title": "Cyber Brokers",
-                "description": "Pink",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://img.seadn.io/files/3d986b8120ac725a350227f7be01b826.jpg?auto=format&fit=max&w=384",
-                "title": "Yellow",
-                "description": "Yellow",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/29"
-              },
-              {
-                "url": "https://i.seadn.io/gae/_REGILZhmxcOLeq6V79T5J2iYGsAcr0cVraO6J397rtNKn25g23vDYIibjOMnR0LLSvcr7dKHOwh27OB9tI4UgxRVBAanMliXLF2?auto=format&w=500",
-                "title": "Eclipse",
-                "description": "North America watched a cosmic event together when an eclipse happened on 8/21. To commemorate this lining up with the release of the 30th card, a special edition animated Eclipse Card with a total amount of 821 cards was created by the anonymous artist Thoros of Myr.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/30"
-              }
-            ]
-          }
-        ]
+      "geo": {
+        "lat": 52.3309932,
+        "lon": -1.2021426,
+        "alt": 0.0
       },
-      {
-        "id": "1650",
-        "project": "Cyber Brokers",
-        "name": "Quasar #1650",
-        "description": "A short descriptor of the asset.",
-        "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/quasar-app/QUASAR_BATCH006_FRAME1650.png",
-        "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/quasar-app/QUASAR_BATCH006-Frame_0001650.glb",
-        "geo": {
-          "lat": 52.3309932,
-          "lon": -1.2021426,
-          "alt": 0.0
-        },
-        "palette": [
-          "#c06995",
-          "#de77c7",
-          "#df86df",
-          "#d998ee",
-          "#ceadf4",
-          "#c6bff9"
-        ],
-        "gallery": [
-          {
-            "name": "Set",
-            "assets": [
-              {
-                "url": "https://openseauserdata.com/files/18f6307701de62a395d4de72d71bc7d8.svg",
-                "title": "Cyber Brokers - Candy from Grawley",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/8b541622ac5024e87d24c9949ee6883c.svg",
-                "title": "Cyber Brokers - Zera from Tiny",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/45638a4b9a78e65b58b144200d9fc860.svg",
-                "title": "Cyber Brokers - Conth Delectable Siohina",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/07101b116f92e6f86d1533f91d0540a3.svg",
-                "title": "Cyber Brokers - Jade Villanueva",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/29f9146ed98e6301593dc1660861ee1c.svg",
-                "title": "Cyber Brokers - Nyx Conductive",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/4ed39e40723a2440d810472414f22781.svg",
-                "title": "Cyber Brokers - Flounder Corwin",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/d6130f6487a6d5175c7bda6c0f614bb8.svg",
-                "title": "Cyber Brokers - Zoya Banging",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/3d11d841fc151bc6b774c16e9aff60da.svg",
-                "title": "Cyber Brokers - Pulp Ryen",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/e183b4e447ef8e6c2b2d7814ebf9f46b.svg",
-                "title": "Cyber Brokers - Skull from Sparks",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              },
-              {
-                "url": "https://openseauserdata.com/files/65645f975622abd1306d5bb5a968a8c8.svg",
-                "title": "Cyber Brokers - Scenery Fibersmith",
-                "description": "CyberBrokers is a first-of-its-kind art collectibles ecosystem centered around 10,001 unique and on-chain CyberBroker NFTs.",
-                "externalLink": "https://opensea.io/assets/ethereum/0x73da73ef3a6982109c4d5bdb0db9dd3e3783f313/28"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+      "gallery": [
+        {
+          "name": "Main",
+          "assets": [
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com",
+              "type": "video"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-07.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            },
+            {
+              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
+              "title": "Some title",
+              "description": "A little description here",
+              "externalLink": "https://www.coca-cola.com"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

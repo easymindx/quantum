@@ -2,12 +2,11 @@ import { memo, useEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import useStore from '../store';
 import Core from './Core';
-import * as THREE from 'three';
 import { disposeAll } from '../utils/disposeAll';
 import axios from 'axios';
 
 const Experience = ({ XR8 }) => {
-  const { scene, camera } = XR8.Threejs.xrScene();
+  const { renderer, scene, camera } = XR8.Threejs.xrScene();
   const setDefaultCamera = useThree(({ set }) => set);
   const npointId = useStore((state) => state.npointId);
   const activeQuasar = useStore((state) => state.activeQuasar);
@@ -16,6 +15,9 @@ const Experience = ({ XR8 }) => {
 
   useEffect(() => {
     console.log('Load remote data');
+    // not sure if this is fully clearing the scene
+    disposeAll(scene);
+    renderer.renderLists.dispose();
     axios
       .get(`https://api.npoint.io/${npointId}`)
       .then((response) => {
@@ -31,15 +33,9 @@ const Experience = ({ XR8 }) => {
   useEffect(() => {
     if (scene && activeQuasar && camera) {
       console.log('Init Scene');
-      // Dispose of the previous scene when switching quasars
-      disposeAll(scene);
       // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
-      // Add a point light from the camera
-      const light = new THREE.PointLight(0xffffff, 0.3, 100);
-      light.position.set(0, 0, 0);
-      camera.add(light);
-      camera.position.y = 2;
+      camera.position.y = 1.8;
       // Set the default camera to use ThreeJS's camera
       setDefaultCamera({
         camera,
@@ -48,12 +44,7 @@ const Experience = ({ XR8 }) => {
     }
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
-  return (
-    <group ref={appRef}>
-      {activeQuasar && <Core />}
-      <ambientLight intensity={1} />
-    </group>
-  );
+  return <group ref={appRef}>{activeQuasar && <Core />}</group>;
 };
 
 export default Experience;

@@ -20,6 +20,7 @@ const OffcanvasExample = () => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
   const setNpointId = useStore((state) => state.setNpointId);
+  const npointId = useStore((state) => state.npointId);
   const [projectCode, setProjectCode] = useState('1');
   const offCanvasRef = useRef();
 
@@ -39,7 +40,7 @@ const OffcanvasExample = () => {
         <Container fluid>
           <Navbar.Brand href="#">
             <img
-              src="https://storage.googleapis.com/assets.quasarsofficial.com/demo/logo.webp"
+              src="../assets/logo.webp"
               alt="logo"
               width="160"
               className="d-inline-block align-top "
@@ -61,13 +62,13 @@ const OffcanvasExample = () => {
               }}
             >
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                Control Center
+                {projectData?.projectName || 'Control Center'}
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className="d-flex flex-column ">
               <Row>
                 <Col>
-                  <h2 className="h5 text-white mb-0">Nearby Quasars</h2>
+                  <h2 className="h6 text-white mb-0">Nearby Quasars</h2>
                   <hr className="border-white" />
                 </Col>
               </Row>
@@ -77,7 +78,11 @@ const OffcanvasExample = () => {
                   <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
                       style={{
-                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
+                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.25,
+                        border:
+                          activeQuasar?.id === quasar.id
+                            ? '2px solid #5a5a5a'
+                            : 'none',
                       }}
                     >
                       <Card.Img
@@ -99,8 +104,9 @@ const OffcanvasExample = () => {
 
               <Row>
                 <Col>
-                  <h2 className="h5 text-white">Project loader</h2>
-                  <p className="text-white mb-2">
+                  <h2 className="h6 text-white">Project loader</h2>
+                  <hr className="border-white" />
+                  <p className="text-white mb-2 small">
                     If you know the secret code to another Quasars sighting then
                     enter it here:
                   </p>
@@ -119,7 +125,10 @@ const OffcanvasExample = () => {
                     <Button
                       className="load-button"
                       variant="primary"
-                      onClick={() => setNpointId(projectCode)}
+                      onClick={() => {
+                        closeOffCanvas();
+                        setNpointId(projectCode);
+                      }}
                     >
                       Load
                     </Button>
@@ -127,8 +136,37 @@ const OffcanvasExample = () => {
                 </Col>
               </Row>
 
+              <Row>
+                <Col>
+                  <p className="text-white mb-2 small">
+                    Or check out one of these galleries:
+                  </p>
+                  {npointId !== '830360b5f6a82edd4912' ? ( // A quick hack .. running out of time for demo :)
+                    <p>
+                      <a href={`https://quasars.app?id=830360b5f6a82edd4912`}>
+                        Quantum Art
+                      </a>
+                    </p>
+                  ) : null}
+                  {npointId !== '9c2bfdfd376f473d072c' ? (
+                    <p>
+                      <a href={`https://quasars.app?id=9c2bfdfd376f473d072c`}>
+                        Curio Cards Full Set
+                      </a>
+                    </p>
+                  ) : null}
+                  {npointId !== '4d7719691b367df71b54' ? (
+                    <p>
+                      <a href={`https://quasars.app?id=4d7719691b367df71b54`}>
+                        Alexx Shadow's Cyber Brokers
+                      </a>
+                    </p>
+                  ) : null}
+                </Col>
+              </Row>
+
               <Nav className="justify-content-end flex-grow-1 pe-3 ">
-                <h2 className="h5 text-white mb-0">Vital Resources</h2>
+                <h2 className="h6 text-white mb-0">Vital Resources</h2>
                 <hr className="border-white" />
                 <Nav.Link
                   className="text-white"
@@ -136,10 +174,11 @@ const OffcanvasExample = () => {
                   // href={`https://twitter.com/${projectData?.socials?.twitter}`}
                   href={`https://twitter.com/quasarsofficial`}
                 >
-                  <FaTwitterSquare
-                    size={'1.5rem'}
+                  <img
+                    alt="twitter"
+                    src="../assets/twitter.png"
+                    width="25px"
                     className="me-2"
-                    color="#1DA1F2"
                   />
                   {/* Follow Us @{projectData?.socials?.twitter} */}
                   Follow Us @QuasarsOfficial
@@ -150,7 +189,7 @@ const OffcanvasExample = () => {
                   // href={projectData?.website}
                   href={'http://quasarsofficial.com'}
                 >
-                  <FaGlobe size={'1.5rem'} className="me-2" color="#2b2b2b" />
+                  <FaGlobe size={'1.5rem'} className="me-2" color="#fff" />
                   {/* Visit {projectData?.projectName} */}
                   Visit QuasarsOfficial.com
                 </Nav.Link>
