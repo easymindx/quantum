@@ -143,21 +143,27 @@ const OffcanvasExample = () => {
                   </p>
                   {npointId !== '830360b5f6a82edd4912' ? ( // A quick hack .. running out of time for demo :)
                     <p>
-                      <a href={`https://quasars.app?id=830360b5f6a82edd4912`}>
+                      <a
+                        href={`https://quasars.app?projectId=830360b5f6a82edd4912&quasarId=1`}
+                      >
                         Quantum Art
                       </a>
                     </p>
                   ) : null}
                   {npointId !== '9c2bfdfd376f473d072c' ? (
                     <p>
-                      <a href={`https://quasars.app?id=9c2bfdfd376f473d072c`}>
+                      <a
+                        href={`https://quasars.app?projectId=9c2bfdfd376f473d072c&quasarId=1`}
+                      >
                         Curio Cards Full Set
                       </a>
                     </p>
                   ) : null}
                   {npointId !== '4d7719691b367df71b54' ? (
                     <p>
-                      <a href={`https://quasars.app?id=4d7719691b367df71b54`}>
+                      <a
+                        href={`https://quasars.app?projectId=4d7719691b367df71b54&quasarId=1`}
+                      >
                         Alexx Shadow's Cyber Brokers
                       </a>
                     </p>
