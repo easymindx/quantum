@@ -1,12 +1,14 @@
 import create from 'zustand';
 
+const query = new URLSearchParams(window.location.search);
+const npointId = query.get('id') || '830360b5f6a82edd4912'; // points to the npoint document
+
 const useStore = create((set) => ({
   isDesktopMode:
     !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     ),
-  npointId: '830360b5f6a82edd4912', // points to the npoint document
-  projectId: '1',
+  npointId: npointId, // points to the npoint document
   isCaught: null,
   isGalleryMode: null,
   activeQuasar: null,
@@ -19,12 +21,7 @@ const useStore = create((set) => ({
     set({
       projectData: project,
       activeQuasar: project.quasars[selectedQuasar],
-      isGalleryMode: false,
-      isCaught: false,
-      currentLevel: 0,
-      itemDetails: null,
     }),
-  setProjectId: (id) => set({ projectId: id }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
   enterGalleryMode: () => set((state) => ({ isGalleryMode: true })),
@@ -36,6 +33,10 @@ const useStore = create((set) => ({
     set((state) => ({
       selectedQuasar: Number(selectedQuasar),
       projectData: null,
+      isGalleryMode: false,
+      isCaught: false,
+      currentLevel: 0,
+      itemDetails: null,
     })),
   setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
   setNpointId: (npointId) => set({ npointId }),

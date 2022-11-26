@@ -28,7 +28,7 @@ function SparkLine({ curve, width, color, speed }) {
   );
 }
 
-export function Sparks({ count, colors, radius = 10 }) {
+export function Sparks({ count, colors, radius = 1 }) {
   const lines = useMemo(
     () =>
       new Array(count).fill().map((_, index) => {

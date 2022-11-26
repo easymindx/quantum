@@ -23,40 +23,6 @@ const Shell = () => {
     immediate: false,
   }));
 
-  // const bind = useDrag(
-  //   ({ active, movement: [mx, my], direction: [yDir], cancel }) => {
-  //     if (active && Math.abs(my) >= 250) {
-  //       if (my > 0) {
-  //         if (index.current >= activeQuasar.gallery.length - 1) return;
-  //         setCurrentLevel(currentLevel + 1);
-  //         index.current++;
-  //       } else {
-  //         if (index.current <= 0) return;
-  //         setCurrentLevel(currentLevel - 1);
-  //         index.current--;
-  //       }
-  //       cancel();
-  //     }
-  //     api.start((i) => {
-  //       return {
-  //         position: [0, active ? clamp(-my / 20) : 0, 0],
-  //         scale: 1,
-  //       };
-  //     });
-  //   },
-  //   {
-  //     axis: 'y',
-  //     from: () => [0, 0],
-  //     delay: 0,
-  //     bounds: { top: -400, bottom: 400 },
-  //     ubberband: false,
-  //     pointer: {
-  //       lock: true,
-  //       touch: true,
-  //     },
-  //   }
-  // );
-
   useEffect(() => {
     if (currentLevel === index.current) return;
     index.current = currentLevel;
