@@ -59,7 +59,6 @@ const QuasarController = ({ XR8 }) => {
                   active={
                     currentLevel === activeQuasar.gallery.length - 1 - index
                   }
-                  href="#/action-1"
                 >
                   Layer {activeQuasar.gallery.length - index}
                 </Dropdown.Item>
