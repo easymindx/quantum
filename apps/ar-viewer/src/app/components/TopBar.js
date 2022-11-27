@@ -182,7 +182,10 @@ const OffcanvasExample = () => {
                     <p>
                       <NavLink
                         className="text-decoration-underline"
-                        onClick={() => setNpointId('830360b5f6a82edd4912')}
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('830360b5f6a82edd4912');
+                        }}
                       >
                         Quantum Art
                       </NavLink>
@@ -192,7 +195,10 @@ const OffcanvasExample = () => {
                     <p>
                       <NavLink
                         className="text-decoration-underline"
-                        onClick={() => setNpointId('9c2bfdfd376f473d072c')}
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('9c2bfdfd376f473d072c');
+                        }}
                       >
                         Curio Cards Full Set
                       </NavLink>
@@ -202,7 +208,10 @@ const OffcanvasExample = () => {
                     <p>
                       <NavLink
                         className="text-decoration-underline"
-                        onClick={() => setNpointId('4d7719691b367df71b54')}
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('4d7719691b367df71b54');
+                        }}
                       >
                         Alexx Shadow's Cyber Brokers
                       </NavLink>
