@@ -58,7 +58,7 @@ const Experience = (props) => {
         </PresentationControls>
 
         <animated.group scale={sparkScale}>
-          {!isCaught && <SparkStorm count={100} colors={palette} />}
+          {!isCaught && <SparkStorm count={200} colors={palette} />}
         </animated.group>
 
         <animated.group scale={shellScale} position={shellPosition}>

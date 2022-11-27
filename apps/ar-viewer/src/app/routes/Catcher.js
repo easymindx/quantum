@@ -26,7 +26,7 @@ function Catcher() {
     const { progress } = useProgress();
 
     return (
-      <group position={[0, 1.5, -5]}>
+      <group position={[0, 0.5, -5]}>
         <Html center>
           <CircleProgress
             percentage={Number(progress.toFixed())}
