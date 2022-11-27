@@ -10,7 +10,7 @@ import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
 
-const Experience = (props) => {
+const Experience = () => {
   const groupRef = useRef();
 
   const isCaught = useStore((state) => state.isCaught);
@@ -18,19 +18,25 @@ const Experience = (props) => {
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const groupYPos = isDesktopMode ? 1.5 : 2;
 
-  const { groupScale, groupPosition, shellScale, shellPosition, quasarScale } =
-    useSpring({
-      groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
-      shellScale: isCaught ? [1, 1, 1] : [0, 0, 0],
-      shellPosition: isCaught ? [0, 0, 0] : [0, -5, 0],
-      quasarScale: isCaught ? [25, 25, 25] : [1, 1, 1],
-      config: { mass: 1, tension: 200, friction: 20 },
-    });
+  const { groupPosition, quasarScale } = useSpring({
+    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
+    quasarScale: isCaught ? [50, 50, 50] : [1, 1, 1],
+    config: { mass: 0.5, tension: 200, friction: 20 },
+    delay: isCaught ? 0 : 500,
+  });
 
   const { sparkScale } = useSpring({
     sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
-    delay: 250,
+    immediate: isCaught,
+    delay: isCaught ? 0 : 1000,
+  });
+
+  const { shellScale, shellPosition } = useSpring({
+    shellScale: isCaught ? [1, 1, 1] : [0, 0, 0],
+    shellPosition: isCaught ? [0, 0, 0] : [0, -5, 0],
+
+    config: { mass: 1, tension: 200, friction: 20 },
   });
 
   const { palette, gallery } = activeQuasar;
@@ -60,8 +66,8 @@ const Experience = (props) => {
           </animated.group>
         </PresentationControls>
 
-        <animated.group scale={sparkScale}>
-          {!isCaught && <SparkStorm count={200} colors={palette} />}
+        <animated.group scale={sparkScale} visible={!isCaught}>
+          <SparkStorm count={200} colors={palette} />
         </animated.group>
 
         <animated.group scale={shellScale} position={shellPosition}>
@@ -69,7 +75,6 @@ const Experience = (props) => {
         </animated.group>
       </animated.group>
       <directionalLight intensity={0.5} position={[-5, 3, 0]} />
-      {/* <spotLight intensity={0.5} position={[0, 4, 0]} /> */}
       <directionalLight intensity={0.5} position={[5, 3, 0]} />
       <ambientLight intensity={0.5} />
     </>

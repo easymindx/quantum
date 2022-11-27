@@ -6,10 +6,8 @@ import useStore from '../store';
 const Quasar = (props) => {
   const quasarRef = useRef();
   const activeQuasar = useStore((state) => state.activeQuasar);
-  const isGalleryMode = useStore((state) => state.isGalleryMode);
   const isCaught = useStore((state) => state.isCaught);
   const catchQuasar = useStore((state) => state.catchQuasar);
-  const enterGalleryMode = useStore((state) => state.enterGalleryMode);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   const { scene } = useGLTF(activeQuasar.modelSrc);
@@ -23,9 +21,15 @@ const Quasar = (props) => {
         node.frustumCulled = false; //
         // removes the inner sphere to avoid z-fighting
         if (node.name.includes('QUASAR_INNER_SPHERE')) {
-          node.visible = !isCaught;
+          setTimeout(
+            () => {
+              node.visible = !isCaught;
+            },
+            isCaught ? 0 : 1000
+          );
+
           // standardise the env intensity
-          node.material.envMapIntensity = 5;
+          node.material.envMapIntensity = 2.5;
         }
       }
     });
@@ -38,10 +42,9 @@ const Quasar = (props) => {
   };
 
   const handleTap = () => {
-    if (!isCaught && !isGalleryMode) {
-      catchQuasar();
+    if (!isCaught) {
       recenter();
-      enterGalleryMode();
+      catchQuasar();
       return;
     }
   };
@@ -59,6 +62,7 @@ const Quasar = (props) => {
       }}
       ref={quasarRef}
       scale={[0.03, 0.03, 0.03]}
+      rotation={activeQuasar?.initialRotation}
       object={scene}
     />
   );
