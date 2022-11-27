@@ -1,7 +1,7 @@
 import create from 'zustand';
 
 const query = new URLSearchParams(window.location.search);
-const npointId = query.get('projectId') || '4d7719691b367df71b54'; // points to the npoint document
+const npointId = query.get('projectId') || '830360b5f6a82edd4912'; // points to the npoint document
 const quasarId = query.get('quasarId') || 1;
 
 const useStore = create((set) => ({
