@@ -25,7 +25,7 @@ const Quasar = (props) => {
             () => {
               node.visible = !isCaught;
             },
-            isCaught ? 0 : 1000
+            isCaught ? 0 : 250
           );
 
           // standardise the env intensity
