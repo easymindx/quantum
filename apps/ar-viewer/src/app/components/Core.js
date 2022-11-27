@@ -19,17 +19,20 @@ const Experience = (props) => {
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const groupYPos = isDesktopMode ? 1.5 : 2;
 
-  const { groupScale, groupPosition, shellScale, shellPosition } = useSpring({
-    groupScale: [1, 1, 1],
-    groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
-    shellScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
-    shellPosition: isGalleryMode ? [0, 0, 0] : [0, -10, 0],
-    config: { mass: 1, tension: 200, friction: 20 },
-  });
+  const { groupScale, groupPosition, shellScale, shellPosition, quasarScale } =
+    useSpring({
+      groupScale: [1, 1, 1],
+      groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
+      shellScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
+      shellPosition: isGalleryMode ? [0, 0, 0] : [0, -10, 0],
+      quasarScale: isCaught ? [25, 25, 25] : [1, 1, 1],
+      config: { mass: 1, tension: 200, friction: 20, duration: 1000 },
+    });
 
   const { sparkScale } = useSpring({
     sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
+    delay: 1000,
   });
 
   const { palette, gallery } = activeQuasar;
@@ -54,7 +57,9 @@ const Experience = (props) => {
           azimuth={[-Infinity, Infinity]}
           config={{ mass: 1, tension: 170, friction: 20 }}
         >
-          <Quasar />
+          <animated.group scale={quasarScale}>
+            <Quasar />
+          </animated.group>
         </PresentationControls>
 
         <animated.group scale={sparkScale}>
