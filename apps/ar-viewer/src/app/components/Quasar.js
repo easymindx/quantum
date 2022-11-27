@@ -60,7 +60,7 @@ const Quasar = (props) => {
         handleTap();
       }}
       ref={quasarRef}
-      scale={isCaught ? [1, 1, 1] : [0.03, 0.03, 0.03]}
+      scale={[0.03, 0.03, 0.03]}
       object={scene}
     />
   );
