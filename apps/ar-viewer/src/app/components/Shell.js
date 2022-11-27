@@ -1,9 +1,9 @@
 import { useSpring, animated } from '@react-spring/three';
-import React, { useRef, memo, useMemo, useEffect } from 'react';
+import React, { useRef, memo, useMemo, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import Layer from './Layer';
-import { getHex } from 'pastel-color';
+
 import { useFrame } from '@react-three/fiber';
 
 const Shell = () => {

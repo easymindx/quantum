@@ -1,7 +1,7 @@
 import create from 'zustand';
 
 const query = new URLSearchParams(window.location.search);
-const npointId = query.get('projectId') || '830360b5f6a82edd4912'; // points to the npoint document
+const npointId = query.get('projectId') || '4d7719691b367df71b54'; // points to the npoint document
 const quasarId = query.get('quasarId') || 1;
 
 const useStore = create((set) => ({
@@ -11,7 +11,6 @@ const useStore = create((set) => ({
     ),
   npointId: npointId, // points to the npoint document
   isCaught: null,
-  isGalleryMode: null,
   activeQuasar: null,
   projectData: null,
   selectedQuasar: quasarId - 1, // converting from 1-indexed to 0-indexed for usability
@@ -22,22 +21,18 @@ const useStore = create((set) => ({
     set({
       projectData: project,
       activeQuasar: project.quasars[selectedQuasar],
+      itemDetails: null,
+      isCaught: false,
+      currentLevel: 0,
     }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
   releaseQuasar: () => set((state) => ({ isCaught: false })),
-  enterGalleryMode: () => set((state) => ({ isGalleryMode: true })),
-  exitGalleryMode: () => set((state) => ({ isGalleryMode: false })),
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),
   setCurrentLevel: (currentLevel) =>
     set((state) => ({ currentLevel: Number(currentLevel) })),
   setSelectedQuasar: (selectedQuasar) =>
     set((state) => ({
       selectedQuasar: Number(selectedQuasar),
-      projectData: null,
-      isGalleryMode: false,
-      isCaught: false,
-      currentLevel: 0,
-      itemDetails: null,
     })),
   setIsDesktopMode: (isDesktopMode) => set({ isDesktopMode }),
   setNpointId: (npointId) => set({ npointId }),

@@ -2,10 +2,8 @@ import { Button, Dropdown } from 'react-bootstrap';
 import useStore from '../../store';
 
 const QuasarController = ({ XR8 }) => {
-  const isGalleryMode = useStore((state) => state.isGalleryMode);
   const isCaught = useStore((state) => state.isCaught);
   const releaseQuasar = useStore((state) => state.releaseQuasar);
-  const exitGalleryMode = useStore((state) => state.exitGalleryMode);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const currentLevel = useStore((state) => state.currentLevel);
   const setCurrentLevel = useStore((state) => state.setCurrentLevel);
@@ -19,15 +17,12 @@ const QuasarController = ({ XR8 }) => {
 
   const handleRelease = () => {
     recenter();
-    exitGalleryMode();
-    setTimeout(() => {
-      releaseQuasar();
-    }, 100);
+    releaseQuasar();
   };
 
   return !isCaught ? (
     <div className="d-flex justify-content-center align-items-center action-bar">
-      {!isGalleryMode && <p className="mb-0 h6">Catch the Quasar!</p>}
+      {!isCaught && <p className="mb-0 h6">Catch the Quasar!</p>}
     </div>
   ) : (
     <div className="d-flex justify-content-between align-items-center action-bar">
@@ -41,7 +36,7 @@ const QuasarController = ({ XR8 }) => {
       </Button>
 
       <div className="d-flex align-items-center justify-content-center">
-        {isGalleryMode && activeQuasar.gallery.length > 1 && (
+        {isCaught && activeQuasar.gallery.length > 1 && (
           <Dropdown onSelect={(eventKey) => setCurrentLevel(eventKey)}>
             <Dropdown.Toggle
               variant="outline-light"
