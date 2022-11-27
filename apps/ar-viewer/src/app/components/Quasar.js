@@ -25,7 +25,7 @@ const Quasar = (props) => {
         if (node.name.includes('QUASAR_INNER_SPHERE')) {
           node.visible = !isCaught;
           // standardise the env intensity
-          node.material.envMapIntensity = 1;
+          node.material.envMapIntensity = 5;
         }
       }
     });
@@ -40,10 +40,8 @@ const Quasar = (props) => {
   const handleTap = () => {
     if (!isCaught && !isGalleryMode) {
       catchQuasar();
-      setTimeout(() => {
-        recenter();
-        enterGalleryMode();
-      }, 250);
+      recenter();
+      enterGalleryMode();
       return;
     }
   };

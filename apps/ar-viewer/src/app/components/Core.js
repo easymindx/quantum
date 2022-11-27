@@ -13,7 +13,6 @@ extend({ MeshLine, MeshLineMaterial });
 const Experience = (props) => {
   const groupRef = useRef();
 
-  const isGalleryMode = useStore((state) => state.isGalleryMode);
   const isCaught = useStore((state) => state.isCaught);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
@@ -21,18 +20,17 @@ const Experience = (props) => {
 
   const { groupScale, groupPosition, shellScale, shellPosition, quasarScale } =
     useSpring({
-      groupScale: [1, 1, 1],
       groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
-      shellScale: isGalleryMode ? [1, 1, 1] : [0, 0, 0],
-      shellPosition: isGalleryMode ? [0, 0, 0] : [0, -10, 0],
+      shellScale: isCaught ? [1, 1, 1] : [0, 0, 0],
+      shellPosition: isCaught ? [0, 0, 0] : [0, -5, 0],
       quasarScale: isCaught ? [25, 25, 25] : [1, 1, 1],
-      config: { mass: 1, tension: 200, friction: 20, duration: 1000 },
+      config: { mass: 1, tension: 200, friction: 20 },
     });
 
   const { sparkScale } = useSpring({
     sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
-    delay: 1000,
+    delay: 250,
   });
 
   const { palette, gallery } = activeQuasar;
@@ -42,7 +40,7 @@ const Experience = (props) => {
       <animated.group
         ref={groupRef}
         position={groupPosition}
-        scale={groupScale}
+        scale={[1, 1, 1]}
         className="quasar"
       >
         <PresentationControls
