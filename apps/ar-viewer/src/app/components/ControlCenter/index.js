@@ -5,6 +5,7 @@ import useStore from '../../store';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
 import { Button } from 'react-bootstrap';
+import { MdClose } from 'react-icons/md';
 
 const QuasarLoader = () => {
   // get id param from the url
@@ -27,17 +28,29 @@ const QuasarLoader = () => {
           style={{ bottom }}
         >
           <h6 className="mb-1">{itemDetails?.title}</h6>
+
           <p>{itemDetails?.description}</p>
-          {itemDetails?.externalLink && (
+
+          <div>
             <Button
-              onClick={() => window.open(itemDetails?.externalLink, '_blank')}
+              onClick={() => useStore.setState({ itemDetails: null })}
               className="mx-1"
               variant="outline-light"
               size="sm"
             >
-              Find out more
+              Close
             </Button>
-          )}
+            {itemDetails?.externalLink && (
+              <Button
+                onClick={() => window.open(itemDetails?.externalLink, '_blank')}
+                className="mx-1"
+                variant="outline-light"
+                size="sm"
+              >
+                Find out more
+              </Button>
+            )}
+          </div>
         </animated.div>
       ) : (
         <QuasarController />

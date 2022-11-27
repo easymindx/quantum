@@ -53,7 +53,7 @@ export function SparkStorm({ count, colors, radius = 0.3 }) {
       new Array(count).fill().map(() => {
         return {
           color: Random.pick(colors),
-          width: Random.range(0.003, 0.001),
+          width: Random.range(0.005, 0.005),
           speed: Random.range(0.001, 0.002),
           simulation: simulation(),
           radius: Random.range(1, 2.25) * radius,

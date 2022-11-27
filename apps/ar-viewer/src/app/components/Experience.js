@@ -4,6 +4,7 @@ import useStore from '../store';
 import Core from './Core';
 import { disposeAll } from '../utils/disposeAll';
 import axios from 'axios';
+import * as THREE from 'three';
 
 const Experience = ({ XR8 }) => {
   const { renderer, scene, camera } = XR8.Threejs.xrScene();
@@ -35,6 +36,9 @@ const Experience = ({ XR8 }) => {
       console.log('Init Scene');
       // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
+      const light = new THREE.PointLight(0xffffff, 0.3, 100);
+      light.position.set(0, 0, 0);
+      camera.add(light);
       camera.position.y = 1.8;
       // Set the default camera to use ThreeJS's camera
       setDefaultCamera({

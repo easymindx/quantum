@@ -9,11 +9,13 @@ import {
   InputGroup,
   Form,
   Button,
+  NavLink,
 } from 'react-bootstrap';
 
 import useStore from '../store';
 import { FaTwitterSquare, FaGlobe } from 'react-icons/fa';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const OffcanvasExample = () => {
   const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
@@ -78,7 +80,7 @@ const OffcanvasExample = () => {
                   <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
                       style={{
-                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.25,
+                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
                         border:
                           activeQuasar?.id === quasar.id
                             ? '2px solid #5a5a5a'
@@ -108,7 +110,7 @@ const OffcanvasExample = () => {
                   <hr className="border-white" />
                   <p className="text-white mb-2 small">
                     If you know the secret code to another Quasars sighting then
-                    enter it here:
+                    enter it below:
                   </p>
                 </Col>
               </Row>
@@ -136,7 +138,7 @@ const OffcanvasExample = () => {
                 </Col>
               </Row>
 
-              <Row>
+              {/* <Row>
                 <Col>
                   <p className="text-white mb-2 small">
                     Or check out one of these galleries:
@@ -166,6 +168,44 @@ const OffcanvasExample = () => {
                       >
                         Alexx Shadow's Cyber Brokers
                       </a>
+                    </p>
+                  ) : null}
+                </Col>
+              </Row> */}
+
+              <Row>
+                <Col>
+                  <p className="text-white mb-2 small">
+                    Or check out one of these galleries:
+                  </p>
+                  {npointId !== '830360b5f6a82edd4912' ? ( // A quick hack .. running out of time for demo :)
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => setNpointId('830360b5f6a82edd4912')}
+                      >
+                        Quantum Art
+                      </NavLink>
+                    </p>
+                  ) : null}
+                  {npointId !== '9c2bfdfd376f473d072c' ? (
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => setNpointId('9c2bfdfd376f473d072c')}
+                      >
+                        Curio Cards Full Set
+                      </NavLink>
+                    </p>
+                  ) : null}
+                  {npointId !== '4d7719691b367df71b54' ? (
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => setNpointId('4d7719691b367df71b54')}
+                      >
+                        Alexx Shadow's Cyber Brokers
+                      </NavLink>
                     </p>
                   ) : null}
                 </Col>
