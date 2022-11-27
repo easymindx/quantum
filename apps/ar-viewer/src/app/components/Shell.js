@@ -59,39 +59,39 @@ const Shell = () => {
     clearcoat: 0.8,
     clearcoatRoughness: 0.3,
     transmission: 0.7,
-    ior: 1.6,
+    ior: 1.9,
     envMapIntensity: 15,
     attenuationDistance: 1,
   };
 
   return (
     <group ref={groupRef}>
-      <mesh ref={topDome} position={[0, 1, 0]}>
+      {/* <mesh ref={topDome} position={[0, 1, 0]}>
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
           {...meshMaterial}
-          color={getHex()}
+          // color={getHex()}
         />
-      </mesh>
+      </mesh> */}
 
       <mesh rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
+        <cylinderGeometry attach="geometry" args={[5, 5, 2.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
           {...meshMaterial}
-          color={getHex()}
+          // color={getHex()}
         />
       </mesh>
 
-      <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
+      {/* <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
           {...meshMaterial}
-          color={getHex()}
+          // color={getHex()}
         />
-      </mesh>
+      </mesh> */}
 
       <animated.group {...spring}>
         <Layer levelIndex={currentLevel} shellRadius={4.25} />
