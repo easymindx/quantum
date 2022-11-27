@@ -18,24 +18,25 @@ const Experience = () => {
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const groupYPos = isDesktopMode ? 1.5 : 2;
 
-  const { groupPosition, quasarScale } = useSpring({
+  const { groupPosition } = useSpring({
     groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
-    quasarScale: isCaught ? [50, 50, 50] : [1, 1, 1],
     config: { mass: 0.5, tension: 200, friction: 20 },
-    delay: isCaught ? 0 : 500,
+  });
+
+  const { quasarScale } = useSpring({
+    quasarScale: isCaught ? [40, 40, 40] : [1, 1, 1],
+    config: { mass: 0.5, tension: 200, friction: 20 },
   });
 
   const { sparkScale } = useSpring({
     sparkScale: !isCaught ? [1, 1, 1] : [0, 0, 0],
     config: { mass: 1, tension: 200, friction: 20 },
     immediate: isCaught,
-    delay: isCaught ? 0 : 1000,
   });
 
   const { shellScale, shellPosition } = useSpring({
     shellScale: isCaught ? [1, 1, 1] : [0, 0, 0],
-    shellPosition: isCaught ? [0, 0, 0] : [0, -5, 0],
-
+    shellPosition: isCaught ? [0, 0, 0] : [0, 5, 0],
     config: { mass: 1, tension: 200, friction: 20 },
   });
 

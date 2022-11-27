@@ -47,7 +47,7 @@ function StormLine({ radius, simulation, width, color }) {
   );
 }
 
-export function SparkStorm({ count, colors, radius = 0.25 }) {
+export function SparkStorm({ count, colors, radius = 0.35 }) {
   const lines = useMemo(
     () =>
       new Array(count).fill().map(() => {
