@@ -5,7 +5,7 @@ import Shell from './Shell';
 import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
-import { PresentationControls } from '@react-three/drei';
+import { Environment, PresentationControls, Shadow } from '@react-three/drei';
 import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
@@ -20,12 +20,11 @@ const Experience = () => {
 
   const { groupPosition } = useSpring({
     groupPosition: isCaught ? [0, groupYPos, 0] : [0, groupYPos, -1.5],
-    config: { mass: 0.5, tension: 200, friction: 20 },
   });
 
   const { quasarScale } = useSpring({
     quasarScale: isCaught ? [40, 40, 40] : [1, 1, 1],
-    config: { mass: 0.5, tension: 200, friction: 20 },
+    config: { mass: 0.7, tension: 200, friction: 20 },
   });
 
   const { sparkScale } = useSpring({
@@ -68,16 +67,15 @@ const Experience = () => {
         </PresentationControls>
 
         <animated.group scale={sparkScale} visible={!isCaught}>
-          <SparkStorm count={200} colors={palette} />
+          <SparkStorm count={140} colors={palette} />
         </animated.group>
 
         <animated.group scale={shellScale} position={shellPosition}>
           {gallery.length && <Shell />}
         </animated.group>
       </animated.group>
-      <directionalLight intensity={0.5} position={[-5, 3, 0]} />
-      <directionalLight intensity={0.5} position={[5, 3, 0]} />
-      <ambientLight intensity={0.5} />
+      <Environment preset="warehouse" />
+      <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>
   );
 };

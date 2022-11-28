@@ -13,9 +13,8 @@ import {
 } from 'react-bootstrap';
 
 import useStore from '../store';
-import { FaTwitterSquare, FaGlobe } from 'react-icons/fa';
+import { FaGlobe } from 'react-icons/fa';
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const OffcanvasExample = () => {
   const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
