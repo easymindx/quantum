@@ -41,6 +41,7 @@ const Layer = ({ levelIndex, shellRadius }) => {
           </Fragment>
         );
       })}
+      <hemisphereLight intensity={0.5} />
     </group>
   );
 };
