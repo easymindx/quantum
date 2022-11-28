@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { memo, Suspense, useLayoutEffect, useState } from 'react';
-
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';

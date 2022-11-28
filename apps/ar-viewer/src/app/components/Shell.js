@@ -5,10 +5,10 @@ import useStore from '../store';
 import Layer from './Layer';
 
 import { useFrame } from '@react-three/fiber';
+import { Sparkles } from '@react-three/drei';
 
 const Shell = () => {
   const groupRef = useRef();
-  const topDome = useRef();
 
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);

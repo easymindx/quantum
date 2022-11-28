@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import useStore from '../store';
 
 const Quasar = (props) => {
@@ -11,14 +11,17 @@ const Quasar = (props) => {
   const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   const { scene } = useGLTF(activeQuasar.modelSrc);
+  const { gl } = useThree();
+
+  const maxAnisotropy = gl.capabilities.getMaxAnisotropy();
 
   useLayoutEffect(() => {
     scene.traverse((node) => {
       if (node.isMesh) {
         node.castShadow = false;
         node.receiveShadow = false;
-        node.fulstrumCulled = false;
-        node.frustumCulled = false; //
+        node.fulstrumCulled = true;
+        node.frustumCulled = true; //
         // removes the inner sphere to avoid z-fighting
         if (node.name.includes('QUASAR_INNER_SPHERE')) {
           setTimeout(
@@ -27,13 +30,13 @@ const Quasar = (props) => {
             },
             isCaught ? 0 : 250
           );
-
-          // standardise the env intensity
-          node.material.envMapIntensity = 2.5;
         }
+
+        node.material.envMapIntensity = 1.5;
+        node.material.maxAnisotropy = maxAnisotropy;
       }
     });
-  }, [isCaught, scene]);
+  }, [isCaught, activeQuasar, scene, maxAnisotropy]);
 
   const recenter = () => {
     if (isDesktopMode) return;
@@ -50,6 +53,7 @@ const Quasar = (props) => {
   };
 
   useFrame((state, delta) => {
+    if (isCaught) return;
     quasarRef.current.rotation.y -= delta * 0.075;
   });
 
