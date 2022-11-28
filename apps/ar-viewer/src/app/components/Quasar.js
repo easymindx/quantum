@@ -32,7 +32,7 @@ const Quasar = (props) => {
           );
         }
 
-        node.material.envMapIntensity = 1.5;
+        node.material.envMapIntensity = 1;
         node.material.maxAnisotropy = maxAnisotropy;
       }
     });

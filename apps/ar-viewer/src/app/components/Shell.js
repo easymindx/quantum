@@ -1,14 +1,14 @@
 import { useSpring, animated } from '@react-spring/three';
-import React, { useRef, memo, useMemo, useEffect, useState } from 'react';
+import React, { useRef, memo, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import Layer from './Layer';
-
+import { getHex } from 'pastel-color';
 import { useFrame } from '@react-three/fiber';
-import { Sparkles } from '@react-three/drei';
 
 const Shell = () => {
   const groupRef = useRef();
+  const topDome = useRef();
 
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
@@ -53,48 +53,48 @@ const Shell = () => {
   const meshMaterial = {
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.8,
-    thickness: 5,
-    roughness: 0.7,
-    clearcoat: 0.8,
+    opacity: 1,
+    thickness: 3,
+    roughness: 0.6,
+    clearcoat: 0.9,
     clearcoatRoughness: 0.3,
-    transmission: 0.7,
-    ior: 1.9,
-    envMapIntensity: 15,
-    attenuationDistance: 1,
+    transmission: 1,
+    // ior: 1.2,
+    envMapIntensity: 5,
+    attenuationDistance: 5,
   };
 
   return (
     <group ref={groupRef}>
-      {/* <mesh ref={topDome} position={[0, 1, 0]}>
+      <mesh ref={topDome} position={[0, 1, 0]}>
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
           {...meshMaterial}
-          // color={getHex()}
-        />
-      </mesh> */}
-
-      <mesh rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <cylinderGeometry attach="geometry" args={[5, 5, 2.5, 32, 1, true]} />
-        <meshPhysicalMaterial
-          attach="material"
-          {...meshMaterial}
-          // color={getHex()}
+          color={getHex()}
         />
       </mesh>
 
-      {/* <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
+      <mesh rotation={[0, 0, 0]} position={[0, 0, 0]}>
         <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
         <meshPhysicalMaterial
           attach="material"
           {...meshMaterial}
-          // color={getHex()}
+          color={getHex()}
         />
-      </mesh> */}
+      </mesh>
+
+      <mesh rotation={[0, 0, 0]} position={[0, -1, 0]}>
+        <cylinderGeometry attach="geometry" args={[5, 5, 0.5, 32, 1, true]} />
+        <meshPhysicalMaterial
+          attach="material"
+          {...meshMaterial}
+          color={getHex()}
+        />
+      </mesh>
 
       <animated.group {...spring}>
-        <Layer levelIndex={currentLevel} shellRadius={4.25} />
+        <Layer levelIndex={currentLevel} shellRadius={4.5} />
       </animated.group>
     </group>
   );
