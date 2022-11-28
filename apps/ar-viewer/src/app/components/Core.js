@@ -23,7 +23,7 @@ const Experience = () => {
   });
 
   const { quasarScale } = useSpring({
-    quasarScale: isCaught ? [20, 20, 20] : [1, 1, 1],
+    quasarScale: isCaught ? [40, 40, 40] : [1, 1, 1],
     config: { mass: 0.7, tension: 200, friction: 20 },
   });
 
