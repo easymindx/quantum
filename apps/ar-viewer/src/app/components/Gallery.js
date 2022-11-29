@@ -6,11 +6,9 @@ import React, {
   useEffect,
   Fragment,
   useState,
-  useLayoutEffect,
 } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
-import { getHex } from 'pastel-color';
 import { calculatePositions } from '../utils/calculatePositions';
 
 import { useFrame } from '@react-three/fiber';
@@ -21,45 +19,43 @@ const Gallery = ({ model }) => {
   const groupRef = useRef();
   const domeRef = useRef();
 
-  const [isLayerVisible, setIsLayerVisible] = useState(false);
-
+  const [layerIndex, setLayerIndex] = useState(0);
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const itemDetails = useStore((state) => state.itemDetails);
 
   const galleryRadius = 2;
-  const index = useRef(0);
 
   const [spring, api] = useSpring(() => ({
     position: [0, 0, 0],
     scale: 1,
     rotation: [0, Math.PI, 0],
-    config: { friction: 10 },
+    config: { friction: 40, duration: 500 },
     immediate: false,
-  }));
 
-  useEffect(() => {
-    if (currentLevel === index.current) return;
-    index.current = currentLevel;
-
-    // animate spring
-    api.start((i) => {
-      return {
-        position: [0, 10, 0],
-        scale: 1,
-      };
-    });
-
-    setTimeout(() => {
+    onRest: () => {
       api.start((i) => {
         return {
           position: [0, 0, 0],
           scale: 1,
         };
       });
+    },
+  }));
+
+  useEffect(() => {
+    if (currentLevel === layerIndex) return;
+    setTimeout(() => {
+      setLayerIndex(currentLevel);
     }, 500);
-  }, [api, currentLevel]);
+    api.start((i) => {
+      return {
+        position: [0, -5, 0],
+        scale: 0.5,
+      };
+    });
+  }, [api, currentLevel, layerIndex]);
 
   useFrame((state, delta) => {
     if (!isDesktopMode || itemDetails) return;
@@ -72,14 +68,7 @@ const Gallery = ({ model }) => {
     });
   }, [activeQuasar, galleryRadius]);
 
-  const assetGallery = calculatedGalleryLayout[currentLevel];
-
-  useEffect(() => {
-    setIsLayerVisible(false);
-    setTimeout(() => {
-      setIsLayerVisible(true);
-    }, 500);
-  }, [currentLevel]);
+  const assetGallery = calculatedGalleryLayout[layerIndex];
 
   const meshMaterial = {
     side: THREE.DoubleSide,
@@ -143,7 +132,7 @@ const Gallery = ({ model }) => {
       <Ring offset={0.11} />
       <Ring offset={0.22} isRandom />
 
-      <animated.group {...spring} visible={isLayerVisible}>
+      <animated.group {...spring}>
         {assetGallery?.map((asset, index) => {
           return (
             <Fragment key={index}>
