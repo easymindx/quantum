@@ -151,7 +151,7 @@ const Gallery = ({ model }) => {
           );
         })}
       </animated.group>
-      <hemisphereLight intensity={0.25} />
+      <hemisphereLight intensity={0.3} />
     </group>
   );
 };
