@@ -53,7 +53,7 @@ function StormLine({ radius, simulation, width, color }) {
 }
 
 export function SparkStorm({ count, colors, radius = 0.3, isDesktopMode }) {
-  const width = isDesktopMode ? (0.003, 0.005) : (0.005, 0.01);
+  const width = isDesktopMode ? (0.001, 0.003) : (0.005, 0.01);
   const lines = useMemo(
     () =>
       new Array(count).fill().map(() => {
