@@ -31,7 +31,7 @@ function StormLine({ radius, simulation, width, color }) {
         currentPosition,
         radius,
         simulation,
-        0.005
+        0.01
       );
       line.current.advance(nextPosition);
     }
@@ -46,25 +46,26 @@ function StormLine({ radius, simulation, width, color }) {
         transparent
         lineWidth={width}
         color={color}
-        opacity={0.5}
+        opacity={0.75}
       />
     </mesh>
   );
 }
 
-export function SparkStorm({ count, colors, radius = 0.25 }) {
+export function SparkStorm({ count, colors, radius = 0.3, isDesktopMode }) {
+  const width = isDesktopMode ? (0.003, 0.005) : (0.005, 0.01);
   const lines = useMemo(
     () =>
       new Array(count).fill().map(() => {
         return {
           color: Random.pick(colors),
-          width: Random.range(0.005, 0.005),
-          speed: Random.range(0.001, 0.002),
+          width: width,
+          speed: Random.range(0.01, 0.02),
           simulation: simulation(),
           radius: Random.range(1, 2.25) * radius,
         };
       }),
-    [count, colors, radius]
+    [count, colors, width, radius]
   );
 
   return (
