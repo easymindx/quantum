@@ -78,8 +78,8 @@ function Catcher() {
           </Suspense>
         )}
         <Preload all />
-        <AdaptiveDpr pixelated />
-        <EffectComposer multisampling={0} disableNormalPass={true}>
+        {/* <AdaptiveDpr pixelated /> */}
+        {/* <EffectComposer multisampling={0} disableNormalPass={true}>
           <DepthOfField
             focusDistance={0}
             focalLength={0.02}
@@ -95,8 +95,7 @@ function Catcher() {
             luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
             luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
           />
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        </EffectComposer>
+        </EffectComposer> */}
         <Environment preset="warehouse" />
       </Canvas>
     </FadeIn>

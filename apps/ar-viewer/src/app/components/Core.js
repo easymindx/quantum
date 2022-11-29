@@ -43,7 +43,7 @@ const Experience = () => {
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: isCaught ? [0.5, 0.5, 0.5] : [1, 1, 1],
+    sparkScale: isCaught ? [0.1, 0.1, 0.1] : [1, 1, 1],
   });
 
   const { shellScale, shellPosition } = useSpring({
@@ -78,7 +78,7 @@ const Experience = () => {
             visible={isDesktopMode ? true : !isCaught}
           >
             <SparkStorm
-              count={150}
+              count={100}
               colors={palette}
               isDesktopMode={isDesktopMode}
             />
