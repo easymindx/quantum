@@ -43,7 +43,7 @@ const Experience = () => {
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: isCaught ? [0.1, 0.1, 0.1] : [1, 1, 1],
+    sparkScale: isCaught ? [0, 0, 0] : [1, 1, 1],
   });
 
   const { shellScale, shellPosition } = useSpring({

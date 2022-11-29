@@ -20,7 +20,7 @@ export const use8thWall = (appKey, canvas) => {
 
           XR8.XrController.configure({
             disableWorldTracking: false,
-            enableLighting: false,
+            enableLighting: true,
             enableWorldPoints: false,
           });
           XR8.addCameraPipelineModules([

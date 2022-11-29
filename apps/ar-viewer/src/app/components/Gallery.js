@@ -68,7 +68,7 @@ const Gallery = ({ model }) => {
 
   const calculatedGalleryLayout = useMemo(() => {
     return activeQuasar.gallery.map((item, index) => {
-      return calculatePositions(item.assets, galleryRadius - 0.25);
+      return calculatePositions(item.assets, galleryRadius - 0.1);
     });
   }, [activeQuasar, galleryRadius]);
 
