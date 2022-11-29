@@ -44,7 +44,7 @@ export const use8thWall = (appKey, canvas) => {
             },
             onStart: ({ canvas }) => {
               const { camera, renderer } = XR8.Threejs.xrScene(); // Get the 3js sceen from xr3js.
-              renderer.outputEncoding = THREE.sRGBEncoding;
+              // renderer.outputEncoding = THREE.sRGBEncoding;
 
               canvas.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 2 && !isDesktopMode) {
