@@ -78,7 +78,7 @@ const GalleryAsset = ({
       }
     };
 
-    setTexture(texture());
+    setTexture(texture);
   }, [id, type, url]); // Warning... do NOT add 'video' into the callback array. It will cause an infinite loop.
 
   const _handleClick = () => {
