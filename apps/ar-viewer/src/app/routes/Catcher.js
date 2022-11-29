@@ -3,7 +3,7 @@ import React, { memo, Suspense, useLayoutEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';
-import { Html, useProgress } from '@react-three/drei';
+import { Environment, Html, useProgress } from '@react-three/drei';
 import { CircleProgress } from 'react-gradient-progress';
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
@@ -59,6 +59,7 @@ function Catcher() {
         {XR8 && XR8.Threejs.xrScene() && (
           <Suspense fallback={<Loader />}>
             <Experience XR8={XR8} />
+            <Environment preset="warehouse" />
           </Suspense>
         )}
         <Preload all />
