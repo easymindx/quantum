@@ -70,6 +70,7 @@ function Catcher() {
         gl={{ preserveDrawingBuffer: false }}
         style={{ height: height, width: width }}
         dpr={[1, 2]}
+        shadows={false}
       >
         {isReadyScene && (
           <Suspense fallback={<Loader />}>
@@ -78,7 +79,6 @@ function Catcher() {
         )}
         <Preload all />
         <AdaptiveDpr pixelated />
-        <Environment preset="warehouse" />
         <EffectComposer multisampling={0} disableNormalPass={true}>
           <DepthOfField
             focusDistance={0}
@@ -97,6 +97,7 @@ function Catcher() {
           />
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
         </EffectComposer>
+        <Environment preset="warehouse" />
       </Canvas>
     </FadeIn>
   );
