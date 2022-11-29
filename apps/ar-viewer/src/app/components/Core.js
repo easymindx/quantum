@@ -33,15 +33,17 @@ const Experience = () => {
   const { quasarScale, quasarPosition } = useSpring({
     quasarScale: isCaught
       ? isDesktopMode
-        ? [0.6, 0.6, 0.6]
+        ? [0.3, 0.3, 0.3]
         : [20, 20, 20]
+      : isDesktopMode
+      ? [0.5, 0.5, 0.5]
       : [0.7, 0.7, 0.7],
     quasarPosition: isCaught ? [0, 0, 0] : [0, 0, 0],
     config: { mass: 0.7, tension: 200, friction: 20 },
   });
 
   const { sparkScale } = useSpring({
-    sparkScale: isCaught ? [0.2, 0.2, 0.2] : [1, 1, 1],
+    sparkScale: isCaught ? [0.5, 0.5, 0.5] : [1, 1, 1],
   });
 
   const { shellScale, shellPosition } = useSpring({
@@ -75,7 +77,11 @@ const Experience = () => {
             scale={sparkScale}
             visible={isDesktopMode ? true : !isCaught}
           >
-            <SparkStorm count={250} colors={palette} />
+            <SparkStorm
+              count={150}
+              colors={palette}
+              isDesktopMode={isDesktopMode}
+            />
           </animated.group>
 
           <animated.group scale={shellScale} position={shellPosition}>

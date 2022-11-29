@@ -57,7 +57,7 @@ const Quasar = ({ model, initialRotation }) => {
         handleTap();
       }}
       ref={quasarRef}
-      scale={[0.03, 0.03, 0.03]}
+      scale={[0.05, 0.05, 0.05]}
       rotation={initialRotation}
       object={model.scene}
     />
