@@ -45,7 +45,6 @@ const Quasar = ({ model, initialRotation }) => {
   };
 
   useFrame((state, delta) => {
-    if (isCaught) return;
     quasarRef.current.rotation.y -= delta * 0.075;
   });
 

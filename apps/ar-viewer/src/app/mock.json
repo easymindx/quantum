@@ -1,223 +1,229 @@
 {
-  "id": "2",
-  "projectName": "Coca Cola",
-  "website": "https://us.coca-cola.com/",
+  "id": "1",
+  "projectName": "Quantum Art",
+  "projectLogo": "https://i.imgur.com/9ZQZ1Zu.png",
+  "website": "https://quantum.art",
   "socials": {
-    "twitter": "cocacola"
+    "twitter": "quantumnft"
   },
   "quasars": [
     {
-      "id": "coke1",
-      "name": "Quasar #1582",
+      "id": "QA-001",
+      "project": "Quantum",
+      "name": "Quasar #2852",
       "description": "A short descriptor of the asset.",
-      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00029.jpg",
-      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00029.glb",
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/thumbnails/QUASAR_BATCH010_FRAME2852.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/models/compressed/QUASAR_BATCH010-Frame_0002852.glb",
       "geo": {
         "lat": 52.3309932,
         "lon": -1.2021426,
-        "alt": 0.0
+        "alt": 0
       },
-      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+      "palette": [
+        "#3A7A9E",
+        "#CFA933",
+        "#AB2D21",
+        "#5F7B41",
+        "#E14759",
+        "#feff89"
+      ],
       "gallery": [
         {
-          "name": "Main",
+          "name": "Set 1",
           "assets": [
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/63732ff0144f66a77785baa0/63733082c1baf64fea881e8f.jpg",
+              "title": "Spiritually Fashionable",
+              "description": "Spiritually Fashionable brings the couture of Egúngún a fancifully masked figure at the heart of the traditional religion and culture of the Yorùbá people of West Africa into sharp relief in a way that is critical and innovative.",
+              "externalLink": "https://quantum.art/collection/spirituallyfashionable"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620c435d776546dd4fca181d/620e93a6924904bc1faa95c2.jpg",
+              "title": "Human Sculptures - Sanja Marušić",
+              "description": "My photographs are like a physical meditation, and the process of taking the picture is intuitively driven. I often let the landscape, sunlight or shadows, the clothes I’m wearing, or my feelings at that particular moment inspire me. In a way I try to become one with the scene.",
+              "externalLink": "https://quantum.art/collection/human-sculptures"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com",
-              "type": "video"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17308ce6e109e2062b408/61e1a39741ad7b72b6cf98ee.jpg",
+              "title": "Guadalupe - Amanda Lopez",
+              "description": "Guadalupe celebrates Mexico’s beloved patron saint, Our Lady of Guadalupe, while exploring the ways she has impacted my life.",
+              "externalLink": "https://quantum.art/collection/guadalupe"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620ed5ffe53d44b0aa16ab9a/6210309d1c5836e8ad377e36.jpg",
+              "title": "ICONS - Parker Day",
+              "description": "Parker Day's ICONS invites us to approach identity with a sense of play and malleability, and to recognize the forgotten parts of ourselves as we see them reflected in these color-saturated portraits.",
+              "externalLink": "https://quantum.art/collection/icons"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-07.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/632cc722932de6bbfd72c89e/632cc7d7932de6bbfd72c8e2.jpg",
+              "title": "Spectrum - Brian Vu",
+              "description": "Spectrum celebrates a community of innovative artists in New York City who present themselves in a new and unapologetic way. In an expanding world of hegemonic social media, Vu embraces the importance of capturing those who carve out their own unique space within it.",
+              "externalLink": "https://quantum.art/collection/spectrum"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/62a34688fd902541792f8a75/62a347ebfd902541792f8b8c.jpg",
+              "title": "LIMINAL SPACE - Arclight",
+              "description": "In LIMINAL SPACE, manipulated self-portraits and photographs of his brother take center stage in a series of digital paintings depicting the two young men involved in mundane activities. The surreal treatment of these banal scenes inject a palpable feeling of nostalgia.",
+              "externalLink": "https://quantum.art/collection/liminal-space"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e6ee1443b5e3d3fab01c5f/61e6ee4043b5e3d3fab01c70.jpg",
+              "title": "Growing Up Travelling - Jamie Johnson",
+              "description": "I have spent my entire career photographing children all over the world. The last several years I have focused my eyes on the Irish Traveller that live in caravans on the side of the road or in open fields throughout Ireland.",
+              "externalLink": "https://quantum.art/collection/growing-up-travelling"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17305ce6e109e2062b3e7/61e1812c2840864e7718274f.jpg",
+              "title": "Privileged Mediocrity - Kris Graves",
+              "description": "Privileged Mediocrity by Kris Graves examines systemic unfairness in the United States. Represented by Sasha Wolf Projects.",
+              "externalLink": "https://quantum.art/collection/privileged-mediocrity"
             }
           ]
         }
       ]
     },
     {
-      "id": "coke2",
-      "name": "Quasar #1582",
+      "id": "QA-002",
+      "project": "Quantum",
+      "name": "Quasar #1650",
       "description": "A short descriptor of the asset.",
-      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00133.jpg",
-      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00133.glb",
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/thumbnails/QUASAR_BATCH006_FRAME1650.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/models/compressed/QUASAR_BATCH006-Frame_0001650.glb",
       "geo": {
         "lat": 52.3309932,
         "lon": -1.2021426,
-        "alt": 0.0
+        "alt": 0
       },
-      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+      "palette": [
+        "#c06995",
+        "#de77c7",
+        "#df86df",
+        "#d998ee",
+        "#ceadf4",
+        "#c6bff9"
+      ],
       "gallery": [
         {
-          "name": "Main",
+          "name": "Set 1",
           "assets": [
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com",
-              "type": "video"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/63732ff0144f66a77785baa0/63733082c1baf64fea881e8f.jpg",
+              "title": "Spiritually Fashionable",
+              "description": "Spiritually Fashionable brings the couture of Egúngún a fancifully masked figure at the heart of the traditional religion and culture of the Yorùbá people of West Africa into sharp relief in a way that is critical and innovative.",
+              "externalLink": "https://quantum.art/collection/spirituallyfashionable"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-14.mp4",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com",
-              "type": "video"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620c435d776546dd4fca181d/620e93a6924904bc1faa95c2.jpg",
+              "title": "Human Sculptures - Sanja Marušić",
+              "description": "My photographs are like a physical meditation, and the process of taking the picture is intuitively driven. I often let the landscape, sunlight or shadows, the clothes I’m wearing, or my feelings at that particular moment inspire me. In a way I try to become one with the scene.",
+              "externalLink": "https://quantum.art/collection/human-sculptures"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17308ce6e109e2062b408/61e1a39741ad7b72b6cf98ee.jpg",
+              "title": "Guadalupe - Amanda Lopez",
+              "description": "Guadalupe celebrates Mexico’s beloved patron saint, Our Lady of Guadalupe, while exploring the ways she has impacted my life.",
+              "externalLink": "https://quantum.art/collection/guadalupe"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620ed5ffe53d44b0aa16ab9a/6210309d1c5836e8ad377e36.jpg",
+              "title": "ICONS - Parker Day",
+              "description": "Parker Day's ICONS invites us to approach identity with a sense of play and malleability, and to recognize the forgotten parts of ourselves as we see them reflected in these color-saturated portraits.",
+              "externalLink": "https://quantum.art/collection/icons"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/632cc722932de6bbfd72c89e/632cc7d7932de6bbfd72c8e2.jpg",
+              "title": "Spectrum - Brian Vu",
+              "description": "Spectrum celebrates a community of innovative artists in New York City who present themselves in a new and unapologetic way. In an expanding world of hegemonic social media, Vu embraces the importance of capturing those who carve out their own unique space within it.",
+              "externalLink": "https://quantum.art/collection/spectrum"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/62a34688fd902541792f8a75/62a347ebfd902541792f8b8c.jpg",
+              "title": "LIMINAL SPACE - Arclight",
+              "description": "In LIMINAL SPACE, manipulated self-portraits and photographs of his brother take center stage in a series of digital paintings depicting the two young men involved in mundane activities. The surreal treatment of these banal scenes inject a palpable feeling of nostalgia.",
+              "externalLink": "https://quantum.art/collection/liminal-space"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e6ee1443b5e3d3fab01c5f/61e6ee4043b5e3d3fab01c70.jpg",
+              "title": "Growing Up Travelling - Jamie Johnson",
+              "description": "I have spent my entire career photographing children all over the world. The last several years I have focused my eyes on the Irish Traveller that live in caravans on the side of the road or in open fields throughout Ireland.",
+              "externalLink": "https://quantum.art/collection/growing-up-travelling"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17305ce6e109e2062b3e7/61e1812c2840864e7718274f.jpg",
+              "title": "Privileged Mediocrity - Kris Graves",
+              "description": "Privileged Mediocrity by Kris Graves examines systemic unfairness in the United States. Represented by Sasha Wolf Projects.",
+              "externalLink": "https://quantum.art/collection/privileged-mediocrity"
             }
           ]
         }
       ]
     },
     {
-      "id": "coke3",
-      "name": "Quasar #1582",
+      "id": "QA-003",
+      "project": "Quantum",
+      "name": "Quasar #2682",
       "description": "A short descriptor of the asset.",
-      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/thumbnails/QUASAR_BATCH037_COLA_FRAME00266.jpg",
-      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/models/compressed/QUASAR_BATCH037_COLA_FRAME00266.glb",
-
+      "imageSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/thumbnails/QUASAR_BATCH010_FRAME2862.jpg",
+      "modelSrc": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/quantum/models/compressed/QUASAR_BATCH010-Frame_0002862.glb",
       "geo": {
         "lat": 52.3309932,
         "lon": -1.2021426,
-        "alt": 0.0
+        "alt": 0
       },
-      "palette": ["#E61D2B", "#7D7C7C", "#E6E6E5", "#E6E6E5", "#7D7C7C"],
+
+      "palette": ["#f5d800", "#032185", "#EEEEEE", "#DCFA5C", "#ff002b"],
       "gallery": [
         {
-          "name": "Main",
+          "name": "Set 1",
           "assets": [
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-05.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-08.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/63732ff0144f66a77785baa0/63733082c1baf64fea881e8f.jpg",
+              "title": "Spiritually Fashionable",
+              "description": "Spiritually Fashionable brings the couture of Egúngún a fancifully masked figure at the heart of the traditional religion and culture of the Yorùbá people of West Africa into sharp relief in a way that is critical and innovative.",
+              "externalLink": "https://quantum.art/collection/spirituallyfashionable"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-04.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620c435d776546dd4fca181d/620e93a6924904bc1faa95c2.jpg",
+              "title": "Human Sculptures - Sanja Marušić",
+              "description": "My photographs are like a physical meditation, and the process of taking the picture is intuitively driven. I often let the landscape, sunlight or shadows, the clothes I’m wearing, or my feelings at that particular moment inspire me. In a way I try to become one with the scene.",
+              "externalLink": "https://quantum.art/collection/human-sculptures"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-01.mp4",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com",
-              "type": "video"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17308ce6e109e2062b408/61e1a39741ad7b72b6cf98ee.jpg",
+              "title": "Guadalupe - Amanda Lopez",
+              "description": "Guadalupe celebrates Mexico’s beloved patron saint, Our Lady of Guadalupe, while exploring the ways she has impacted my life.",
+              "externalLink": "https://quantum.art/collection/guadalupe"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-06.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/620ed5ffe53d44b0aa16ab9a/6210309d1c5836e8ad377e36.jpg",
+              "title": "ICONS - Parker Day",
+              "description": "Parker Day's ICONS invites us to approach identity with a sense of play and malleability, and to recognize the forgotten parts of ourselves as we see them reflected in these color-saturated portraits.",
+              "externalLink": "https://quantum.art/collection/icons"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-07.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
-            },
-
-            {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-09.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/632cc722932de6bbfd72c89e/632cc7d7932de6bbfd72c8e2.jpg",
+              "title": "Spectrum - Brian Vu",
+              "description": "Spectrum celebrates a community of innovative artists in New York City who present themselves in a new and unapologetic way. In an expanding world of hegemonic social media, Vu embraces the importance of capturing those who carve out their own unique space within it.",
+              "externalLink": "https://quantum.art/collection/spectrum"
             },
             {
-              "url": "https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/coca-cola/gallery/coca-cola-10.png",
-              "title": "Some title",
-              "description": "A little description here",
-              "externalLink": "https://www.coca-cola.com"
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/62a34688fd902541792f8a75/62a347ebfd902541792f8b8c.jpg",
+              "title": "LIMINAL SPACE - Arclight",
+              "description": "In LIMINAL SPACE, manipulated self-portraits and photographs of his brother take center stage in a series of digital paintings depicting the two young men involved in mundane activities. The surreal treatment of these banal scenes inject a palpable feeling of nostalgia.",
+              "externalLink": "https://quantum.art/collection/liminal-space"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e6ee1443b5e3d3fab01c5f/61e6ee4043b5e3d3fab01c70.jpg",
+              "title": "Growing Up Travelling - Jamie Johnson",
+              "description": "I have spent my entire career photographing children all over the world. The last several years I have focused my eyes on the Irish Traveller that live in caravans on the side of the road or in open fields throughout Ireland.",
+              "externalLink": "https://quantum.art/collection/growing-up-travelling"
+            },
+            {
+              "url": "https://res.cloudinary.com/pulsar/image/upload/w_1000,c_scale,f_auto/61e17305ce6e109e2062b3e7/61e1812c2840864e7718274f.jpg",
+              "title": "Privileged Mediocrity - Kris Graves",
+              "description": "Privileged Mediocrity by Kris Graves examines systemic unfairness in the United States. Represented by Sasha Wolf Projects.",
+              "externalLink": "https://quantum.art/collection/privileged-mediocrity"
             }
           ]
         }
