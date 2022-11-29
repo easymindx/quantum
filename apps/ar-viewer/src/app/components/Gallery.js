@@ -26,6 +26,7 @@ const Gallery = ({ model }) => {
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const activeQuasar = useStore((state) => state.activeQuasar);
+  const itemDetails = useStore((state) => state.itemDetails);
 
   const galleryRadius = 2;
   const index = useRef(0);
@@ -60,8 +61,8 @@ const Gallery = ({ model }) => {
     }, 500);
   }, [api, currentLevel]);
 
-  useFrame((state, delta) => {
-    if (!isDesktopMode) return;
+  useFrame((delta) => {
+    if (!isDesktopMode || itemDetails) return;
     groupRef.current.rotation.y += delta * 0.075;
   });
 

@@ -22,7 +22,7 @@ const Experience = () => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const groupYPos = isDesktopMode ? 1.5 : 2;
-
+  const itemDetails = useStore((state) => state.itemDetails);
   const quasarModel = useGLTF(activeQuasar.modelSrc);
 
   const { groupPosition } = useSpring({
@@ -43,7 +43,6 @@ const Experience = () => {
 
   const { sparkScale } = useSpring({
     sparkScale: isCaught ? [0.2, 0.2, 0.2] : [1, 1, 1],
-    // immediate: isCaught,
   });
 
   const { shellScale, shellPosition } = useSpring({
@@ -56,12 +55,7 @@ const Experience = () => {
 
   return (
     <>
-      <animated.group
-        ref={groupRef}
-        position={groupPosition}
-        scale={[1, 1, 1]}
-        // rotation={[0, 0, 0]}
-      >
+      <animated.group ref={groupRef} position={groupPosition} scale={[1, 1, 1]}>
         <PresentationControls
           enabled={true}
           global={false}
@@ -74,12 +68,15 @@ const Experience = () => {
           azimuth={[-Infinity, Infinity]}
           config={{ mass: 1, tension: 170, friction: 20 }}
         >
-          <animated.group scale={quasarScale} position={quasarPosition}>
+          <animated.group scale={[quasarScale]} position={quasarPosition}>
             <Quasar model={quasarModel} initialRotation={initialRotation} />
           </animated.group>
 
-          <animated.group scale={sparkScale}>
-            <SparkStorm count={150} colors={palette} />
+          <animated.group
+            scale={sparkScale}
+            visible={isDesktopMode ? true : !isCaught}
+          >
+            <SparkStorm count={100} colors={palette} />
           </animated.group>
 
           <animated.group scale={shellScale} position={shellPosition}>

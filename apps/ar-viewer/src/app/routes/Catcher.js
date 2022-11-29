@@ -1,5 +1,11 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { memo, Suspense, useLayoutEffect, useState } from 'react';
+import React, {
+  memo,
+  Suspense,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';
@@ -10,6 +16,13 @@ import TopBar from '../components/TopBar';
 import use8thWall from '../hooks/use8thWall';
 import Experience from '../components/Experience';
 import { AdaptiveDpr, Preload, Stats } from '@react-three/drei';
+import {
+  EffectComposer,
+  DepthOfField,
+  Bloom,
+  Vignette,
+} from '@react-three/postprocessing';
+import { BlurPass, Resizer, KernelSize } from 'postprocessing';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
@@ -36,6 +49,8 @@ function Catcher() {
     );
   };
 
+  const isReadyScene = useMemo(() => XR8 && XR8.Threejs.xrScene(), [XR8]);
+
   useLayoutEffect(() => {
     setCanvasEl(document.getElementsByTagName('canvas')[0]);
   }, []);
@@ -44,7 +59,7 @@ function Catcher() {
 
   return (
     <FadeIn delay={250} transitionDuration={2000}>
-      {XR8 && XR8.Threejs.xrScene() && (
+      {isReadyScene && (
         <>
           <TopBar />
           <ControlCenter />
@@ -56,14 +71,32 @@ function Catcher() {
         style={{ height: height, width: width }}
         dpr={[1, 2]}
       >
-        {XR8 && XR8.Threejs.xrScene() && (
+        {isReadyScene && (
           <Suspense fallback={<Loader />}>
             <Experience XR8={XR8} />
-            <Environment preset="warehouse" />
           </Suspense>
         )}
         <Preload all />
         <AdaptiveDpr pixelated />
+        <Environment preset="warehouse" />
+        <EffectComposer multisampling={0} disableNormalPass={true}>
+          <DepthOfField
+            focusDistance={0}
+            focalLength={0.02}
+            bokehScale={2}
+            height={480}
+          />
+          <Bloom
+            intensity={0.1} // The bloom intensity.
+            blurPass={BlurPass} // A blur pass.
+            width={Resizer.AUTO_SIZE} // render width
+            height={Resizer.AUTO_SIZE} // render height
+            kernelSize={KernelSize.HUGE} // blur kernel size
+            luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
+            luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
+          />
+          <Vignette eskil={false} offset={0.1} darkness={1.1} />
+        </EffectComposer>
       </Canvas>
     </FadeIn>
   );

@@ -79,7 +79,7 @@ const GalleryAsset = ({
     };
 
     setTexture(texture());
-  }, [id, type, url]);
+  }, [id, type, url]); // Warning... do NOT add 'video' into the callback array. It will cause an infinite loop.
 
   const _handleClick = () => {
     if (videoEl) {
@@ -131,7 +131,7 @@ const GalleryAsset = ({
 
   useEffect(() => {
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 0.5;
+    const scaleMultiplier = 0.65;
     groupRef.current.scale.set(
       scaleMultiplier / aspectRatio,
       scaleMultiplier,
