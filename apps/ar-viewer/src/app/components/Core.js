@@ -68,7 +68,7 @@ const Experience = () => {
           azimuth={[-Infinity, Infinity]}
           config={{ mass: 1, tension: 170, friction: 20 }}
         >
-          <animated.group scale={[quasarScale]} position={quasarPosition}>
+          <animated.group scale={quasarScale} position={quasarPosition}>
             <Quasar model={quasarModel} initialRotation={initialRotation} />
           </animated.group>
 
