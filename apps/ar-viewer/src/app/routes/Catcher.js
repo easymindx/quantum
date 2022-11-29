@@ -78,7 +78,7 @@ function Catcher() {
           </Suspense>
         )}
         <Preload all />
-        {/* <AdaptiveDpr pixelated /> */}
+        <AdaptiveDpr pixelated />
         {/* <EffectComposer multisampling={0} disableNormalPass={true}>
           <DepthOfField
             focusDistance={0}
