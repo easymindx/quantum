@@ -7,7 +7,7 @@ import {
   dadrasAttractor,
   aizawaAttractor,
   arneodoAttractor,
-  dequanAttractor,
+  // dequanAttractor,
   lorenzAttractor,
   lorenzMod2Attractor,
 } from './attractor';
@@ -17,7 +17,7 @@ const simulation = () =>
     dadrasAttractor,
     aizawaAttractor,
     arneodoAttractor,
-    dequanAttractor,
+    // dequanAttractor,
     lorenzAttractor,
     lorenzMod2Attractor,
   ]);
@@ -31,7 +31,7 @@ function StormLine({ radius, simulation, width, color }) {
         currentPosition,
         radius,
         simulation,
-        0.005
+        0.003
       );
       line.current.advance(nextPosition);
     }
@@ -42,7 +42,12 @@ function StormLine({ radius, simulation, width, color }) {
   return (
     <mesh>
       <meshLine ref={line} attach="geometry" points={positions} />
-      <meshLineMaterial transparent lineWidth={width} color={color} />
+      <meshLineMaterial
+        transparent
+        lineWidth={width}
+        color={color}
+        opacity={0.5}
+      />
     </mesh>
   );
 }

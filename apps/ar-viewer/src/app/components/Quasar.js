@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import useStore from '../store';
 
@@ -12,20 +12,16 @@ const Quasar = ({ model, initialRotation }) => {
 
   const maxAnisotropy = gl.capabilities.getMaxAnisotropy();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     model?.scene?.traverse((node) => {
       if (node.isMesh) {
-        node.castShadow = false;
-        node.receiveShadow = false;
-        node.fulstrumCulled = true;
-        node.frustumCulled = true; //
         // removes the inner sphere to avoid z-fighting
         if (node.name.includes('QUASAR_INNER_SPHERE')) {
           setTimeout(
             () => {
               node.visible = false;
             },
-            isCaught ? 0 : 250
+            isCaught ? 0 : 500
           );
         }
 
@@ -45,7 +41,6 @@ const Quasar = ({ model, initialRotation }) => {
     if (!isCaught) {
       recenter();
       catchQuasar();
-      return;
     }
   };
 
