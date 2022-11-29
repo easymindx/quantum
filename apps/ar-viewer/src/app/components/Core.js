@@ -59,7 +59,7 @@ const Experience = () => {
           enabled={true}
           global={false}
           cursor={true}
-          snap={false}
+          snap={!isDesktopMode}
           speed={2}
           zoom={1}
           rotation={[0, 0, 0]}
