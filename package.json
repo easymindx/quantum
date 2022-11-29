@@ -31,6 +31,7 @@
     "lodash.clamp": "^4.0.3",
     "pastel-color": "^1.0.3",
     "postprocessing": "^6.29.1",
+    "randomcolor": "^0.6.2",
     "react": "18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-chartjs-2": "^4.3.1",

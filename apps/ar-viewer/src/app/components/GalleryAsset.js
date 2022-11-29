@@ -131,7 +131,7 @@ const GalleryAsset = ({
 
   useEffect(() => {
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 1.8;
+    const scaleMultiplier = 0.5;
     groupRef.current.scale.set(
       scaleMultiplier / aspectRatio,
       scaleMultiplier,
