@@ -61,7 +61,7 @@ const Gallery = ({ model }) => {
     }, 500);
   }, [api, currentLevel]);
 
-  useFrame((delta) => {
+  useFrame((state, delta) => {
     if (!isDesktopMode || itemDetails) return;
     groupRef.current.rotation.y += delta * 0.075;
   });
@@ -161,8 +161,8 @@ const Gallery = ({ model }) => {
             </Fragment>
           );
         })}
-        <hemisphereLight intensity={0.5} />
       </animated.group>
+      <hemisphereLight intensity={0.25} />
     </group>
   );
 };
