@@ -34,20 +34,20 @@ function Catcher() {
     width: window.innerWidth,
   };
 
-  const Loader = () => {
-    const { progress } = useProgress();
+  // const Loader = () => {
+  //   const { progress } = useProgress();
 
-    return (
-      <group position={[0, 0.5, -5]}>
-        <Html center>
-          <CircleProgress
-            percentage={Number(progress.toFixed())}
-            strokeWidth={10}
-          />
-        </Html>
-      </group>
-    );
-  };
+  //   return (
+  //     <group position={[0, 0.5, -5]}>
+  //       <Html center>
+  //         <CircleProgress
+  //           percentage={Number(progress.toFixed())}
+  //           strokeWidth={10}
+  //         />
+  //       </Html>
+  //     </group>
+  //   );
+  // };
 
   const isReadyScene = useMemo(() => XR8 && XR8.Threejs.xrScene(), [XR8]);
 
@@ -73,7 +73,7 @@ function Catcher() {
         shadows={false}
       >
         {isReadyScene && (
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={null}>
             <Experience XR8={XR8} />
           </Suspense>
         )}

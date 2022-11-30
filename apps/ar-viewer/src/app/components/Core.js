@@ -1,16 +1,11 @@
-import { memo, useRef } from 'react';
+import { memo, Suspense, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import Quasar from './Quasar';
 import Gallery from './Gallery';
 import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
-import {
-  Environment,
-  PresentationControls,
-  Shadow,
-  useGLTF,
-} from '@react-three/drei';
+import { PresentationControls, Shadow, useGLTF } from '@react-three/drei';
 import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
@@ -69,9 +64,9 @@ const Experience = () => {
           azimuth={[-Infinity, Infinity]}
           config={{ mass: 1, tension: 170, friction: 20 }}
         >
-          <animated.group scale={quasarScale} position={quasarPosition}>
+          {/* <animated.group scale={quasarScale} position={quasarPosition}>
             <Quasar model={quasarModel} initialRotation={initialRotation} />
-          </animated.group>
+          </animated.group> */}
 
           <animated.group
             scale={sparkScale}
@@ -94,5 +89,7 @@ const Experience = () => {
     </>
   );
 };
+
+useGLTF.preload();
 
 export default memo(Experience);
