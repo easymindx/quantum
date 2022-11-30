@@ -21,9 +21,8 @@ const Gallery = ({ model }) => {
 
   const [layerIndex, setLayerIndex] = useState(0);
   const currentLevel = useStore((state) => state.currentLevel);
-  const isDesktopMode = useStore((state) => state.isDesktopMode);
+
   const activeQuasar = useStore((state) => state.activeQuasar);
-  const itemDetails = useStore((state) => state.itemDetails);
 
   const galleryRadius = 2;
 
@@ -57,18 +56,15 @@ const Gallery = ({ model }) => {
     });
   }, [api, currentLevel, layerIndex]);
 
-  useFrame((state, delta) => {
-    if (!isDesktopMode || itemDetails) return;
-    groupRef.current.rotation.y += delta * 0.075;
-  });
+  // useFrame((state, delta) => {
+  //   if (!isDesktopMode || itemDetails) return;
+  //   groupRef.current.rotation.y += delta * 0.075;
+  // });
 
-  const calculatedGalleryLayout = useMemo(() => {
-    return activeQuasar.gallery.map((item, index) => {
-      return calculatePositions(item.assets, galleryRadius - 0.2);
-    });
-  }, [activeQuasar, galleryRadius]);
-
-  const assetGallery = calculatedGalleryLayout[layerIndex];
+  const assetGallery = calculatePositions(
+    activeQuasar.gallery[currentLevel].assets,
+    galleryRadius - 0.2
+  ).splice(0, 1);
 
   const meshMaterial = {
     side: THREE.DoubleSide,
@@ -158,4 +154,4 @@ const Gallery = ({ model }) => {
 
 // https://codesandbox.io/s/jflps?file=/src/App.js:2700-2714
 
-export default memo(Gallery);
+export default Gallery;

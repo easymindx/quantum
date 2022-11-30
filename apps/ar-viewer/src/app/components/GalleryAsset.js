@@ -10,6 +10,7 @@ import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
 import useStore from '../store';
+import { useGLTF } from '@react-three/drei';
 
 const gifLoader = new GifLoader();
 const textureLoader = new THREE.TextureLoader();
@@ -34,14 +35,35 @@ const GalleryAsset = ({
 
   const [videoEl, setVideoEl] = useState();
   const [isClicked, setIsClicked] = useState(false);
-  const [imageDims, setImageDims] = useState({
-    width: 0,
-    height: 0,
-    aspectRatio: 1,
-  });
+  const [imageDims, setImageDims] = useState(null);
   const [texture, setTexture] = useState(null);
   const groupRef = useRef();
-  const assetMeshRef = useRef();
+  const assetRef = useRef();
+  const mountRef = useRef();
+  const outerMountRef = useRef();
+  const frameRef = useRef();
+
+  const frameModel = useGLTF(
+    'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
+  );
+
+  useEffect(() => {
+    frameModel?.scene?.traverse((node) => {
+      if (node.isMesh) {
+        console.log('node.name', node.name);
+        console.log('texture', url);
+        if (node.name.includes('mesh_3_instance_1')) {
+          // node.material.map = THREE.ImageUtils.loadTexture(url);
+          // load url as new material map
+          node.material.map = textureLoader.load(url);
+
+          node.needsUpdate = true;
+        }
+      }
+    });
+  }, [frameModel]);
+
+  // TESTING FRAMES
 
   useEffect(() => {
     const texture = () => {
@@ -130,45 +152,69 @@ const GalleryAsset = ({
   });
 
   useEffect(() => {
+    if (!imageDims) return;
     const { aspectRatio } = imageDims;
     const scaleMultiplier = 0.65;
-    groupRef.current.scale.set(
-      scaleMultiplier / aspectRatio,
-      scaleMultiplier,
-      1
+    const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
+    assetRef.current.scale.set(...assetBounds);
+    const mountPadding = 0.1;
+
+    mountRef.current.scale.set(
+      ...assetBounds.map((bound) => bound + mountPadding)
     );
-  }, [imageDims]);
+
+    outerMountRef.current.scale.set(
+      ...assetBounds.map((bound) => bound + mountPadding + 0.1)
+    );
+
+    const frameBox = new THREE.Box3().setFromObject(frameRef.current);
+
+    let frameBounds = {
+      x: Math.abs(frameBox.max.x - frameBox.min.x),
+      y: Math.abs(frameBox.max.y - frameBox.min.y),
+    };
+
+    let outerMountBounds = {
+      x: Math.abs(outerMountRef.current.scale.x),
+      y: Math.abs(outerMountRef.current.scale.y),
+    };
+
+    let lengthRatios = [
+      outerMountBounds.x / frameBounds.x,
+      outerMountBounds.y / frameBounds.y,
+    ];
+
+    frameRef.current.scale.set(lengthRatios[0], lengthRatios[1], 0.01);
+  }, [imageDims, url]);
 
   return (
-    <animated.group
-      ref={groupRef}
-      position={position}
-      rotation={rotation}
-      onClick={() => _handleClick()}
-    >
-      <mesh position={[0, 0, 0]} scale={1.2}>
-        <planeGeometry attach="geometry" args={[1, 1, 1]} />
+    <animated.group ref={groupRef} position={position} rotation={rotation}>
+      <primitive ref={frameRef} object={frameModel.scene} />
+      <mesh position={[0, 0, -0.01]} ref={outerMountRef}>
+        <planeGeometry attach="geometry" />
         <meshStandardMaterial
           attach="material"
-          color={outerFrameColor}
-          side={THREE.DoubleSide}
-          transparent={false}
-          opacity={1}
-        />
-      </mesh>
-      <mesh position={[0, 0, 0.01]} scale={1.1}>
-        <planeGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial
-          attach="material"
-          color={innerFrameColor}
+          color={'#000'}
           side={THREE.FrontSide}
-          transparent={false}
-          opacity={1}
+          transparent={true}
         />
       </mesh>
-
-      <mesh ref={assetMeshRef} position={[0, 0, 0.02]} rotation={[0, 0, 0]}>
-        <planeGeometry attach="geometry" args={[1, 1, 1]} />
+      <mesh position={[0, 0, -0.0]} ref={mountRef}>
+        <planeGeometry attach="geometry" />
+        <meshStandardMaterial
+          attach="material"
+          color={'#fff'}
+          side={THREE.FrontSide}
+          transparent={true}
+        />
+      </mesh>
+      <mesh
+        ref={assetRef}
+        position={[0, 0, 0.02]}
+        rotation={[0, 0, 0]}
+        onClick={() => _handleClick()}
+      >
+        <planeGeometry attach="geometry" />
         <meshStandardMaterial
           side={THREE.FrontSide}
           attach="material"
@@ -179,4 +225,4 @@ const GalleryAsset = ({
   );
 };
 
-export default memo(GalleryAsset);
+export default GalleryAsset;
