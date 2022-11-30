@@ -3,7 +3,7 @@ export const calculatePositions = (collection, radius, insetFactor = 0.75) => {
   const constant = (2 * Math.PI) / count;
 
   let output = [];
-
+  // Dont need all the meta data stuff in here. Refactor
   for (let i = 0; i < count; i++) {
     const rotation = i * constant;
     output.push({
@@ -15,6 +15,7 @@ export const calculatePositions = (collection, radius, insetFactor = 0.75) => {
       title: collection[i]?.title || '',
       description: collection[i]?.description || '',
       externalLink: collection[i]?.externalLink || '',
+      frame: collection[i]?.frame || null,
       type: collection[i]?.type || 'image',
       activeX: (radius - insetFactor) * Math.sin(rotation),
       activeY: 0.1,

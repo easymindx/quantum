@@ -64,7 +64,7 @@ const Gallery = ({ model }) => {
   const assetGallery = calculatePositions(
     activeQuasar.gallery[currentLevel].assets,
     galleryRadius - 0.2
-  ).splice(0, 1);
+  ).splice(0, 3);
 
   const meshMaterial = {
     side: THREE.DoubleSide,
@@ -141,6 +141,7 @@ const Gallery = ({ model }) => {
                 externalLink={asset?.externalLink}
                 title={asset?.title}
                 description={asset?.description}
+                frame={asset?.frame}
                 id={`asset-${index}-levelIndex-${currentLevel}`}
               />
             </Fragment>
