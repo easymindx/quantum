@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useMemo,
+  Suspense,
 } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
@@ -111,7 +112,7 @@ const GalleryAsset = ({
             description: description,
             externalLink: externalLink,
           }
-        : null
+        : null,
     );
   };
 
@@ -119,7 +120,7 @@ const GalleryAsset = ({
     if (!itemDetails || itemDetails.id !== id) {
       setIsClicked(false);
     }
-  }, [itemDetails]);
+  }, [id, itemDetails]);
 
   const { position, rotation } = useSpring({
     position: isClicked ? activePosition : initialPosition,
@@ -130,7 +131,7 @@ const GalleryAsset = ({
           initialRotation[2],
         ]
       : initialRotation,
-    config: { mass: 1, tension: 200, friction: 20 },
+    config: { mass: 2, tension: 300, friction: 50, clamp: !isClicked },
   });
 
   useEffect(() => {
@@ -138,88 +139,83 @@ const GalleryAsset = ({
     const { aspectRatio } = imageDims;
     const scaleMultiplier = 0.65;
     const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
-    assetRef.current.scale.set(...assetBounds);
     const mountPadding = 0.1;
+    assetRef.current.scale.set(...assetBounds);
 
     mountRef.current.scale.set(
-      ...assetBounds.map((bound) => bound + mountPadding)
+      ...assetBounds.map((bound) => bound + mountPadding),
     );
-
     outerMountRef.current.scale.set(
-      ...assetBounds.map((bound) => bound + mountPadding + 0.1)
+      ...assetBounds.map((bound) => bound + mountPadding + 0.1),
     );
-
-    const frameBox = new THREE.Box3().setFromObject(frameRef.current);
-
-    let frameBounds = {
-      x: Math.abs(frameBox.max.x - frameBox.min.x),
-      y: Math.abs(frameBox.max.y - frameBox.min.y),
-    };
-
-    let outerMountBounds = {
-      x: Math.abs(outerMountRef.current.scale.x),
-      y: Math.abs(outerMountRef.current.scale.y),
-    };
-
-    let lengthRatios = [
-      outerMountBounds.x / frameBounds.x,
-      outerMountBounds.y / frameBounds.y,
-    ];
-
-    frameRef.current.scale.set(lengthRatios[0], lengthRatios[1], 0.01);
   }, [imageDims, url]);
-
-  // To move out when fixed
 
   const Frame = ({ frameSrc, imageSrc }) => {
     const { scene } = useGLTF(frameSrc);
-    const copiedScene = useMemo(() => scene.clone(), [scene]);
+    const copiedScene = scene.clone();
 
     useEffect(() => {
-      copiedScene?.traverse((node) => {
-        if (node.isMesh) {
-          if (node.name.includes('mesh_3_instance_0')) {
-            node.material.map = textureLoader.load(imageSrc);
-            node.needsUpdate = true;
+      const frameBox = new THREE.Box3().setFromObject(scene);
+
+      let frameBounds = {
+        x: Math.abs(frameBox.max.x - frameBox.min.x),
+        y: Math.abs(frameBox.max.y - frameBox.min.y),
+      };
+
+      let outerMountBounds = {
+        x: Math.abs(outerMountRef.current.scale.x),
+        y: Math.abs(outerMountRef.current.scale.y),
+      };
+
+      let lengthRatios = [
+        outerMountBounds.x / frameBounds.x,
+        outerMountBounds.y / frameBounds.y,
+      ];
+
+      frameRef.current.scale.set(lengthRatios[0], lengthRatios[1], 0.01);
+
+      copiedScene.traverse((child) => {
+        if (child.isMesh) {
+          // TODO: Get better naming of meshes from Frahm (the frame makers)
+          if (child.name.includes('instance')) {
+            // get MeshPhysicalMaterial properties
+            const { color, roughness, metalness } = child.material;
+            // create new MeshPhysicalMaterial with same properties
+            const newMaterial = new THREE.MeshPhysicalMaterial({
+              color,
+              roughness,
+              metalness,
+            });
+            child.material = newMaterial;
+            child.material.map = texture;
+            child.material.needsUpdate = true;
           }
         }
       });
-    }, [copiedScene, imageSrc]);
+
+      frameRef.current.updateMatrixWorld();
+    }, [copiedScene, imageSrc, scene]);
 
     return <primitive object={copiedScene} />;
   };
 
   return (
     <animated.group ref={groupRef} position={position} rotation={rotation}>
-      <animated.group ref={frameRef}>
-        <Frame
-          frameSrc={
-            'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
-          }
-          imageSrc={url}
-        />
+      <animated.group ref={frameRef} position={[0, 0, 0.01]}>
+        <Suspense fallback={null}>
+          <Frame
+            frameSrc={
+              'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
+            }
+            imageSrc={url}
+          />
+        </Suspense>
       </animated.group>
-      <mesh position={[0, 0, -0.01]} ref={outerMountRef}>
-        <planeGeometry attach="geometry" />
-        <meshStandardMaterial
-          attach="material"
-          color={'#000'}
-          side={THREE.FrontSide}
-          transparent={true}
-        />
-      </mesh>
-      <mesh position={[0, 0, -0.0]} ref={mountRef}>
-        <planeGeometry attach="geometry" />
-        <meshStandardMaterial
-          attach="material"
-          color={'#fff'}
-          side={THREE.FrontSide}
-          transparent={true}
-        />
-      </mesh>
+      <mesh position={[0, 0, 0]} ref={outerMountRef}></mesh>
+      <mesh position={[0, 0, 0.01]} ref={mountRef}></mesh>
       <mesh
         ref={assetRef}
-        position={[0, 0, 0.02]}
+        position={[0, 0, 0.011]}
         rotation={[0, 0, 0]}
         onClick={() => _handleClick()}
       >
