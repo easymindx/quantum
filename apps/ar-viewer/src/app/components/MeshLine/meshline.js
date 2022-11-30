@@ -79,7 +79,7 @@ export class MeshLine extends THREE.BufferGeometry {
   setPoints(points, wcb) {
     if (!(points instanceof Float32Array) && !(points instanceof Array)) {
       console.error(
-        'ERROR: The BufferArray of points is not instancied correctly.'
+        'ERROR: The BufferArray of points is not instancied correctly.',
       );
       return;
     }
@@ -93,17 +93,17 @@ export class MeshLine extends THREE.BufferGeometry {
       // could transform Vector3 array into the array used below
       // but this approach will only loop through the array once
       // and is more performant
-      for (var j = 0; j < points.length; j++) {
+      for (let j = 0; j < points.length; j++) {
         const p = points[j];
-        var c = j / points.length;
+        let c = j / points.length;
         this.positions.push(p.x, p.y, p.z);
         this.positions.push(p.x, p.y, p.z);
         this.counters.push(c);
         this.counters.push(c);
       }
     } else {
-      for (var j = 0; j < points.length; j += 3) {
-        var c = j / points.length;
+      for (let j = 0; j < points.length; j += 3) {
+        let c = j / points.length;
         this.positions.push(points[j], points[j + 1], points[j + 2]);
         this.positions.push(points[j], points[j + 1], points[j + 2]);
         this.counters.push(c);
@@ -202,7 +202,7 @@ export class MeshLine extends THREE.BufferGeometry {
       this._attributes = {
         position: new THREE.BufferAttribute(
           new Float32Array(this.positions),
-          3
+          3,
         ),
         previous: new THREE.BufferAttribute(new Float32Array(this.previous), 3),
         next: new THREE.BufferAttribute(new Float32Array(this.next), 3),
@@ -211,7 +211,7 @@ export class MeshLine extends THREE.BufferGeometry {
         uv: new THREE.BufferAttribute(new Float32Array(this.uvs), 2),
         index: new THREE.BufferAttribute(
           new Uint16Array(this.indices_array),
-          1
+          1,
         ),
         counters: new THREE.BufferAttribute(new Float32Array(this.counters), 1),
       };
