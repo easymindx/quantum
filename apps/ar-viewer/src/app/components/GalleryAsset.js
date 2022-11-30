@@ -5,6 +5,7 @@ import React, {
   useState,
   useEffect,
   useLayoutEffect,
+  useMemo,
 } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
@@ -171,10 +172,11 @@ const GalleryAsset = ({
   // To move out when fixed
 
   const Frame = ({ frameSrc, imageSrc }) => {
-    const frameModel = useGLTF(frameSrc);
+    const { scene } = useGLTF(frameSrc);
+    const copiedScene = useMemo(() => scene.clone(), [scene]);
 
     useEffect(() => {
-      frameModel?.scene?.traverse((node) => {
+      copiedScene?.traverse((node) => {
         if (node.isMesh) {
           if (node.name.includes('mesh_3_instance_0')) {
             node.material.map = textureLoader.load(imageSrc);
@@ -182,9 +184,9 @@ const GalleryAsset = ({
           }
         }
       });
-    }, [frameModel, imageSrc]);
+    }, [copiedScene, imageSrc]);
 
-    return <primitive object={frameModel.scene} />;
+    return <primitive object={copiedScene} />;
   };
 
   return (
