@@ -190,6 +190,20 @@ const OffcanvasExample = () => {
                       </NavLink>
                     </p>
                   ) : null}
+                  {npointId !== '762b08b394182b77740f' ? (
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('762b08b394182b77740f');
+                        }}
+                      >
+                        Punks Gallery
+                      </NavLink>
+                    </p>
+                  ) : null}
+
                   {npointId !== '9c2bfdfd376f473d072c' ? (
                     <p>
                       <NavLink
