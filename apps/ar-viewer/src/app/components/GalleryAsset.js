@@ -25,6 +25,7 @@ const GalleryAsset = ({
   url,
   title,
   description,
+  frame,
   externalLink,
   type,
   id,
@@ -42,26 +43,6 @@ const GalleryAsset = ({
   const mountRef = useRef();
   const outerMountRef = useRef();
   const frameRef = useRef();
-
-  const frameModel = useGLTF(
-    'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
-  );
-
-  useEffect(() => {
-    frameModel?.scene?.traverse((node) => {
-      if (node.isMesh) {
-        console.log('node.name', node.name);
-        console.log('texture', url);
-        if (node.name.includes('mesh_3_instance_1')) {
-          // node.material.map = THREE.ImageUtils.loadTexture(url);
-          // load url as new material map
-          node.material.map = textureLoader.load(url);
-
-          node.needsUpdate = true;
-        }
-      }
-    });
-  }, [frameModel]);
 
   // TESTING FRAMES
 
@@ -187,9 +168,35 @@ const GalleryAsset = ({
     frameRef.current.scale.set(lengthRatios[0], lengthRatios[1], 0.01);
   }, [imageDims, url]);
 
+  // To move out when fixed
+
+  const Frame = ({ frameSrc, imageSrc }) => {
+    const frameModel = useGLTF(frameSrc);
+
+    useEffect(() => {
+      frameModel?.scene?.traverse((node) => {
+        if (node.isMesh) {
+          if (node.name.includes('mesh_3_instance_0')) {
+            node.material.map = textureLoader.load(imageSrc);
+            node.needsUpdate = true;
+          }
+        }
+      });
+    }, [frameModel, imageSrc]);
+
+    return <primitive object={frameModel.scene} />;
+  };
+
   return (
     <animated.group ref={groupRef} position={position} rotation={rotation}>
-      <primitive ref={frameRef} object={frameModel.scene} />
+      <animated.group ref={frameRef}>
+        <Frame
+          frameSrc={
+            'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
+          }
+          imageSrc={url}
+        />
+      </animated.group>
       <mesh position={[0, 0, -0.01]} ref={outerMountRef}>
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
