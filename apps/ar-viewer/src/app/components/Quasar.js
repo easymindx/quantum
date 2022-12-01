@@ -21,7 +21,7 @@ const Quasar = ({ model, initialRotation }) => {
             () => {
               node.visible = false;
             },
-            isCaught ? 0 : 500
+            isCaught ? 0 : 500,
           );
         }
 
@@ -59,6 +59,7 @@ const Quasar = ({ model, initialRotation }) => {
       scale={[0.05, 0.05, 0.05]}
       rotation={initialRotation}
       object={model.scene}
+      receiveShadow
     />
   );
 };

@@ -34,17 +34,14 @@ const Experience = ({ XR8 }) => {
   useEffect(() => {
     if (scene && activeQuasar && camera) {
       console.log('Init Scene');
-      // Add the app to 8thWall's ThreeJS scene
-      scene.add(appRef.current);
-      const light = new THREE.PointLight(0xffffff, 0.5, 100);
-      light.position.set(0, 0, 0);
-      camera.add(light);
       camera.position.y = 1.8;
       // Set the default camera to use ThreeJS's camera
       setDefaultCamera({
         camera,
         scene,
       });
+      // Add the app to 8thWall's ThreeJS scene
+      scene.add(appRef.current);
     }
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
