@@ -2,7 +2,7 @@ import create from 'zustand';
 
 const query = new URLSearchParams(window.location.search);
 const npointId = query.get('projectId') || '830360b5f6a82edd4912'; // points to the npoint document
-const quasarId = query.get('quasarId') || 1;
+const quasarId = query.get('quasarId') || 0;
 
 const useStore = create((set) => ({
   isDesktopMode:
@@ -13,7 +13,7 @@ const useStore = create((set) => ({
   isCaught: false,
   activeQuasar: null,
   projectData: null,
-  selectedQuasar: quasarId - 1, // converting from 1-indexed to 0-indexed for usability
+  selectedQuasar: quasarId, // converting from 1-indexed to 0-indexed for usability
   currentLevel: 0,
   itemDetails: null,
   setItemDetails: (itemDetails) => set({ itemDetails }),

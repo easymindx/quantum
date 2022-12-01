@@ -26,6 +26,15 @@ const Experience = ({ XR8 }) => {
       .get(`https://api.npoint.io/${npointId}`)
       .then((response) => {
         setProjectData(response.data, selectedQuasar);
+        // set react router path params
+        // history.push(`/experience/${selectedQuasar}`);
+        var newurl =
+          window.location.protocol +
+          '//' +
+          window.location.host +
+          window.location.pathname +
+          `?projectId=${npointId}&quasarId=${selectedQuasar}`;
+        window.history.pushState({ path: newurl }, '', newurl);
       })
       .catch((error) => {
         console.log(error);
@@ -52,7 +61,7 @@ const Experience = ({ XR8 }) => {
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
   const { mainPosition } = useSpring({
-    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, -20],
+    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, 0],
   });
 
   return (
