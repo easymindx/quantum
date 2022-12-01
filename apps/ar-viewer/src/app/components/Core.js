@@ -1,16 +1,11 @@
-import { memo, useRef } from 'react';
+import { memo, Suspense, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import Quasar from './Quasar';
 import Gallery from './Gallery';
 import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
-import {
-  Environment,
-  PresentationControls,
-  Shadow,
-  useGLTF,
-} from '@react-three/drei';
+import { PresentationControls, Shadow, useGLTF } from '@react-three/drei';
 import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
@@ -38,7 +33,11 @@ const Experience = () => {
       : isDesktopMode
       ? [0.5, 0.5, 0.5]
       : [0.7, 0.7, 0.7],
-    quasarPosition: isCaught ? [0, 0, 0] : [0, 0, 0],
+    quasarPosition: isCaught
+      ? isDesktopMode
+        ? [0, -0.2, 0]
+        : [0, 0, 0]
+      : [0, 0, 0],
     config: { mass: 0.7, tension: 200, friction: 20 },
   });
 
@@ -90,9 +89,32 @@ const Experience = () => {
         </PresentationControls>
       </animated.group>
 
+      <ambientLight intensity={0.25} />
+      {/* create 3 lights pointing at Quasar */}
+      <pointLight
+        position={[-0.5, 1, 0]}
+        intensity={0.25}
+        color={'#fff'}
+        decay={2}
+      />
+      <pointLight
+        position={[0, 1, 0]}
+        intensity={0.25}
+        color={'#fff'}
+        decay={2}
+      />
+      <pointLight
+        position={[0.25, 1, 0]}
+        intensity={0.5}
+        color={'#fff'}
+        decay={2}
+      />
+
       <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>
   );
 };
+
+useGLTF.preload();
 
 export default memo(Experience);

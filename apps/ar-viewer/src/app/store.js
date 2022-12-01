@@ -1,13 +1,13 @@
 import create from 'zustand';
 
 const query = new URLSearchParams(window.location.search);
-const npointId = query.get('projectId') || '830360b5f6a82edd4912'; // points to the npoint document
+const npointId = query.get('projectId') || '762b08b394182b77740f'; // points to the npoint document
 const quasarId = query.get('quasarId') || 1;
 
 const useStore = create((set) => ({
   isDesktopMode:
     !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     ),
   npointId: npointId, // points to the npoint document
   isCaught: null,
