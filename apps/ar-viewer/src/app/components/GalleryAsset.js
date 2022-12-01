@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useRef, useState, useEffect, Suspense, memo } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
 import useStore from '../store';
-import { useGLTF } from '@react-three/drei';
+import { Preload, useGLTF } from '@react-three/drei';
 
 const gifLoader = new GifLoader();
 const textureLoader = new THREE.TextureLoader();
@@ -34,8 +35,6 @@ const GalleryAsset = ({
   const mountRef = useRef();
   const outerMountRef = useRef();
   const frameRef = useRef();
-
-  // TESTING FRAMES
 
   useEffect(() => {
     const texture = () => {
@@ -120,15 +119,15 @@ const GalleryAsset = ({
           initialRotation[2],
         ]
       : initialRotation,
-    config: { mass: 2, tension: 300, friction: 50, clamp: !isClicked },
+    config: { mass: 3, tension: 200, friction: 30, clamp: !isClicked },
   });
 
-  useEffect(() => {
-    if (!imageDims) return;
+  const calculateMountScale = () => {
+    if (!imageDims || !texture) return;
     const { aspectRatio } = imageDims;
-    const scaleMultiplier = 0.65;
+    const scaleMultiplier = 0.5;
     const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
-    const mountPadding = 0.2;
+    const mountPadding = 0.1;
     assetRef.current.scale.set(...assetBounds);
 
     mountRef.current.scale.set(
@@ -137,13 +136,19 @@ const GalleryAsset = ({
     outerMountRef.current.scale.set(
       ...assetBounds.map((bound) => bound + mountPadding + 0.1),
     );
+  };
+
+  useEffect(() => {
+    calculateMountScale();
   }, [imageDims, url]);
 
-  const Frame = ({ frameSrc, imageSrc }) => {
+  const Frame = memo(({ frameSrc, imageSrc }) => {
     const { scene } = useGLTF(frameSrc);
     const copiedScene = scene.clone();
 
     useEffect(() => {
+      calculateMountScale();
+      // if you put 'copiedScene' here.. it messes up again. No idea why.
       const frameBox = new THREE.Box3().setFromObject(scene);
 
       let frameBounds = {
@@ -155,7 +160,7 @@ const GalleryAsset = ({
       let outerMountBounds = {
         x: Math.abs(outerMountRef.current.scale.x),
         y: Math.abs(outerMountRef.current.scale.y),
-        z: 0.01,
+        z: 0.05,
       };
 
       let lengthRatios = [
@@ -165,69 +170,67 @@ const GalleryAsset = ({
       ];
 
       frameRef.current.scale.set(...lengthRatios);
+      frameRef.current.updateMatrix();
 
       copiedScene.traverse((child) => {
-        if (child.isMesh) {
+        if (child.isMesh && frame?.reTextureize) {
           // TODO: Get better naming of meshes from Frahm (the frame makers)
           if (child.name.includes('instance')) {
-            // get MeshPhysicalMaterial properties
             const { color, roughness, metalness } = child.material;
-            // create new MeshPhysicalMaterial with same properties
             const newMaterial = new THREE.MeshPhysicalMaterial({
               color,
               roughness,
               metalness,
             });
+
             child.material = newMaterial;
             child.material.map = texture;
             child.material.needsUpdate = true;
           }
         }
       });
-
-      frameRef.current.updateMatrixWorld();
     }, [copiedScene, imageSrc, scene]);
 
     return <primitive object={copiedScene} />;
-  };
+  });
 
-  return (
-    <animated.group ref={groupRef} position={position} rotation={rotation}>
-      <animated.group ref={frameRef} position={[0, 0, 0.01]}>
-        <Suspense fallback={null}>
-          <Frame
-            frameSrc={
-              'https://storage.googleapis.com/assets.quasarsofficial.com/ar-demo/frahms/Ambience_Curio_Cards_black_gold-v1.glb'
-            }
-            imageSrc={url}
-          />
-        </Suspense>
-      </animated.group>
+  return texture ? (
+    <animated.group
+      ref={groupRef}
+      position={position}
+      rotation={rotation}
+      onClick={() => _handleClick()}
+    >
+      {frame && texture && (
+        <animated.group ref={frameRef} position={[0, 0, 0.01]}>
+          <Suspense fallback={null}>
+            <Preload all />
+            <Frame frameSrc={frame.src} imageSrc={url} />
+          </Suspense>
+        </animated.group>
+      )}
 
       <mesh position={[0, 0, 0.0]} ref={outerMountRef}>
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
           attach="material"
           color={'#000'}
-          side={THREE.FrontSide}
+          side={frame ? THREE.FrontSide : THREE.DoubleSide}
           transparent={true}
+          toneMapped={false}
         />
       </mesh>
-      <mesh position={[0, 0, 0.01]} ref={mountRef}>
+      <mesh position={[0, 0, 0.011]} ref={mountRef}>
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
           attach="material"
           color={'#fff'}
           side={THREE.FrontSide}
           transparent={true}
+          toneMapped={false}
         />
       </mesh>
-      <mesh
-        ref={assetRef}
-        position={[0, 0, 0.011]}
-        rotation={[0, 0, 0]}
-        onClick={() => _handleClick()}
-      >
+      <mesh ref={assetRef} position={[0, 0, 0.012]} rotation={[0, 0, 0]}>
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
           side={THREE.FrontSide}
@@ -236,7 +239,7 @@ const GalleryAsset = ({
         />
       </mesh>
     </animated.group>
-  );
+  ) : null;
 };
 
 export default memo(GalleryAsset);

@@ -19,9 +19,9 @@ const Quasar = ({ model, initialRotation }) => {
         if (node.name.includes('QUASAR_INNER_SPHERE')) {
           setTimeout(
             () => {
-              node.visible = false;
+              node.visible = !isCaught;
             },
-            isCaught ? 0 : 500
+            isCaught ? 0 : 100,
           );
         }
 
