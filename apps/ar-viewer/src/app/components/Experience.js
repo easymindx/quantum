@@ -52,28 +52,12 @@ const Experience = ({ XR8 }) => {
         camera,
         scene,
       });
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 2000);
       // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
     }
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
-  const { mainPosition } = useSpring({
-    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, -10],
-  });
-
-  return (
-    <group ref={appRef}>
-      {activeQuasar && isLoaded ? (
-        <animated.group position={mainPosition}>
-          <Core />
-          <ambientLight intensity={0.5} />
-        </animated.group>
-      ) : null}
-    </group>
-  );
+  return <group ref={appRef}>{activeQuasar ? <Core /> : null}</group>;
 };
 
 export default Experience;
