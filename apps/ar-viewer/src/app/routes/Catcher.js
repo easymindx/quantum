@@ -9,7 +9,7 @@ import React, {
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';
-import { Environment, Html, useProgress } from '@react-three/drei';
+import { Environment, Html, Loader, useProgress } from '@react-three/drei';
 import { CircleProgress } from 'react-gradient-progress';
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
@@ -34,20 +34,20 @@ function Catcher() {
     width: window.innerWidth,
   };
 
-  // const Loader = () => {
-  //   const { progress } = useProgress();
+  const Loader = () => {
+    const { progress } = useProgress();
 
-  //   return (
-  //     <group position={[0, 0.5, -5]}>
-  //       <Html center>
-  //         <CircleProgress
-  //           percentage={Number(progress.toFixed())}
-  //           strokeWidth={10}
-  //         />
-  //       </Html>
-  //     </group>
-  //   );
-  // };
+    return (
+      <group position={[0, 0.5, -5]}>
+        <Html center>
+          <CircleProgress
+            percentage={Number(progress.toFixed())}
+            strokeWidth={10}
+          />
+        </Html>
+      </group>
+    );
+  };
 
   const isReadyScene = useMemo(() => XR8 && XR8.Threejs.xrScene(), [XR8]);
 
@@ -73,13 +73,13 @@ function Catcher() {
         shadows={false}
       >
         {isReadyScene && (
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader />}>
             <Experience XR8={XR8} />
           </Suspense>
         )}
-        <Preload all />
+        <Preload />
         <AdaptiveDpr pixelated />
-        {/* <EffectComposer multisampling={0} disableNormalPass={true}>
+        <EffectComposer multisampling={0} disableNormalPass={true}>
           <DepthOfField
             focusDistance={0}
             focalLength={0.02}
@@ -95,8 +95,8 @@ function Catcher() {
             luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
             luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
           />
-        </EffectComposer> */}
-        <Environment preset="warehouse" />
+        </EffectComposer>
+        <Environment preset="city" />
       </Canvas>
     </FadeIn>
   );

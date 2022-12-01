@@ -58,22 +58,22 @@ const Gallery = ({ model }) => {
     });
   }, [api, currentLevel, layerIndex]);
 
-  useFrame((state, delta) => {
-    if (!isDesktopMode || itemDetails) return;
-    groupRef.current.rotation.y += delta * 0.075;
-  });
+  // useFrame((state, delta) => {
+  //   if (!isDesktopMode || itemDetails) return;
+  //   groupRef.current.rotation.y += delta * 0.075;
+  // });
 
   const calculatedGalleryLayout = useMemo(() => {
     return activeQuasar.gallery.map((item, index) => {
-      return calculatePositions(item.assets.splice(0, 10), galleryRadius - 0.2);
+      return calculatePositions(item.assets.splice(0, 12), galleryRadius - 0.2);
     });
   }, [activeQuasar, galleryRadius]);
 
   const assetGallery = calculatedGalleryLayout[layerIndex];
 
   const meshMaterial = {
-    side: THREE.DoubleSide,
-    transparent: true,
+    side: THREE.BackSide,
+    transparent: false,
     opacity: 1,
     thickness: 3,
     roughness: 0.6,
@@ -101,39 +101,33 @@ const Gallery = ({ model }) => {
     );
   };
 
-  useEffect(() => {
-    model?.scene?.traverse((node) => {
-      if (node.isMesh) {
-        if (node.name.includes('QUASAR_SKIN_OUT_M_003')) {
-          domeRef.current.material = node.material;
-          domeRef.current.material.envMapIntensity = 1;
-        }
-      }
-    });
-  }, [model]);
+  // useEffect(() => {
+  //   model?.scene?.traverse((node) => {
+  //     if (node.isMesh) {
+  //       if (node.name.includes('QUASAR_SKIN_OUT_M_003')) {
+  //         domeRef.current.material = node.material;
+  //         domeRef.current.material.envMapIntensity = 1;
+  //       }
+  //     }
+  //   });
+  // }, [model]);
 
   return (
     <group ref={groupRef}>
-      <mesh position={[0, 0, 0]} ref={domeRef}>
+      {/* <mesh ref={domeRef}>
         <sphereGeometry
           attach="geometry"
           args={[galleryRadius + 0.1, 32, 32, 0, Math.PI * 2, 0, 1.4]}
         />
-        <meshStandardMaterial
-          attach="material"
-          side={THREE.DoubleSide}
-          opacity={0.5}
-          color={'#fff'}
-        />
-      </mesh>
-
-      <Ring offset={-0.22} isRandom />
-      <Ring offset={-0.11} />
-      <Ring offset={0} isRandom />
-      <Ring offset={0.11} />
-      <Ring offset={0.22} isRandom />
+        <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
+      </mesh> */}
 
       <animated.group {...spring}>
+        <Ring offset={-0.22} isRandom />
+        <Ring offset={-0.11} />
+        <Ring offset={0} isRandom />
+        <Ring offset={0.11} />
+        <Ring offset={0.22} isRandom />
         {assetGallery?.map((asset, index) => {
           return (
             <Fragment key={index}>
@@ -144,6 +138,7 @@ const Gallery = ({ model }) => {
                 url={asset.url}
                 type={asset.type}
                 externalLink={asset?.externalLink}
+                frame={asset?.frame}
                 title={asset?.title}
                 description={asset?.description}
                 id={`asset-${index}-levelIndex-${currentLevel}`}
@@ -152,7 +147,6 @@ const Gallery = ({ model }) => {
           );
         })}
       </animated.group>
-      <hemisphereLight intensity={0.3} />
     </group>
   );
 };
