@@ -33,7 +33,11 @@ const Experience = () => {
       : isDesktopMode
       ? [0.5, 0.5, 0.5]
       : [0.7, 0.7, 0.7],
-    quasarPosition: isCaught ? [0, 0, 0] : [0, 0, 0],
+    quasarPosition: isCaught
+      ? isDesktopMode
+        ? [0, -0.2, 0]
+        : [0, 0, 0]
+      : [0, 0, 0],
     config: { mass: 0.7, tension: 200, friction: 20 },
   });
 
@@ -64,9 +68,9 @@ const Experience = () => {
           azimuth={[-Infinity, Infinity]}
           config={{ mass: 1, tension: 170, friction: 20 }}
         >
-          {/* <animated.group scale={quasarScale} position={quasarPosition}>
+          <animated.group scale={quasarScale} position={quasarPosition}>
             <Quasar model={quasarModel} initialRotation={initialRotation} />
-          </animated.group> */}
+          </animated.group>
 
           <animated.group
             scale={sparkScale}
@@ -84,6 +88,27 @@ const Experience = () => {
           </animated.group>
         </PresentationControls>
       </animated.group>
+
+      <ambientLight intensity={0.25} />
+      {/* create 3 lights pointing at Quasar */}
+      <pointLight
+        position={[-0.5, 1, 0]}
+        intensity={0.25}
+        color={'#fff'}
+        decay={2}
+      />
+      <pointLight
+        position={[0, 1, 0]}
+        intensity={0.25}
+        color={'#fff'}
+        decay={2}
+      />
+      <pointLight
+        position={[0.25, 1, 0]}
+        intensity={0.5}
+        color={'#fff'}
+        decay={2}
+      />
 
       <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>

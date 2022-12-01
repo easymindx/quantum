@@ -7,7 +7,7 @@ const quasarId = query.get('quasarId') || 1;
 const useStore = create((set) => ({
   isDesktopMode:
     !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     ),
   npointId: npointId, // points to the npoint document
   isCaught: null,
@@ -22,7 +22,7 @@ const useStore = create((set) => ({
       projectData: project,
       activeQuasar: project.quasars[selectedQuasar],
       itemDetails: null,
-      isCaught: true,
+      isCaught: false,
       currentLevel: 0,
     }),
   catchQuasar: () => set((state) => ({ isCaught: true })),
