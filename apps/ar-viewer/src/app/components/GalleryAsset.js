@@ -195,7 +195,12 @@ const GalleryAsset = ({
   });
 
   return texture ? (
-    <animated.group ref={groupRef} position={position} rotation={rotation}>
+    <animated.group
+      ref={groupRef}
+      position={position}
+      rotation={rotation}
+      onClick={() => _handleClick()}
+    >
       {frame && texture && (
         <animated.group ref={frameRef} position={[0, 0, 0.01]}>
           <Suspense fallback={null}>
@@ -225,12 +230,7 @@ const GalleryAsset = ({
           toneMapped={false}
         />
       </mesh>
-      <mesh
-        ref={assetRef}
-        position={[0, 0, 0.012]}
-        rotation={[0, 0, 0]}
-        onClick={() => _handleClick()}
-      >
+      <mesh ref={assetRef} position={[0, 0, 0.012]} rotation={[0, 0, 0]}>
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
           side={THREE.FrontSide}
