@@ -31,8 +31,7 @@ const Gallery = ({ model }) => {
     position: [0, 0, 0],
     scale: 1,
     rotation: [0, Math.PI, 0],
-    config: { friction: 40 },
-    immediate: false,
+    config: { friction: 40, duration: 500 },
 
     onRest: () => {
       api.start((i) => {
@@ -51,7 +50,7 @@ const Gallery = ({ model }) => {
     }, 500);
     api.start((i) => {
       return {
-        scale: 0.7,
+        scale: 0.6,
         opacity: 0,
       };
     });
