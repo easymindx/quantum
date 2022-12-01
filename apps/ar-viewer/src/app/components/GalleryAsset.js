@@ -139,7 +139,7 @@ const GalleryAsset = ({
     const { aspectRatio } = imageDims;
     const scaleMultiplier = 0.65;
     const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
-    const mountPadding = 0.1;
+    const mountPadding = 0.2;
     assetRef.current.scale.set(...assetBounds);
 
     mountRef.current.scale.set(
@@ -160,19 +160,22 @@ const GalleryAsset = ({
       let frameBounds = {
         x: Math.abs(frameBox.max.x - frameBox.min.x),
         y: Math.abs(frameBox.max.y - frameBox.min.y),
+        z: Math.abs(frameBox.max.z - frameBox.min.z),
       };
 
       let outerMountBounds = {
         x: Math.abs(outerMountRef.current.scale.x),
         y: Math.abs(outerMountRef.current.scale.y),
+        z: 0.01,
       };
 
       let lengthRatios = [
         outerMountBounds.x / frameBounds.x,
         outerMountBounds.y / frameBounds.y,
+        outerMountBounds.z / frameBounds.z,
       ];
 
-      frameRef.current.scale.set(lengthRatios[0], lengthRatios[1], 0.01);
+      frameRef.current.scale.set(...lengthRatios);
 
       copiedScene.traverse((child) => {
         if (child.isMesh) {
@@ -211,8 +214,25 @@ const GalleryAsset = ({
           />
         </Suspense>
       </animated.group>
-      <mesh position={[0, 0, 0]} ref={outerMountRef}></mesh>
-      <mesh position={[0, 0, 0.01]} ref={mountRef}></mesh>
+
+      <mesh position={[0, 0, 0.0]} ref={outerMountRef}>
+        <planeGeometry attach="geometry" />
+        <meshStandardMaterial
+          attach="material"
+          color={'#000'}
+          side={THREE.FrontSide}
+          transparent={true}
+        />
+      </mesh>
+      <mesh position={[0, 0, 0.01]} ref={mountRef}>
+        <planeGeometry attach="geometry" />
+        <meshStandardMaterial
+          attach="material"
+          color={'#fff'}
+          side={THREE.FrontSide}
+          transparent={true}
+        />
+      </mesh>
       <mesh
         ref={assetRef}
         position={[0, 0, 0.011]}
