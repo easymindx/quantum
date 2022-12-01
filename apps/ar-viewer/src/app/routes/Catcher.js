@@ -9,7 +9,14 @@ import React, {
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';
-import { Environment, Html, Loader, useProgress } from '@react-three/drei';
+import {
+  AdaptiveEvents,
+  BakeShadows,
+  Environment,
+  Html,
+  Loader,
+  useProgress,
+} from '@react-three/drei';
 import { CircleProgress } from 'react-gradient-progress';
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
@@ -79,6 +86,7 @@ function Catcher() {
         )}
         <Preload />
         <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
         <EffectComposer multisampling={0} disableNormalPass={true}>
           <DepthOfField
             focusDistance={0}
@@ -96,6 +104,7 @@ function Catcher() {
             luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
           />
         </EffectComposer>
+        <BakeShadows />
         <Environment preset="city" />
       </Canvas>
     </FadeIn>

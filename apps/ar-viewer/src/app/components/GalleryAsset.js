@@ -4,7 +4,7 @@ import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
 import useStore from '../store';
-import { useGLTF } from '@react-three/drei';
+import { Preload, useGLTF } from '@react-three/drei';
 
 const gifLoader = new GifLoader();
 const textureLoader = new THREE.TextureLoader();
@@ -194,6 +194,7 @@ const GalleryAsset = ({
       {frame && texture && (
         <animated.group ref={frameRef} position={[0, 0, 0.01]}>
           <Suspense fallback={null}>
+            <Preload all />
             <Frame frameSrc={frame.src} imageSrc={url} />
           </Suspense>
         </animated.group>
