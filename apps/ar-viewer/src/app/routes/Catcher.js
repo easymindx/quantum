@@ -14,7 +14,6 @@ import {
   BakeShadows,
   Environment,
   Html,
-  Loader,
   useProgress,
 } from '@react-three/drei';
 import { CircleProgress } from 'react-gradient-progress';
@@ -23,18 +22,15 @@ import TopBar from '../components/TopBar';
 import use8thWall from '../hooks/use8thWall';
 import Experience from '../components/Experience';
 import { AdaptiveDpr, Preload, Stats } from '@react-three/drei';
-import {
-  EffectComposer,
-  DepthOfField,
-  Bloom,
-  Vignette,
-} from '@react-three/postprocessing';
+import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
 import { BlurPass, Resizer, KernelSize } from 'postprocessing';
+import useStore from '../store';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
 
   const { XR8 } = use8thWall(process.env.NX_APP_8THWALL_API_KEY, canvasEl);
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   const dimensions = {
     height: window.innerHeight,
@@ -84,26 +80,8 @@ function Catcher() {
             <Experience XR8={XR8} />
           </Suspense>
         )}
-        <Preload />
-        <AdaptiveDpr pixelated />
+        {/* <AdaptiveDpr pixelated /> */}
         <AdaptiveEvents />
-        <EffectComposer multisampling={0} disableNormalPass={true}>
-          <DepthOfField
-            focusDistance={0}
-            focalLength={0.02}
-            bokehScale={2}
-            height={480}
-          />
-          <Bloom
-            intensity={0.1} // The bloom intensity.
-            blurPass={BlurPass} // A blur pass.
-            width={Resizer.AUTO_SIZE} // render width
-            height={Resizer.AUTO_SIZE} // render height
-            kernelSize={KernelSize.HUGE} // blur kernel size
-            luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
-            luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
-          />
-        </EffectComposer>
         <BakeShadows />
         <Environment preset="city" />
       </Canvas>

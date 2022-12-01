@@ -11,6 +11,7 @@ import {
   lorenzAttractor,
   lorenzMod2Attractor,
 } from './attractor';
+import useStore from '../../store';
 
 const simulation = () =>
   Random.pick([
@@ -52,7 +53,8 @@ function StormLine({ radius, simulation, width, color }) {
   );
 }
 
-export function SparkStorm({ count, colors, radius = 0.3, isDesktopMode }) {
+export function SparkStorm({ count, colors, radius = 0.3 }) {
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
   const width = isDesktopMode ? (0.001, 0.003) : (0.005, 0.01);
   const lines = useMemo(
     () =>
