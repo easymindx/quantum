@@ -9,47 +9,23 @@ import React, {
 import { Canvas } from '@react-three/fiber';
 // import { Stats } from '@react-three/drei';
 import FadeIn from 'react-fade-in';
-import {
-  AdaptiveEvents,
-  BakeShadows,
-  Environment,
-  Html,
-  useProgress,
-} from '@react-three/drei';
-import { CircleProgress } from 'react-gradient-progress';
+import { Environment } from '@react-three/drei';
+
 import ControlCenter from '../components/ControlCenter';
 import TopBar from '../components/TopBar';
 import use8thWall from '../hooks/use8thWall';
 import Experience from '../components/Experience';
 import { AdaptiveDpr, Preload, Stats } from '@react-three/drei';
-import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
-import { BlurPass, Resizer, KernelSize } from 'postprocessing';
-import useStore from '../store';
+import Loader from '../components/Loader';
 
 function Catcher() {
   const [canvasEl, setCanvasEl] = useState();
 
   const { XR8 } = use8thWall(process.env.NX_APP_8THWALL_API_KEY, canvasEl);
-  const isDesktopMode = useStore((state) => state.isDesktopMode);
 
   const dimensions = {
     height: window.innerHeight,
     width: window.innerWidth,
-  };
-
-  const Loader = () => {
-    const { progress } = useProgress();
-
-    return (
-      <group position={[0, 0.5, -5]}>
-        <Html center>
-          <CircleProgress
-            percentage={Number(progress.toFixed())}
-            strokeWidth={10}
-          />
-        </Html>
-      </group>
-    );
   };
 
   const isReadyScene = useMemo(() => XR8 && XR8.Threejs.xrScene(), [XR8]);
@@ -61,10 +37,11 @@ function Catcher() {
   const { height, width } = dimensions;
 
   return (
-    <>
+    <FadeIn delay={250} transitionDuration={2000}>
       {isReadyScene && (
         <>
-          <TopBar /> <ControlCenter />
+          <TopBar />
+          <ControlCenter />
         </>
       )}
 
@@ -79,23 +56,11 @@ function Catcher() {
             <Experience XR8={XR8} />
           </Suspense>
         )}
+        <Preload all />
         <AdaptiveDpr pixelated />
-        <AdaptiveEvents />
-        <BakeShadows />
-        <Environment preset="sunset" />
-        {/* <EffectComposer>
-          <Bloom
-            intensity={0.1} // The bloom intensity.
-            blurPass={undefined} // A blur pass.
-            width={width} // render width
-            height={height} // render height
-            kernelSize={KernelSize.HUGE} // blur kernel size
-            luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
-            luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
-          />
-        </EffectComposer> */}
+        <Environment preset="warehouse" />
       </Canvas>
-    </>
+    </FadeIn>
   );
 }
 
