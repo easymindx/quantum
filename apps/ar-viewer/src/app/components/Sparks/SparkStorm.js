@@ -7,17 +7,19 @@ import {
   dadrasAttractor,
   aizawaAttractor,
   arneodoAttractor,
-  dequanAttractor,
+  // dequanAttractor,
   lorenzAttractor,
   lorenzMod2Attractor,
 } from './attractor';
+import useStore from '../../store';
+import { useSpring, animated } from '@react-spring/three';
 
 const simulation = () =>
   Random.pick([
     dadrasAttractor,
     aizawaAttractor,
     arneodoAttractor,
-    dequanAttractor,
+    // dequanAttractor,
     lorenzAttractor,
     lorenzMod2Attractor,
   ]);
@@ -31,7 +33,7 @@ function StormLine({ radius, simulation, width, color }) {
         currentPosition,
         radius,
         simulation,
-        0.01
+        0.01,
       );
       line.current.advance(nextPosition);
     }
@@ -52,8 +54,10 @@ function StormLine({ radius, simulation, width, color }) {
   );
 }
 
-export function SparkStorm({ count, colors, radius = 0.3, isDesktopMode }) {
+export function SparkStorm({ count, colors, radius = 0.3 }) {
+  const isDesktopMode = useStore((state) => state.isDesktopMode);
   const width = isDesktopMode ? (0.001, 0.003) : (0.005, 0.01);
+  const [isLoaded, setIsLoaded] = useState(false);
   const lines = useMemo(
     () =>
       new Array(count).fill().map(() => {
@@ -65,14 +69,24 @@ export function SparkStorm({ count, colors, radius = 0.3, isDesktopMode }) {
           radius: Random.range(1, 2.25) * radius,
         };
       }),
-    [count, colors, width, radius]
+    [count, colors, width, radius],
   );
 
-  return (
-    <group>
+  const { sparkScale } = useSpring({
+    sparkScale: isLoaded ? [1, 1, 1] : [0, 0, 0],
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 1000);
+  }, []);
+
+  return isLoaded ? (
+    <animated.group scale={sparkScale}>
       {lines.map((props, index) => (
         <StormLine key={index} {...props} />
       ))}
-    </group>
-  );
+    </animated.group>
+  ) : null;
 }
