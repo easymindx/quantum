@@ -98,7 +98,7 @@ const Experience = () => {
           </animated.group>
         </PresentationControls>
       </animated.group>
-
+      <ambientLight intensity={0.5} />
       <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>
   );
