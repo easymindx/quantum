@@ -69,16 +69,17 @@ const Gallery = ({ model }) => {
 
   const assetGallery = calculatedGalleryLayout[layerIndex];
 
-  // useEffect(() => {
-  //   model?.scene?.traverse((node) => {
-  //     if (node.isMesh) {
-  //       if (node.name.includes('QUASAR_SKIN_OUT_M_003')) {
-  //         domeRef.current.material = node.material;
-  //         domeRef.current.material.envMapIntensity = 1;
-  //       }
-  //     }
-  //   });
-  // }, [model]);
+  useEffect(() => {
+    if (!isDesktopMode) return;
+    model?.scene?.traverse((node) => {
+      if (node.isMesh) {
+        if (node.name.includes('QUASAR_SKIN_OUT_M_003')) {
+          domeRef.current.material = node.material;
+          domeRef.current.material.envMapIntensity = 1;
+        }
+      }
+    });
+  }, [isDesktopMode, model]);
 
   const memoAssetGallery = useMemo(
     () =>
@@ -107,13 +108,13 @@ const Gallery = ({ model }) => {
 
   return (
     <group ref={groupRef}>
-      {/* <mesh ref={domeRef}>
+      <mesh ref={domeRef} visible={isDesktopMode}>
         <sphereGeometry
           attach="geometry"
           args={[galleryRadius + 0.1, 32, 32, 0, Math.PI * 2, 0, 1.4]}
         />
         <meshStandardMaterial attach="material" side={THREE.DoubleSide} />
-      </mesh> */}
+      </mesh>
 
       {/* Merge meshes and memoize these. https://github.com/pmndrs/drei#merged */}
       <Ring offset={-0.22} isRandom radius={galleryRadius} />

@@ -61,11 +61,10 @@ function Catcher() {
   const { height, width } = dimensions;
 
   return (
-    <FadeIn delay={250} transitionDuration={2000}>
+    <>
       {isReadyScene && (
         <>
-          <TopBar />
-          <ControlCenter />
+          <TopBar /> <ControlCenter />
         </>
       )}
 
@@ -80,12 +79,23 @@ function Catcher() {
             <Experience XR8={XR8} />
           </Suspense>
         )}
-        {/* <AdaptiveDpr pixelated /> */}
+        <AdaptiveDpr pixelated />
         <AdaptiveEvents />
         <BakeShadows />
-        <Environment preset="city" />
+        <Environment preset="sunset" />
+        {/* <EffectComposer>
+          <Bloom
+            intensity={0.1} // The bloom intensity.
+            blurPass={undefined} // A blur pass.
+            width={width} // render width
+            height={height} // render height
+            kernelSize={KernelSize.HUGE} // blur kernel size
+            luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
+            luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
+          />
+        </EffectComposer> */}
       </Canvas>
-    </FadeIn>
+    </>
   );
 }
 

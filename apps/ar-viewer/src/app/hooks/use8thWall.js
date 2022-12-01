@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
-import use8thWallScripts from './use8thWallScripts';
 
 export const use8thWall = (appKey, canvas) => {
   const areScriptsReady = true; // use8thWallScripts(appKey); // This is injecting the scripts twice and giving the console XR error
