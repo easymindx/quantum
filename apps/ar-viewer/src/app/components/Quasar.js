@@ -21,7 +21,7 @@ const Quasar = ({ model, initialRotation }) => {
             () => {
               node.visible = !isCaught;
             },
-            isCaught ? 0 : 250,
+            isCaught ? 0 : 100,
           );
         }
 

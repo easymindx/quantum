@@ -206,7 +206,7 @@ const OffcanvasExample = () => {
                         setNpointId('4d7719691b367df71b54');
                       }}
                     >
-                      Alexx Shadow's Cyber Brokers
+                      Alexx's Cyber Brokers
                       {npointId === '4d7719691b367df71b54' && (
                         <span> (loaded)</span>
                       )}
