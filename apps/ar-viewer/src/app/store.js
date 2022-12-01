@@ -43,6 +43,7 @@ const useStore = create((set) => ({
       itemDetails: null,
       isCaught: false,
       currentLevel: 0,
+      selectedQuasar: 0,
     }),
 }));
 

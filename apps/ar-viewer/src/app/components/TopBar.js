@@ -14,6 +14,7 @@ import {
 
 import useStore from '../store';
 import { FaGlobe } from 'react-icons/fa';
+import { GiWoodFrame } from 'react-icons/gi';
 import { useRef, useState } from 'react';
 
 const OffcanvasExample = () => {
@@ -108,8 +109,8 @@ const OffcanvasExample = () => {
                   <h2 className="h6 text-white">Project loader</h2>
                   <hr className="border-white" />
                   <p className="text-white mb-2 small">
-                    If you know the secret code to another Quasars sighting then
-                    enter it below:
+                    If you have a secret code to another Quasar sighting then
+                    enter it below, or choose a public gallery.
                   </p>
                 </Col>
               </Row>
@@ -140,10 +141,6 @@ const OffcanvasExample = () => {
               <Row>
                 <Col>
                   <p className="text-white mb-2 small">
-                    Or check out one of these galleries:
-                  </p>
-
-                  <p>
                     <NavLink
                       className="text-decoration-underline"
                       onClick={() => {
@@ -158,7 +155,7 @@ const OffcanvasExample = () => {
                     </NavLink>
                   </p>
 
-                  <p>
+                  <p className="text-white mb-2 small">
                     <NavLink
                       className="text-decoration-underline"
                       onClick={() => {
@@ -172,8 +169,22 @@ const OffcanvasExample = () => {
                       )}
                     </NavLink>
                   </p>
+                  <p className="text-white mb-2 small">
+                    <NavLink
+                      className="text-decoration-underline"
+                      onClick={() => {
+                        closeOffCanvas();
+                        setNpointId('f6099f67668d69ff87b2');
+                      }}
+                    >
+                      WME Agency
+                      {npointId === 'f6099f67668d69ff87b2' && (
+                        <span> (loaded)</span>
+                      )}
+                    </NavLink>
+                  </p>
 
-                  <p>
+                  <p className="text-white mb-2 small">
                     <NavLink
                       className="text-decoration-underline"
                       onClick={() => {
@@ -187,8 +198,7 @@ const OffcanvasExample = () => {
                       )}
                     </NavLink>
                   </p>
-
-                  <p>
+                  <p className="text-white mb-2 small">
                     <NavLink
                       className="text-decoration-underline"
                       onClick={() => {
@@ -209,9 +219,8 @@ const OffcanvasExample = () => {
                 <h2 className="h6 text-white mb-0">Vital Resources</h2>
                 <hr className="border-white" />
                 <Nav.Link
-                  className="text-white"
+                  className="text-white small"
                   target="_blank"
-                  // href={`https://twitter.com/${projectData?.socials?.twitter}`}
                   href={`https://twitter.com/quasarsofficial`}
                 >
                   <img
@@ -220,18 +229,23 @@ const OffcanvasExample = () => {
                     width="25px"
                     className="me-2"
                   />
-                  {/* Follow Us @{projectData?.socials?.twitter} */}
                   Follow Us @QuasarsOfficial
                 </Nav.Link>
                 <Nav.Link
-                  className="text-white"
+                  className="text-white small"
                   target="_blank"
-                  // href={projectData?.website}
-                  href={'http://quasarsofficial.com'}
+                  href={'https://quasarsofficial.com'}
                 >
                   <FaGlobe size={'1.5rem'} className="me-2" color="#fff" />
-                  {/* Visit {projectData?.projectName} */}
                   Visit QuasarsOfficial.com
+                </Nav.Link>
+                <Nav.Link
+                  className="text-white small"
+                  target="_blank"
+                  href={'https://frahm.art'}
+                >
+                  <GiWoodFrame size={'1.5rem'} className="me-2" color="#fff" />
+                  Frames by frahm.art
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>

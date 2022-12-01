@@ -25,7 +25,7 @@ const Experience = () => {
   const activeQuasar = useStore((state) => state.activeQuasar);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
   const groupYPos = isDesktopMode ? 1.5 : 2;
-  const quasarModel = useGLTF(activeQuasar.modelSrc);
+  const quasarModel = useGLTF(activeQuasar?.modelSrc);
 
   const { groupPosition } = useSpring({
     groupPosition: isCaught
@@ -61,7 +61,7 @@ const Experience = () => {
 
   const { palette, gallery, initialRotation } = activeQuasar;
 
-  return activeQuasar ? (
+  return (
     <>
       <Selection>
         <EffectComposer autoclear={false}>
@@ -142,7 +142,7 @@ const Experience = () => {
 
       <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>
-  ) : null;
+  );
 };
 
 useGLTF.preload();
