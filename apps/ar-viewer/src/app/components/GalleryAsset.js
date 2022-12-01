@@ -36,8 +36,6 @@ const GalleryAsset = ({
   const outerMountRef = useRef();
   const frameRef = useRef();
 
-  // TESTING FRAMES
-
   useEffect(() => {
     const texture = () => {
       if (type === 'video') {
@@ -125,7 +123,7 @@ const GalleryAsset = ({
   });
 
   const calculateMountScale = () => {
-    if (!imageDims) return;
+    if (!imageDims || !texture) return;
     const { aspectRatio } = imageDims;
     const scaleMultiplier = 0.5;
     const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
@@ -196,7 +194,7 @@ const GalleryAsset = ({
     return <primitive object={copiedScene} />;
   });
 
-  return (
+  return texture ? (
     <animated.group ref={groupRef} position={position} rotation={rotation}>
       {frame && texture && (
         <animated.group ref={frameRef} position={[0, 0, 0.01]}>
@@ -241,7 +239,7 @@ const GalleryAsset = ({
         />
       </mesh>
     </animated.group>
-  );
+  ) : null;
 };
 
 export default memo(GalleryAsset);

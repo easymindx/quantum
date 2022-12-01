@@ -1,14 +1,15 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import useStore from '../store';
 import Core from './Core';
 import { disposeAll } from '../utils/disposeAll';
 import axios from 'axios';
-import * as THREE from 'three';
+import { useSpring, animated } from '@react-spring/three';
 
 const Experience = ({ XR8 }) => {
   const { renderer, scene, camera } = XR8.Threejs.xrScene();
   const setDefaultCamera = useThree(({ set }) => set);
+  const [isLoaded, setIsLoaded] = useState(false);
   const npointId = useStore((state) => state.npointId);
   const activeQuasar = useStore((state) => state.activeQuasar);
   const setProjectData = useStore((state) => state.setProjectData);
@@ -17,6 +18,7 @@ const Experience = ({ XR8 }) => {
   useEffect(() => {
     if (activeQuasar) return;
     console.log('Load remote data');
+    setIsLoaded(false);
     // not sure if this is fully clearing the scene
     disposeAll(scene);
     renderer.renderLists.dispose();
@@ -41,12 +43,27 @@ const Experience = ({ XR8 }) => {
         camera,
         scene,
       });
+      setTimeout(() => {
+        setIsLoaded(true);
+      }, 1000);
       // Add the app to 8thWall's ThreeJS scene
       scene.add(appRef.current);
     }
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
-  return <group ref={appRef}>{activeQuasar && <Core />}</group>;
+  const { mainPosition } = useSpring({
+    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, -20],
+  });
+
+  return (
+    <group ref={appRef}>
+      {activeQuasar && isLoaded ? (
+        <animated.group position={mainPosition}>
+          <Core />
+        </animated.group>
+      ) : null}
+    </group>
+  );
 };
 
 export default Experience;
