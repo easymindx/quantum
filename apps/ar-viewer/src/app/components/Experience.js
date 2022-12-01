@@ -5,7 +5,6 @@ import Core from './Core';
 import { disposeAll } from '../utils/disposeAll';
 import axios from 'axios';
 import { useSpring, animated } from '@react-spring/three';
-import { useNavigate } from 'react-router-dom';
 
 const Experience = ({ XR8 }) => {
   const { renderer, scene, camera } = XR8.Threejs.xrScene();
@@ -62,7 +61,7 @@ const Experience = ({ XR8 }) => {
   }, [scene, camera, activeQuasar, setDefaultCamera]);
 
   const { mainPosition } = useSpring({
-    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, -20],
+    mainPosition: isLoaded ? [0, 0, 0] : [0, 0, 0],
   });
 
   return (
