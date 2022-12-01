@@ -33,9 +33,7 @@ const Home = () => {
               page.
             </p>
           </div>
-          <Button variant="outline-light" onClick={() => navigate('catcher')}>
-            Begin the Search
-          </Button>
+          <Button onClick={() => navigate('catcher')}>Begin the Search</Button>
         </Col>
       </Row>
       <Row>
