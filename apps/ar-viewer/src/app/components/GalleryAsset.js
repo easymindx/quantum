@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useRef, useState, useEffect, Suspense, memo } from 'react';
 import { useSpring, animated } from '@react-spring/three';
@@ -123,7 +124,7 @@ const GalleryAsset = ({
     config: { mass: 3, tension: 200, friction: 30, clamp: !isClicked },
   });
 
-  useEffect(() => {
+  const calculateMountScale = () => {
     if (!imageDims) return;
     const { aspectRatio } = imageDims;
     const scaleMultiplier = 0.5;
@@ -137,13 +138,18 @@ const GalleryAsset = ({
     outerMountRef.current.scale.set(
       ...assetBounds.map((bound) => bound + mountPadding + 0.1),
     );
+  };
+
+  useEffect(() => {
+    calculateMountScale();
   }, [imageDims, url]);
 
-  const Frame = ({ frameSrc, imageSrc }) => {
+  const Frame = memo(({ frameSrc, imageSrc }) => {
     const { scene } = useGLTF(frameSrc);
     const copiedScene = scene.clone();
 
     useEffect(() => {
+      calculateMountScale();
       // if you put 'copiedScene' here.. it messes up again. No idea why.
       const frameBox = new THREE.Box3().setFromObject(scene);
 
@@ -166,6 +172,7 @@ const GalleryAsset = ({
       ];
 
       frameRef.current.scale.set(...lengthRatios);
+      frameRef.current.updateMatrix();
 
       copiedScene.traverse((child) => {
         if (child.isMesh && frame?.reTextureize) {
@@ -187,7 +194,7 @@ const GalleryAsset = ({
     }, [copiedScene, imageSrc, scene]);
 
     return <primitive object={copiedScene} />;
-  };
+  });
 
   return (
     <animated.group ref={groupRef} position={position} rotation={rotation}>
@@ -207,6 +214,7 @@ const GalleryAsset = ({
           color={'#000'}
           side={frame ? THREE.FrontSide : THREE.DoubleSide}
           transparent={true}
+          toneMapped={false}
         />
       </mesh>
       <mesh position={[0, 0, 0.011]} ref={mountRef}>
@@ -216,6 +224,7 @@ const GalleryAsset = ({
           color={'#fff'}
           side={THREE.FrontSide}
           transparent={true}
+          toneMapped={false}
         />
       </mesh>
       <mesh

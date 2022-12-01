@@ -15,6 +15,7 @@ const Experience = ({ XR8 }) => {
   const selectedQuasar = useStore((state) => state.selectedQuasar);
 
   useEffect(() => {
+    if (activeQuasar) return;
     console.log('Load remote data');
     // not sure if this is fully clearing the scene
     disposeAll(scene);
@@ -27,7 +28,7 @@ const Experience = ({ XR8 }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [npointId, selectedQuasar, setProjectData]);
+  }, [npointId, selectedQuasar, setProjectData, activeQuasar, scene, renderer]);
 
   const appRef = useRef();
 

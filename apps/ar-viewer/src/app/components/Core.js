@@ -1,4 +1,4 @@
-import { memo, Suspense, useRef } from 'react';
+import { memo, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import Quasar from './Quasar';
 import Gallery from './Gallery';
@@ -6,6 +6,14 @@ import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
 import { PresentationControls, Shadow, useGLTF } from '@react-three/drei';
+import {
+  Selection,
+  Select,
+  EffectComposer,
+  Bloom,
+  Noise,
+} from '@react-three/postprocessing';
+import { BlurPass, Resizer, KernelSize } from 'postprocessing';
 import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
@@ -21,7 +29,7 @@ const Experience = () => {
 
   const { groupPosition } = useSpring({
     groupPosition: isCaught
-      ? [0, groupYPos, isDesktopMode ? -1 : 0]
+      ? [0, groupYPos, isDesktopMode ? 0 : 0]
       : [0, groupYPos, -2],
   });
 
@@ -53,41 +61,63 @@ const Experience = () => {
 
   const { palette, gallery, initialRotation } = activeQuasar;
 
-  return (
+  return activeQuasar ? (
     <>
-      <animated.group ref={groupRef} position={groupPosition} scale={[1, 1, 1]}>
-        <PresentationControls
-          enabled={true}
-          global={false}
-          cursor={true}
-          snap={isDesktopMode ? !isCaught : true}
-          speed={2}
-          zoom={1}
-          rotation={[0, 0, 0]}
-          polar={[0, Math.PI / 2]}
-          azimuth={[-Infinity, Infinity]}
-          config={{ mass: 1, tension: 170, friction: 20 }}
+      <Selection>
+        <EffectComposer autoclear={false}>
+          <Bloom
+            intensity={0.1} // The bloom intensity.
+            blurPass={BlurPass} // A blur pass.
+            width={Resizer.AUTO_SIZE} // render width
+            height={Resizer.AUTO_SIZE} // render height
+            kernelSize={KernelSize.HUGE} // blur kernel size
+            luminanceThreshold={0} // luminance threshold. Raise this value to mask out darker elements in the scene.
+            luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
+          />
+        </EffectComposer>
+
+        <animated.group
+          ref={groupRef}
+          position={groupPosition}
+          scale={[1, 1, 1]}
         >
-          <animated.group scale={quasarScale} position={quasarPosition}>
-            <Quasar model={quasarModel} initialRotation={initialRotation} />
-          </animated.group>
-
-          <animated.group
-            scale={sparkScale}
-            visible={isDesktopMode ? true : !isCaught}
+          <PresentationControls
+            enabled={true}
+            global={false}
+            cursor={true}
+            snap={isDesktopMode ? !isCaught : true}
+            speed={2}
+            zoom={1}
+            rotation={[0, 0, 0]}
+            polar={[0, Math.PI / 2]}
+            azimuth={[-Infinity, Infinity]}
+            config={{ mass: 1, tension: 170, friction: 20 }}
           >
-            <SparkStorm
-              count={100}
-              colors={palette}
-              isDesktopMode={isDesktopMode}
-            />
-          </animated.group>
+            <animated.group scale={quasarScale} position={quasarPosition}>
+              <Select enabled>
+                <Quasar model={quasarModel} initialRotation={initialRotation} />
+              </Select>
+            </animated.group>
 
-          <animated.group scale={shellScale} position={shellPosition}>
-            {gallery.length && <Gallery model={quasarModel} />}
-          </animated.group>
-        </PresentationControls>
-      </animated.group>
+            <animated.group
+              scale={sparkScale}
+              visible={isDesktopMode ? true : !isCaught}
+            >
+              <Select enabled={false}>
+                <SparkStorm
+                  count={100}
+                  colors={palette}
+                  isDesktopMode={isDesktopMode}
+                />
+              </Select>
+            </animated.group>
+
+            <animated.group scale={shellScale} position={shellPosition}>
+              {gallery.length && <Gallery model={quasarModel} />}
+            </animated.group>
+          </PresentationControls>
+        </animated.group>
+      </Selection>
 
       <ambientLight intensity={0.25} />
       {/* create 3 lights pointing at Quasar */}
@@ -112,7 +142,7 @@ const Experience = () => {
 
       <Shadow position={[0, -2, -4]} color="black" opacity={0.75} scale={3} />
     </>
-  );
+  ) : null;
 };
 
 useGLTF.preload();
