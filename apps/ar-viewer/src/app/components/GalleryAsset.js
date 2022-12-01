@@ -1,13 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, {
-  memo,
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  Suspense,
-} from 'react';
+import React, { useRef, useState, useEffect, Suspense, memo } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import GifLoader from 'three-gif-loader';
@@ -16,9 +8,6 @@ import { useGLTF } from '@react-three/drei';
 
 const gifLoader = new GifLoader();
 const textureLoader = new THREE.TextureLoader();
-
-const outerFrameColor = '#000';
-const innerFrameColor = '#fff';
 
 const GalleryAsset = ({
   initialPosition,
@@ -250,4 +239,4 @@ const GalleryAsset = ({
   );
 };
 
-export default GalleryAsset;
+export default memo(GalleryAsset);
