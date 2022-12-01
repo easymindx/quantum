@@ -5,6 +5,7 @@ import Core from './Core';
 import { disposeAll } from '../utils/disposeAll';
 import axios from 'axios';
 import { useSpring, animated } from '@react-spring/three';
+import { useNavigate } from 'react-router-dom';
 
 const Experience = ({ XR8 }) => {
   const { renderer, scene, camera } = XR8.Threejs.xrScene();
@@ -26,6 +27,15 @@ const Experience = ({ XR8 }) => {
       .get(`https://api.npoint.io/${npointId}`)
       .then((response) => {
         setProjectData(response.data, selectedQuasar);
+        // set react router path params
+        // history.push(`/experience/${selectedQuasar}`);
+        var newurl =
+          window.location.protocol +
+          '//' +
+          window.location.host +
+          window.location.pathname +
+          `?projectId=${npointId}&quasarId=${selectedQuasar}`;
+        window.history.pushState({ path: newurl }, '', newurl);
       })
       .catch((error) => {
         console.log(error);
