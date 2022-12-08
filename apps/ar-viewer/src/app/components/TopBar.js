@@ -16,29 +16,40 @@ import useStore from '../store';
 import { FaGlobe } from 'react-icons/fa';
 import { GiWoodFrame } from 'react-icons/gi';
 import { useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { PROJECTS } from 'constants/data';
 
-const OffcanvasExample = () => {
-  const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
-  const activeQuasar = useStore((state) => state.activeQuasar);
-  const projectData = useStore((state) => state.projectData);
-  const setNpointId = useStore((state) => state.setNpointId);
-  const npointId = useStore((state) => state.npointId);
-  const [projectCode, setProjectCode] = useState('1');
+const TopBar = () => {
+  const navigate = useNavigate();
+  const { projectId, quasarIdx } = useParams();
   const offCanvasRef = useRef();
+  const projectData = useStore((state) => state.projectData);
+  const [projectCode, setProjectCode] = useState();
 
-  const closeOffCanvas = () => offCanvasRef?.current?.backdrop?.click();
+  const closeTopbar = () => {
+    offCanvasRef.current.backdrop.click();
+  };
 
-  const expand = false; // breakpoint to expand the offcanvas
+  const handleSelectProject = (id) => {
+    navigate(`/catcher/${id}/0`);
+    closeTopbar();
+  };
+
+  const handleSelectQuasar = (idx) => {
+    navigate(`/catcher/${projectId}/${idx}`);
+    closeTopbar();
+  };
+
+  const handleLoadProject = () => {
+    if (projectCode) {
+      navigate(`/catcher/${projectCode}/0`);
+      closeTopbar();
+    }
+  };
 
   return (
     <div className="top-bar ">
-      <Navbar
-        key={expand}
-        variant="dark"
-        bg="black"
-        expand={expand}
-        className="px-2"
-      >
+      <Navbar variant="dark" bg="black" expand={false} className="px-2">
         <Container fluid>
           <Navbar.Brand href="#">
             <img
@@ -48,11 +59,9 @@ const OffcanvasExample = () => {
               className="d-inline-block align-top "
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+          <Navbar.Toggle />
           <Navbar.Offcanvas
             ref={offCanvasRef}
-            id={`offcanvasNavbar-expand-${expand}`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="end"
             className="bg-light text-dark"
           >
@@ -63,7 +72,7 @@ const OffcanvasExample = () => {
                 color: 'white',
               }}
             >
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+              <Offcanvas.Title>
                 {projectData?.projectName || 'Control Center'}
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -76,27 +85,22 @@ const OffcanvasExample = () => {
               </Row>
 
               <Row>
-                {projectData?.quasars?.map((quasar, index) => (
-                  <Col xs={4} className="mb-3" key={`mini-${index}`}>
+                {projectData?.quasars?.map((quasar, idx) => (
+                  <Col xs={4} className="mb-3" key={`mini-${idx}`}>
                     <Card
                       style={{
-                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
+                        opacity: Number(quasarIdx) === idx ? 1 : 0.4,
                         border:
-                          activeQuasar?.id === quasar.id
+                          Number(quasarIdx) === idx
                             ? '2px solid #5a5a5a'
                             : 'none',
                       }}
                     >
                       <Card.Img
                         className={
-                          activeQuasar?.id === quasar.id
-                            ? 'bg-dark'
-                            : 'bg-black'
+                          Number(quasarIdx) === idx ? 'bg-dark' : 'bg-black'
                         }
-                        onClick={() => {
-                          setSelectedQuasar(index);
-                          closeOffCanvas();
-                        }}
+                        onClick={() => handleSelectQuasar(idx)}
                         src={quasar.imageSrc}
                       />
                     </Card>
@@ -127,10 +131,7 @@ const OffcanvasExample = () => {
                     <Button
                       className="load-button"
                       variant="primary"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId(projectCode);
-                      }}
+                      onClick={handleLoadProject}
                     >
                       Load
                     </Button>
@@ -140,78 +141,17 @@ const OffcanvasExample = () => {
 
               <Row>
                 <Col>
-                  <p className="text-white mb-2 small">
-                    <NavLink
-                      className="text-decoration-underline"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId('830360b5f6a82edd4912');
-                      }}
-                    >
-                      Quantum Art
-                      {npointId === '830360b5f6a82edd4912' && (
-                        <span> (loaded)</span>
-                      )}
-                    </NavLink>
-                  </p>
-
-                  <p className="text-white mb-2 small">
-                    <NavLink
-                      className="text-decoration-underline"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId('762b08b394182b77740f');
-                      }}
-                    >
-                      Punks Gallery
-                      {npointId === '762b08b394182b77740f' && (
-                        <span> (loaded)</span>
-                      )}
-                    </NavLink>
-                  </p>
-                  <p className="text-white mb-2 small">
-                    <NavLink
-                      className="text-decoration-underline"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId('f6099f67668d69ff87b2');
-                      }}
-                    >
-                      WME Agency
-                      {npointId === 'f6099f67668d69ff87b2' && (
-                        <span> (loaded)</span>
-                      )}
-                    </NavLink>
-                  </p>
-
-                  <p className="text-white mb-2 small">
-                    <NavLink
-                      className="text-decoration-underline"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId('9c2bfdfd376f473d072c');
-                      }}
-                    >
-                      Curio Cards Full Set
-                      {npointId === '9c2bfdfd376f473d072c' && (
-                        <span> (loaded)</span>
-                      )}
-                    </NavLink>
-                  </p>
-                  <p className="text-white mb-2 small">
-                    <NavLink
-                      className="text-decoration-underline"
-                      onClick={() => {
-                        closeOffCanvas();
-                        setNpointId('4d7719691b367df71b54');
-                      }}
-                    >
-                      Alexx's Cyber Brokers
-                      {npointId === '4d7719691b367df71b54' && (
-                        <span> (loaded)</span>
-                      )}
-                    </NavLink>
-                  </p>
+                  {PROJECTS.map(({ id, title }) => (
+                    <p key={id} className="text-white mb-2 small">
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => handleSelectProject(id)}
+                      >
+                        {title}
+                        {projectId === id && <span>(loaded)</span>}
+                      </NavLink>
+                    </p>
+                  ))}
                 </Col>
               </Row>
 
@@ -256,4 +196,4 @@ const OffcanvasExample = () => {
   );
 };
 
-export default OffcanvasExample;
+export default TopBar;

@@ -27,10 +27,9 @@ const useStore = create((set) => ({
   // setLevaControls: (controls) => set((state) => ({ levaControls: controls })),
   setCurrentLevel: (currentLevel) =>
     set((state) => ({ currentLevel: Number(currentLevel) })),
-  setSelectedQuasar: (selectedQuasar) =>
+  setActiveQuasar: (quasarIdx) =>
     set((state) => ({
-      selectedQuasar: Number(selectedQuasar),
-      activeQuasar: null,
+      activeQuasar: state.projectData?.quasars?.[quasarIdx],
       itemDetails: null,
       isCaught: false,
       currentLevel: 0,

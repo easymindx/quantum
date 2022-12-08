@@ -9,7 +9,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/catcher" element={<Catcher />} />
+        <Route path="/catcher/:projectId/:quasarIdx" element={<Catcher />} />
       </Routes>
     </Router>
   );
