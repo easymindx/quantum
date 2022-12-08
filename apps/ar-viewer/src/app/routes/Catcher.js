@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useMemo, useState } from 'react';
+import React, { Suspense, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Environment, AdaptiveDpr, Preload } from '@react-three/drei';

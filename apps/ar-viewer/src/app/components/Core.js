@@ -6,19 +6,12 @@ import useStore from '../store';
 import { MeshLine, MeshLineMaterial } from './MeshLine';
 import { extend } from '@react-three/fiber';
 import { PresentationControls, Shadow, useGLTF } from '@react-three/drei';
-import {
-  Selection,
-  Select,
-  EffectComposer,
-  Bloom,
-  Noise,
-} from '@react-three/postprocessing';
-import { BlurPass, Resizer, KernelSize } from 'postprocessing';
+import { Select } from '@react-three/postprocessing';
 import { SparkStorm } from './Sparks/SparkStorm';
 
 extend({ MeshLine, MeshLineMaterial });
 
-const Experience = () => {
+const Core = () => {
   const groupRef = useRef();
 
   const isCaught = useStore((state) => state.isCaught);
@@ -106,4 +99,4 @@ const Experience = () => {
 
 useGLTF.preload();
 
-export default memo(Experience);
+export default memo(Core);
