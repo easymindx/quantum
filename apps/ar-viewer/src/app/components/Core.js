@@ -87,7 +87,9 @@ const Core = () => {
           </animated.group>
 
           <animated.group scale={shellScale} position={shellPosition}>
-            {gallery.length && <Gallery model={quasarModel} />}
+            {gallery.length && (
+              <Gallery model={quasarModel} gallery={gallery} />
+            )}
           </animated.group>
         </PresentationControls>
       </animated.group>

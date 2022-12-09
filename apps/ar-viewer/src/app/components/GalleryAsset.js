@@ -1,214 +1,87 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable import/no-anonymous-default-export */
-import React, { useRef, useState, useEffect, Suspense, memo } from 'react';
+import React, { useRef, useEffect, memo, useMemo } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
-import GifLoader from 'three-gif-loader';
+import GalleryFrame from './GalleryFrame';
 import useStore from '../store';
-import { Preload, useGLTF } from '@react-three/drei';
+import useGalleryAsset from 'hooks/useGalleryAsset';
 
-const gifLoader = new GifLoader();
-const textureLoader = new THREE.TextureLoader();
-
-const GalleryAsset = ({
-  initialPosition,
-  initialRotation,
-  activePosition,
-  url,
-  title,
-  description,
-  frame,
-  externalLink,
-  type,
-  id,
-}) => {
+const GalleryAsset = (props) => {
+  const {
+    id,
+    type,
+    url,
+    frame,
+    initialPosition,
+    initialRotation,
+    activePosition,
+  } = props;
   const setItemDetails = useStore((state) => state.setItemDetails);
   const itemDetails = useStore((state) => state.itemDetails);
-  const video = type === 'video' ? document.createElement('video') : false;
-
-  const [videoEl, setVideoEl] = useState();
-  const [isClicked, setIsClicked] = useState(false);
-  const [imageDims, setImageDims] = useState(null);
-  const [texture, setTexture] = useState(null);
+  const { texture, videoElement, aspectRatio } = useGalleryAsset({
+    type,
+    url,
+    frame,
+  });
+  const isPicked = useMemo(() => itemDetails?.id === id, [id, itemDetails]);
   const groupRef = useRef();
   const assetRef = useRef();
   const mountRef = useRef();
   const outerMountRef = useRef();
-  const frameRef = useRef();
 
-  useEffect(() => {
-    const texture = () => {
-      if (type === 'video') {
-        video.setAttribute('id', id);
-        video.src = url;
-        video.muted = true;
-        video.loop = true;
-        video.autoplay = false;
-        video.crossOrigin = 'anonymous';
-        video.playsInline = true;
-        video.currentTime = 1;
-        video.oncanplaythrough = () => {
-          setImageDims({
-            width: video.videoWidth,
-            height: video.videoHeight,
-            aspectRatio: video.videoHeight / video.videoWidth,
-          });
-          setVideoEl(video);
-        };
-        return new THREE.VideoTexture(video);
-      } else if (type === 'gif') {
-        return gifLoader.load(url, (image) => {
-          const { width, height } = image;
-          if (width === 0 || height === 0) return;
-          setImageDims({ width, height, aspectRatio: height / width });
-        });
-      } else {
-        return textureLoader.load(url, ({ image }) => {
-          const { width, height } = image;
-          if (width === 0 || height === 0) return;
-          setImageDims({ width, height, aspectRatio: height / width });
-        });
-      }
-    };
-
-    setTexture(texture);
-  }, [id, type, url]); // Warning... do NOT add 'video' into the callback array. It will cause an infinite loop.
-
-  const _handleClick = () => {
-    if (videoEl) {
-      if (!isClicked) {
-        videoEl.currentTime = 0;
-        videoEl.play();
-        videoEl.muted = false;
+  const handleClick = () => {
+    if (videoElement) {
+      if (!isPicked) {
+        videoElement.currentTime = 0;
+        videoElement.play();
+        videoElement.muted = false;
       } else {
         var isPlaying =
-          videoEl.currentTime > 0 &&
-          !videoEl.paused &&
-          !videoEl.ended &&
-          videoEl.readyState > videoEl.HAVE_CURRENT_DATA;
+          videoElement.currentTime > 0 &&
+          !videoElement.paused &&
+          !videoElement.ended &&
+          videoElement.readyState > videoElement.HAVE_CURRENT_DATA;
         if (isPlaying) {
-          videoEl.pause();
+          videoElement.pause();
         }
       }
     }
-    setIsClicked((isClicked) => !isClicked);
-    setItemDetails(
-      !isClicked
-        ? {
-            id: id,
-            title: title,
-            description: description,
-            externalLink: externalLink,
-          }
-        : null,
-    );
+    setItemDetails(isPicked ? null : props);
   };
 
-  useEffect(() => {
-    if (!itemDetails || itemDetails.id !== id) {
-      setIsClicked(false);
-    }
-  }, [id, itemDetails]);
-
   const { position, rotation } = useSpring({
-    position: isClicked ? activePosition : initialPosition,
-    rotation: isClicked
+    position: isPicked ? activePosition : initialPosition,
+    rotation: isPicked
       ? [
           initialRotation[0],
           initialRotation[1] + Math.PI * 2,
           initialRotation[2],
         ]
       : initialRotation,
-    config: { mass: 3, tension: 200, friction: 30, clamp: !isClicked },
+    config: { mass: 3, tension: 200, friction: 30, clamp: !isPicked },
   });
 
-  const calculateMountScale = () => {
-    if (!imageDims || !texture) return;
-    const { aspectRatio } = imageDims;
+  useEffect(() => {
+    if (!texture) return;
     const scaleMultiplier = 0.5;
     const assetBounds = [scaleMultiplier / aspectRatio, scaleMultiplier];
     const mountPadding = 0.1;
     assetRef.current.scale.set(...assetBounds);
-
     mountRef.current.scale.set(
       ...assetBounds.map((bound) => bound + mountPadding),
     );
     outerMountRef.current.scale.set(
       ...assetBounds.map((bound) => bound + mountPadding + 0.1),
     );
-  };
-
-  useEffect(() => {
-    calculateMountScale();
-  }, [imageDims, url]);
-
-  const Frame = memo(({ frameSrc, imageSrc }) => {
-    const { scene } = useGLTF(frameSrc);
-    const copiedScene = scene.clone();
-
-    useEffect(() => {
-      calculateMountScale();
-      // if you put 'copiedScene' here.. it messes up again. No idea why.
-      const frameBox = new THREE.Box3().setFromObject(scene);
-
-      let frameBounds = {
-        x: Math.abs(frameBox.max.x - frameBox.min.x),
-        y: Math.abs(frameBox.max.y - frameBox.min.y),
-        z: Math.abs(frameBox.max.z - frameBox.min.z),
-      };
-
-      let outerMountBounds = {
-        x: Math.abs(outerMountRef.current.scale.x),
-        y: Math.abs(outerMountRef.current.scale.y),
-        z: 0.05,
-      };
-
-      let lengthRatios = [
-        outerMountBounds.x / frameBounds.x,
-        outerMountBounds.y / frameBounds.y,
-        outerMountBounds.z / frameBounds.z,
-      ];
-
-      frameRef.current.scale.set(...lengthRatios);
-      frameRef.current.updateMatrix();
-
-      copiedScene.traverse((child) => {
-        if (child.isMesh && frame?.reTextureize) {
-          // TODO: Get better naming of meshes from Frahm (the frame makers)
-          if (child.name.includes('instance')) {
-            const { color, roughness, metalness } = child.material;
-            const newMaterial = new THREE.MeshPhysicalMaterial({
-              color,
-              roughness,
-              metalness,
-            });
-
-            child.material = newMaterial;
-            child.material.map = texture;
-            child.material.needsUpdate = true;
-          }
-        }
-      });
-    }, [copiedScene, imageSrc, scene]);
-
-    return <primitive object={copiedScene} />;
-  });
+  }, [texture, aspectRatio]);
 
   return texture ? (
     <animated.group
       ref={groupRef}
       position={position}
       rotation={rotation}
-      onClick={() => _handleClick()}
+      onClick={handleClick}
     >
-      {frame && texture && (
-        <animated.group ref={frameRef} position={[0, 0, 0.01]}>
-          <Suspense fallback={null}>
-            <Preload all />
-            <Frame frameSrc={frame.src} imageSrc={url} />
-          </Suspense>
-        </animated.group>
-      )}
+      {frame && <GalleryFrame url={frame.src} aspectRatio={aspectRatio} />}
 
       <mesh position={[0, 0, 0.0]} ref={outerMountRef}>
         <planeGeometry attach="geometry" />
