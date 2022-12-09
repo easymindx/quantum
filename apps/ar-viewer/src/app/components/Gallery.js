@@ -1,13 +1,5 @@
 import { useSpring, animated } from '@react-spring/three';
-import React, {
-  useRef,
-  memo,
-  useMemo,
-  useEffect,
-  Fragment,
-  useState,
-  Suspense,
-} from 'react';
+import React, { useRef, memo, useMemo, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import useStore from '../store';
 import { calculatePositions } from '../utils/calculatePositions';
@@ -15,14 +7,13 @@ import { useFrame } from '@react-three/fiber';
 import GalleryAsset from './GalleryAsset';
 import Ring from './Ring';
 
-const Gallery = ({ model }) => {
+const Gallery = ({ model, gallery }) => {
   const groupRef = useRef();
   const domeRef = useRef();
 
   const [layerIndex, setLayerIndex] = useState(0);
   const currentLevel = useStore((state) => state.currentLevel);
   const isDesktopMode = useStore((state) => state.isDesktopMode);
-  const activeQuasar = useStore((state) => state.activeQuasar);
   const itemDetails = useStore((state) => state.itemDetails);
 
   const galleryRadius = 2;
@@ -61,13 +52,14 @@ const Gallery = ({ model }) => {
     groupRef.current.rotation.y += delta * 0.075;
   });
 
-  const calculatedGalleryLayout = useMemo(() => {
-    return activeQuasar?.gallery.map((item, index) => {
-      return calculatePositions(item.assets, galleryRadius - 0.2);
-    });
-  }, [activeQuasar, galleryRadius]);
-
-  const assetGallery = calculatedGalleryLayout[layerIndex];
+  const galleryLayout = useMemo(
+    () =>
+      gallery.map((item) =>
+        calculatePositions(item.assets, galleryRadius - 0.2),
+      ),
+    [gallery, galleryRadius],
+  );
+  const assetGallery = galleryLayout[layerIndex];
 
   useEffect(() => {
     if (!isDesktopMode) return;
@@ -80,31 +72,6 @@ const Gallery = ({ model }) => {
       }
     });
   }, [isDesktopMode, model]);
-
-  const memoAssetGallery = useMemo(
-    () =>
-      assetGallery?.map((asset, index) => {
-        return (
-          <Fragment key={index}>
-            <Suspense fallback={null}>
-              <GalleryAsset
-                initialPosition={[asset.x, asset.y, asset.z]}
-                initialRotation={[0, asset.rotation, 0]}
-                activePosition={[asset.activeX, asset.activeY, asset.activeZ]}
-                url={asset.url}
-                type={asset.type}
-                externalLink={asset?.externalLink}
-                frame={asset?.frame}
-                title={asset?.title}
-                description={asset?.description}
-                id={`asset-${index}-levelIndex-${currentLevel}`}
-              />
-            </Suspense>
-          </Fragment>
-        );
-      }),
-    [assetGallery, currentLevel],
-  );
 
   return (
     <group ref={groupRef}>
@@ -122,7 +89,23 @@ const Gallery = ({ model }) => {
       <Ring offset={0} isRandom radius={galleryRadius} />
       <Ring offset={0.11} radius={galleryRadius} />
       <Ring offset={0.22} isRandom radius={galleryRadius} />
-      <animated.group {...spring}>{memoAssetGallery}</animated.group>
+      <animated.group {...spring}>
+        {assetGallery.map((asset, idx) => (
+          <GalleryAsset
+            key={`asset-${idx}-levelIndex-${currentLevel}`}
+            id={idx}
+            url={asset.url}
+            type={asset.type}
+            externalLink={asset?.externalLink}
+            frame={asset?.frame}
+            title={asset?.title}
+            description={asset?.description}
+            initialPosition={[asset.x, asset.y, asset.z]}
+            initialRotation={[0, asset.rotation, 0]}
+            activePosition={[asset.activeX, asset.activeY, asset.activeZ]}
+          />
+        ))}
+      </animated.group>
     </group>
   );
 };
