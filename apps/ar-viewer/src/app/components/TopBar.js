@@ -14,42 +14,30 @@ import {
 
 import useStore from '../store';
 import { FaGlobe } from 'react-icons/fa';
-import { GiWoodFrame } from 'react-icons/gi';
 import { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { PROJECTS } from 'constants/data';
 
-const TopBar = () => {
-  const navigate = useNavigate();
-  const { projectId, quasarIdx } = useParams();
-  const offCanvasRef = useRef();
+const OffcanvasExample = () => {
+  const setSelectedQuasar = useStore((state) => state.setSelectedQuasar);
+  const activeQuasar = useStore((state) => state.activeQuasar);
   const projectData = useStore((state) => state.projectData);
-  const [projectCode, setProjectCode] = useState();
+  const setNpointId = useStore((state) => state.setNpointId);
+  const npointId = useStore((state) => state.npointId);
+  const [projectCode, setProjectCode] = useState('1');
+  const offCanvasRef = useRef();
 
-  const closeTopbar = () => {
-    offCanvasRef.current.backdrop.click();
-  };
+  const closeOffCanvas = () => offCanvasRef?.current?.backdrop?.click();
 
-  const handleSelectProject = (id) => {
-    navigate(`/catcher/${id}/0`);
-    closeTopbar();
-  };
-
-  const handleSelectQuasar = (idx) => {
-    navigate(`/catcher/${projectId}/${idx}`);
-    closeTopbar();
-  };
-
-  const handleLoadProject = () => {
-    if (projectCode) {
-      navigate(`/catcher/${projectCode}/0`);
-      closeTopbar();
-    }
-  };
+  const expand = false; // breakpoint to expand the offcanvas
 
   return (
     <div className="top-bar ">
-      <Navbar variant="dark" bg="black" expand={false} className="px-2">
+      <Navbar
+        key={expand}
+        variant="dark"
+        bg="black"
+        expand={expand}
+        className="px-2"
+      >
         <Container fluid>
           <Navbar.Brand href="#">
             <img
@@ -59,9 +47,11 @@ const TopBar = () => {
               className="d-inline-block align-top "
             />
           </Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             ref={offCanvasRef}
+            id={`offcanvasNavbar-expand-${expand}`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="end"
             className="bg-light text-dark"
           >
@@ -72,7 +62,7 @@ const TopBar = () => {
                 color: 'white',
               }}
             >
-              <Offcanvas.Title>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                 {projectData?.projectName || 'Control Center'}
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -85,22 +75,27 @@ const TopBar = () => {
               </Row>
 
               <Row>
-                {projectData?.quasars?.map((quasar, idx) => (
-                  <Col xs={4} className="mb-3" key={`mini-${idx}`}>
+                {projectData?.quasars?.map((quasar, index) => (
+                  <Col xs={4} className="mb-3" key={`mini-${index}`}>
                     <Card
                       style={{
-                        opacity: Number(quasarIdx) === idx ? 1 : 0.4,
+                        opacity: activeQuasar?.id === quasar.id ? 1 : 0.4,
                         border:
-                          Number(quasarIdx) === idx
+                          activeQuasar?.id === quasar.id
                             ? '2px solid #5a5a5a'
                             : 'none',
                       }}
                     >
                       <Card.Img
                         className={
-                          Number(quasarIdx) === idx ? 'bg-dark' : 'bg-black'
+                          activeQuasar?.id === quasar.id
+                            ? 'bg-dark'
+                            : 'bg-black'
                         }
-                        onClick={() => handleSelectQuasar(idx)}
+                        onClick={() => {
+                          setSelectedQuasar(index);
+                          closeOffCanvas();
+                        }}
                         src={quasar.imageSrc}
                       />
                     </Card>
@@ -113,8 +108,8 @@ const TopBar = () => {
                   <h2 className="h6 text-white">Project loader</h2>
                   <hr className="border-white" />
                   <p className="text-white mb-2 small">
-                    If you have a secret code to another Quasar sighting then
-                    enter it below, or choose a public gallery.
+                    If you know the secret code to another Quasars sighting then
+                    enter it below:
                   </p>
                 </Col>
               </Row>
@@ -131,7 +126,10 @@ const TopBar = () => {
                     <Button
                       className="load-button"
                       variant="primary"
-                      onClick={handleLoadProject}
+                      onClick={() => {
+                        closeOffCanvas();
+                        setNpointId(projectCode);
+                      }}
                     >
                       Load
                     </Button>
@@ -139,19 +137,85 @@ const TopBar = () => {
                 </Col>
               </Row>
 
+              {/* <Row>
+                <Col>
+                  <p className="text-white mb-2 small">
+                    Or check out one of these galleries:
+                  </p>
+                  {npointId !== '830360b5f6a82edd4912' ? ( // A quick hack .. running out of time for demo :)
+                    <p>
+                      <a
+                        href={`https://quasars.app?projectId=830360b5f6a82edd4912&quasarId=1`}
+                      >
+                        Quantum Art
+                      </a>
+                    </p>
+                  ) : null}
+                  {npointId !== '9c2bfdfd376f473d072c' ? (
+                    <p>
+                      <a
+                        href={`https://quasars.app?projectId=9c2bfdfd376f473d072c&quasarId=1`}
+                      >
+                        Curio Cards Full Set
+                      </a>
+                    </p>
+                  ) : null}
+                  {npointId !== '4d7719691b367df71b54' ? (
+                    <p>
+                      <a
+                        href={`https://quasars.app?projectId=4d7719691b367df71b54&quasarId=1`}
+                      >
+                        Alexx Shadow's Cyber Brokers
+                      </a>
+                    </p>
+                  ) : null}
+                </Col>
+              </Row> */}
+
               <Row>
                 <Col>
-                  {PROJECTS.map(({ id, title }) => (
-                    <p key={id} className="text-white mb-2 small">
+                  <p className="text-white mb-2 small">
+                    Or check out one of these galleries:
+                  </p>
+                  {npointId !== '830360b5f6a82edd4912' ? ( // A quick hack .. running out of time for demo :)
+                    <p>
                       <NavLink
                         className="text-decoration-underline"
-                        onClick={() => handleSelectProject(id)}
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('830360b5f6a82edd4912');
+                        }}
                       >
-                        {title}
-                        {projectId === id && <span>(loaded)</span>}
+                        Quantum Art
                       </NavLink>
                     </p>
-                  ))}
+                  ) : null}
+                  {npointId !== '9c2bfdfd376f473d072c' ? (
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('9c2bfdfd376f473d072c');
+                        }}
+                      >
+                        Curio Cards Full Set
+                      </NavLink>
+                    </p>
+                  ) : null}
+                  {npointId !== '4d7719691b367df71b54' ? (
+                    <p>
+                      <NavLink
+                        className="text-decoration-underline"
+                        onClick={() => {
+                          closeOffCanvas();
+                          setNpointId('4d7719691b367df71b54');
+                        }}
+                      >
+                        Alexx Shadow's Cyber Brokers
+                      </NavLink>
+                    </p>
+                  ) : null}
                 </Col>
               </Row>
 
@@ -159,8 +223,9 @@ const TopBar = () => {
                 <h2 className="h6 text-white mb-0">Vital Resources</h2>
                 <hr className="border-white" />
                 <Nav.Link
-                  className="text-white small"
+                  className="text-white"
                   target="_blank"
+                  // href={`https://twitter.com/${projectData?.socials?.twitter}`}
                   href={`https://twitter.com/quasarsofficial`}
                 >
                   <img
@@ -169,23 +234,18 @@ const TopBar = () => {
                     width="25px"
                     className="me-2"
                   />
+                  {/* Follow Us @{projectData?.socials?.twitter} */}
                   Follow Us @QuasarsOfficial
                 </Nav.Link>
                 <Nav.Link
-                  className="text-white small"
+                  className="text-white"
                   target="_blank"
-                  href={'https://quasarsofficial.com'}
+                  // href={projectData?.website}
+                  href={'http://quasarsofficial.com'}
                 >
                   <FaGlobe size={'1.5rem'} className="me-2" color="#fff" />
+                  {/* Visit {projectData?.projectName} */}
                   Visit QuasarsOfficial.com
-                </Nav.Link>
-                <Nav.Link
-                  className="text-white small"
-                  target="_blank"
-                  href={'https://frahm.art'}
-                >
-                  <GiWoodFrame size={'1.5rem'} className="me-2" color="#fff" />
-                  Frames by frahm.art
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>
@@ -196,4 +256,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default OffcanvasExample;
